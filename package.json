@@ -1,5 +1,5 @@
 {
-  "name": "mof-component-library",
+  "name": "zaha-component-library",
   "version": "0.1.413",
   "main": "./index.js",
   "types": "./index.d.ts",
