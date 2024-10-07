@@ -19,8 +19,8 @@ const CardCarouselGenericModule: FC<CardCarouselGenericModuleProps> = ({
   const renderCarouselRows = getCards.map((val: any, i: number) => {
     const { cards } = val.props;
 
-    const propOverrideColumnNumber = getColumnNumber(cards[0].moduleName)
-      ? { columns: getColumnNumber(cards[0].moduleName) }
+    const propOverrideColumnNumber = getColumnNumber(cards[0]?.moduleName)
+      ? { columns: getColumnNumber(cards[0]?.moduleName) }
       : {};
 
     return (
