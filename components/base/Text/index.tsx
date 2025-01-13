@@ -31,7 +31,7 @@ export const Text = forwardRef(
 
     cleanedText = DOMPurify.sanitize(currentText, {
       ALLOWED_TAGS: rich ? allowedTags.rich : allowedTags.default,
-      ALLOWED_ATTR: ["class", "id"],
+      ALLOWED_ATTR: ["class", "id", "href", "target"],
       FORBID_ATTR: ["style", "align", "color", ""],
     });
 
