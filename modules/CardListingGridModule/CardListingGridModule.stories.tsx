@@ -3,6 +3,7 @@ import { CardListingGridModule } from "../";
 import dataTeam from "./__mockdata__.json";
 import dataExpertise from "./__mockDataExpertise__.json";
 import dataProducts from "./__mockDataProducts__.json";
+import dataEvents from "./__mockDataEvents__ .json";
 import moduleConfig from "./CardListingGridModule.config";
 
 declare const window: {
@@ -46,6 +47,13 @@ export const CardListingGridExpertise: Story = {
 export const CardListingGridProducts: Story = {
   args: {
     data: dataProducts,
+    ...moduleConfig,
+  },
+};
+
+export const CardListingGridEvents: Story = {
+  args: {
+    data: dataEvents,
     ...moduleConfig,
   },
 };

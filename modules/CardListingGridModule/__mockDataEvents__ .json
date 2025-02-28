@@ -1,0 +1,196 @@
+{
+  "filtersAndCards": {
+    "cardType": "Expertise",
+    "displayFilters": true,
+    "filter": [
+      {
+        "filterName": "Category",
+        "filterValue": "type",
+        "singleSelect": false,
+        "filters": [
+          {
+            "name": "Talk",
+            "filterGuid": "72cecf14-50ec-43b2-beeb-0c7ffb4bef93",
+            "isSelected": false,
+            "hasTypologies": false
+          },
+          {
+            "name": "Conference",
+            "filterGuid": "a89c1496-5615-44d5-a854-585046c03e76",
+            "isSelected": false,
+            "hasTypologies": false
+          },
+          {
+            "name": "Launch",
+            "filterGuid": "1276aea6-7b3c-43d5-9d5c-d92e3fb0aedb",
+            "isSelected": false,
+            "hasTypologies": false
+          }
+        ]
+      },
+      {
+        "filterName": "Location",
+        "filterValue": "location",
+        "singleSelect": false,
+        "filters": [
+          {
+            "name": "London",
+            "filterGuid": "29b1ef88-19a6-4963-9078-875badfd0fac",
+            "isSelected": false,
+            "hasTypologies": false
+          },
+          {
+            "name": "ZHA Gallery",
+            "filterGuid": "dc94cdd8-bed6-4805-a955-ccbea3c64a1e",
+            "isSelected": false,
+            "hasTypologies": false
+          }
+        ]
+      },
+      {
+        "filterName": "Year",
+        "filterValue": "year",
+        "singleSelect": false,
+        "filters": [
+          {
+            "name": "2020",
+            "filterGuid": "8110f10c-dca2-48eb-b30b-5881392fc8a9",
+            "isSelected": false,
+            "hasTypologies": false
+          },
+          {
+            "name": "2024",
+            "filterGuid": "d8237708-9d01-4dd5-aec0-7ec8957282c6",
+            "isSelected": false,
+            "hasTypologies": false
+          }
+        ]
+      },
+      {
+        "filterName": "Event Date Filter",
+        "filterValue": "eventDateFilter",
+        "singleSelect": true,
+        "filters": [
+          {
+            "name": "Past",
+            "filterGuid": "c584a718-c86a-4a69-8049-aadbf66c3bc1",
+            "isSelected": false,
+            "hasTypologies": false
+          },
+          {
+            "name": "Present",
+            "filterGuid": "e38098fc-1eea-4efd-9c28-8cbb2818d04d",
+            "isSelected": false,
+            "hasTypologies": false
+          },
+          {
+            "name": "Future",
+            "filterGuid": "a94af292-ee85-496c-8134-6fe07d7348c5",
+            "isSelected": false,
+            "hasTypologies": false
+          }
+        ]
+      }
+    ],
+    "sortByOptions": [],
+    "featuredCard": null,
+    "featuredId": null,
+    "cards": [
+      {
+        "moduleName": "ExpertiseCardModel",
+        "moduleId": "b9d10922-1b8d-42f2-870e-da0b1afcba89",
+        "props": {
+          "tag": "Events",
+          "headingTitle": "<p>World Architecture Designed Award Event</p>",
+          "description": "Hadid was named an honorary member of the American Academy of Arts and Letters and an honorary fellow of the American Institute of Architects. She was on the board of trustees of The Architecture Foundation.",
+          "primaryCta": {
+            "text": "View More",
+            "href": "/media-hub/events/world-architecture-designed-award-event",
+            "linkType": "Content",
+            "target": null
+          },
+          "cardImage": {
+            "imageUrl": "https://zhweb-qa-a-app.azurewebsites.net/media/tlil3thy/lance-anderson-qdaaasrzhdk-unsplash.jpg",
+            "mediaId": 1331,
+            "caption": "Chuttersnap Awxnufumebi Unsplash",
+            "imageAlt": "",
+            "imageCredit": "",
+            "photographer": "",
+            "isSvg": false,
+            "isVideo": false
+          }
+        }
+      },
+      {
+        "moduleName": "ExpertiseCardModel",
+        "moduleId": "6e29117a-9a37-4ce0-89c8-c7f31c6f509f",
+        "props": {
+          "tag": "Events",
+          "headingTitle": "<p>Name Zaha Hadid: 520 West 28th</p>",
+          "description": "Copy to be decided elementum egestas in nostra ac parturient a semper donec odio imperdiet imperdiet erat mus nec vestibulum parturient a etiam aenean.",
+          "primaryCta": {
+            "text": "View More",
+            "href": "/media-hub/events/name-zaha-hadid-520-west-28th",
+            "linkType": "Content",
+            "target": null
+          },
+          "cardImage": {
+            "imageUrl": "https://zhweb-qa-a-app.azurewebsites.net/media/lhrhlsnl/marc-olivier-jodoin-hiinfxcbtq-unsplash.jpg",
+            "mediaId": 1256,
+            "caption": "21 Duis aute irure dolor in reprehenderit in voluptate velit",
+            "imageAlt": "Desc",
+            "imageCredit": "Caption",
+            "photographer": "From Unsplash",
+            "isSvg": false,
+            "isVideo": false
+          }
+        }
+      },
+      {
+        "moduleName": "ExpertiseCardModel",
+        "moduleId": "9a8d00db-dba2-4238-9180-789fd39da40d",
+        "props": {
+          "tag": "Events",
+          "headingTitle": "<p>Inauguration of our new office in the Heart of London</p>",
+          "description": "Join us in celebrating the grand opening of our new London office, situated in the vibrant heart of the city",
+          "primaryCta": {
+            "text": "View More",
+            "href": "/media-hub/events/inauguration-of-our-new-office-in-the-heart-of-london",
+            "linkType": "Content",
+            "target": null
+          },
+          "cardImage": {
+            "imageUrl": "https://zhweb-qa-a-app.azurewebsites.net/media/tlil3thy/lance-anderson-qdaaasrzhdk-unsplash.jpg",
+            "mediaId": 1333,
+            "caption": "Nastuh Abootalebi Ehd8y1znfpk Unsplash",
+            "imageAlt": "",
+            "imageCredit": "",
+            "photographer": "",
+            "isSvg": false,
+            "isVideo": false
+          }
+        }
+      }
+    ],
+    "orderBy": [
+      {
+        "field": "date",
+        "sortType": "Long",
+        "orderByDirection": "Desc"
+      }
+    ],
+    "totalCount": 3,
+    "totalPages": 1,
+    "currentPage": 1,
+    "pageSize": 10
+  },
+  "anchor": "",
+  "anchorDisplayName": "",
+  "tag": "",
+  "hideCardTag": false,
+  "headingTitle": {
+    "heading": "",
+    "htag": ""
+  },
+  "description": ""
+}

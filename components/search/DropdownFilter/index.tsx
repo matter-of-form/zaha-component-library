@@ -15,19 +15,47 @@ const DropdownFilter: FC<any> = ({
   const [isChecked, setIsChecked] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
 
+  const singleSelect = filter?.singleSelect || false;
   const options = filter?.filters || [];
   if (options.length < 1) return null;
 
   const handleOnChange = (checked: boolean, selectedValue: string) => {
     let newSelected = selectedFilters ? [...selectedFilters] : [];
 
-    checked
-      ? !newSelected.includes(selectedValue) && newSelected.push(selectedValue)
-      : newSelected.splice(newSelected.indexOf(selectedValue), 1);
+    if (singleSelect) {
+      const optionGuids = options.map(
+        ({ filterGuid }: { filterGuid: string }) => filterGuid,
+      );
+      const hasOneSelected = newSelected.find((item: any) =>
+        optionGuids.includes(item),
+      );
 
-    onChange(filter?.filterValue, newSelected);
-    setIsChecked(checked);
-    setIsDirty(newSelected.length > 0);
+      if (checked) {
+        if (!newSelected.includes(selectedValue)) {
+          if (hasOneSelected !== undefined) {
+            newSelected.splice(newSelected.indexOf(hasOneSelected), 1) &&
+              newSelected.push(selectedValue);
+          } else {
+            newSelected.push(selectedValue);
+          }
+        }
+      } else {
+        newSelected.splice(newSelected.indexOf(selectedValue), 1);
+      }
+
+      onChange(filter?.filterValue, newSelected);
+      setIsChecked(checked);
+      setIsDirty(newSelected.length > 0);
+    } else {
+      checked
+        ? !newSelected.includes(selectedValue) &&
+          newSelected.push(selectedValue)
+        : newSelected.splice(newSelected.indexOf(selectedValue), 1);
+
+      onChange(filter?.filterValue, newSelected);
+      setIsChecked(checked);
+      setIsDirty(newSelected.length > 0);
+    }
   };
 
   const title =
