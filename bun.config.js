@@ -6,6 +6,7 @@ await Bun.build({
   minify: true,
   splitting: true,
   external: ["react", "react-dom", "next"],
+  throw: false,
 });
 
 exec("bun build-css");
