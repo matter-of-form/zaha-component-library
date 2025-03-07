@@ -1,7 +1,14 @@
 import classNames from "classnames";
 
-export const headerWrapper = (props: any, isOpen: boolean) => ({
-  className: classNames([props?.className], { open: isOpen }),
+export const headerWrapper = (
+  props: any,
+  isOpen: boolean,
+  searchOpen: boolean,
+) => ({
+  className: classNames([props?.className], {
+    open: isOpen,
+    "search-open": searchOpen,
+  }),
 });
 
 export const headerContent = {
@@ -41,7 +48,12 @@ export const navClose = (motion: any) => ({
     },
     open: {
       opacity: 1,
+      transition: {
+        delay: 0.2,
+      },
     },
   },
+  initial: "closed",
+  animate: "open",
   ...motion,
 });

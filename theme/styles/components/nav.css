@@ -109,7 +109,7 @@
     .nav-panel-wrapper.level-0 {
       @apply relative
       lg:fixed
-     lg:top-[5rem]
+      lg:top-[5rem]
       left-0
       right-0
       w-full

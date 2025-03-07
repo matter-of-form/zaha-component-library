@@ -9,6 +9,8 @@ import {
   navToggleButtons,
 } from "./Header.styles";
 import { useRouter } from "next/navigation";
+import SearchDrawer from "@/components/search/SearchDrawer";
+import SearchButton from "@/components/general/Nav/chunks/SearchButton";
 
 const Header: FC<any> = ({
   data,
@@ -23,7 +25,9 @@ const Header: FC<any> = ({
   const router = useRouter();
   const navRef = useRef(null);
   const toggleRef = useRef(null);
-  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [headerAction, setHeaderAction] = useState<
+    "navigation" | "search" | null
+  >(null);
   const [currBreakpoint, setCurrBreakpoint] = useState("base");
 
   useEffect(() => {
@@ -36,14 +40,18 @@ const Header: FC<any> = ({
   useEffect(() => {
     const scrollCont = scrollContainer || window?.document?.documentElement;
     if (scrollCont) {
-      scrollCont.style.overflow = isNavOpen ? "hidden" : "unset";
-      scrollCont.style.touchAction = isNavOpen ? "none" : "auto";
+      scrollCont.style.overflow =
+        headerAction === "navigation" ? "hidden" : "unset";
+      scrollCont.style.touchAction =
+        headerAction === "navigation" ? "none" : "auto";
     }
-  }, [isNavOpen]);
+  }, [headerAction]);
 
   const closeIfClickedOutside = (e: MouseEvent) => {
     const nav: any = navRef.current;
     const toggle: any = toggleRef.current;
+
+    console.log(e.target);
 
     if (!nav || !toggle) return;
 
@@ -51,11 +59,14 @@ const Header: FC<any> = ({
       !nav.contains(e.target) &&
       !toggle.contains(e.target) &&
       // @ts-ignore
-      !Array.from(e?.target?.classList).some((className: string) =>
-        className?.includes("nav"),
+      !Array.from(e?.target?.classList).some(
+        (className: string) =>
+          className?.includes("nav") ||
+          className?.includes("search-input") ||
+          className?.includes("button-search"),
       )
     ) {
-      setIsNavOpen(false);
+      setHeaderAction(null);
     }
   };
 
@@ -64,7 +75,11 @@ const Header: FC<any> = ({
   };
 
   const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
+    if (headerAction === "navigation") {
+      setHeaderAction(null);
+    } else {
+      setHeaderAction("navigation");
+    }
   };
 
   const handleBreakpointChange = (breakpoint: string) => {
@@ -73,7 +88,7 @@ const Header: FC<any> = ({
 
   const showHideMotion =
     currBreakpoint === "sm" || currBreakpoint === "md"
-      ? moduleAnims?.wrapper(isNavOpen)
+      ? moduleAnims?.wrapper(headerAction === "navigation")
       : {};
 
   const LogoComponent = () => {
@@ -98,7 +113,11 @@ const Header: FC<any> = ({
   return (
     <Box
       variant="header"
-      {...headerWrapper(props, isNavOpen)}
+      {...headerWrapper(
+        props,
+        headerAction === "navigation",
+        headerAction === "search",
+      )}
       {...moduleAnims?.module}
     >
       <Stack {...headerContent} {...moduleAnims?.header}>
@@ -111,20 +130,31 @@ const Header: FC<any> = ({
           variant={variant}
           navProps={navProps}
           onBreakpointChange={handleBreakpointChange}
-          isOpen={isNavOpen}
-          setIsOpen={setIsNavOpen}
+          headerAction={headerAction}
+          setHeaderAction={setHeaderAction}
           scrollContainer={scrollContainer}
           enableDesktopScrollLock={enableDesktopScrollLock}
           {...showHideMotion}
         />
+
         <Box
           ref={toggleRef}
-          {...navToggleButtons(isNavOpen, moduleAnims?.toggleWrapper)}
-          onClick={toggleNav}
+          {...navToggleButtons(
+            headerAction === "navigation",
+            moduleAnims?.toggleWrapper,
+          )}
         >
-          <Box {...navOpen(moduleAnims?.toggleOpen)}>{icons?.navOpen}</Box>
-          <Box {...navClose(moduleAnims?.toggleClose)}>{icons?.navClose}</Box>
+          <SearchButton setSearchOpen={setHeaderAction} />
+          <Box {...navOpen(moduleAnims?.toggleOpen)} onClick={toggleNav}>
+            {icons?.navOpen}
+          </Box>
         </Box>
+
+        {headerAction !== null && (
+          <Box {...navClose(moduleAnims?.toggleClose)}>{icons?.navClose}</Box>
+        )}
+
+        <SearchDrawer searchOpen={headerAction === "search"} />
       </Stack>
     </Box>
   );

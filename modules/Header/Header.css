@@ -16,6 +16,39 @@ header {
   &.open {
     @apply bg-white 
       text-black;
+
+    .nav-divider {
+      @apply bg-black/25;
+    }
+  }
+
+  &.open {
+    .search-button-wrapper {
+      @apply opacity-0 pointer-events-none cursor-default;
+    }
+  }
+
+  &.search-open {
+    @apply bg-white text-white;
+
+    .header-logo {
+      @apply text-black;
+    }
+
+    .nav {
+      &-divider {
+        @apply bg-white;
+      }
+
+      &-toggle-close {
+        @apply opacity-100 w-fit text-black mr-1;
+      }
+
+      &-item-wrapper,
+      &-item {
+        @apply pointer-events-none cursor-default;
+      }
+    }
   }
 
   .header {
@@ -38,11 +71,11 @@ header {
         &-toggle {
           &-wrapper {
             @apply relative 
+            gap-4 md:gap-6
             lg:hidden
             self-center
-              w-4
-              h-4
-              cursor-pointer;
+            items-center
+            cursor-pointer;
 
             &.open {
               .nav-toggle {
@@ -54,20 +87,45 @@ header {
                 }
               }
             }
+
+            .search-button-wrapper {
+              @apply !flex-row-reverse pointer-events-none mr-8 md:mr-10;
+
+              .button-nav-search {
+                @apply pl-0 pr-4 md:pr-6 pointer-events-auto;
+
+                .stack {
+                  @apply pointer-events-none;
+                }
+
+                svg {
+                  @apply pointer-events-none;
+                  transition: transform 0.2s ease-out;
+                }
+              }
+            }
           }
 
           &-close {
-            @apply opacity-0;
+            @apply opacity-0 cursor-pointer;
           }
 
           &-open,
           &-close {
             @apply absolute
-              top-0
-              bottom-0
-              left-0
-              right-0;
+            items-center
+            justify-end
+            inset-0;
             transition: 0.2s;
+
+            svg {
+              @apply size-4;
+            }
+          }
+
+          &-open,
+          &-close {
+            @apply w-fit left-[unset];
           }
         }
       }

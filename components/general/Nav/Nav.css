@@ -230,4 +230,26 @@
       }
     }
   }
+
+  &-divider {
+    @apply w-px h-4 bg-white/25 self-center;
+    transition: 0.2s ease-out;
+  }
+
+  .search-button-wrapper {
+    @apply self-center !items-center pointer-events-none;
+
+    .button-nav-search {
+      @apply pr-0 pl-4 md:pl-6 pointer-events-auto;
+
+      .stack {
+        @apply pointer-events-none;
+      }
+
+      svg {
+        @apply pointer-events-none;
+        transition: transform 0.2s ease-out;
+      }
+    }
+  }
 }

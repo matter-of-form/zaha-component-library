@@ -165,3 +165,11 @@ export const scrollbarsWrapper = (minHeight: number) => ({
   //   minHeight,
   // },
 });
+
+export const searchButtonWrapper = {
+  className: "search-button-wrapper",
+};
+
+export const divider = {
+  className: "nav-divider",
+};

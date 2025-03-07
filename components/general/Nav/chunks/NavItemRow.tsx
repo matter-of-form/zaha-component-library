@@ -19,7 +19,7 @@ const NavItemRow: FC<any> = ({
     navSettings,
     navItemAnimations,
     setImgProps,
-    setIsOpen,
+    setHeaderAction,
   } = useContext(NavContext);
   const { navItemText, navItemLink, navItems, navStyle, level, image } = data;
   const {
@@ -36,7 +36,7 @@ const NavItemRow: FC<any> = ({
     (event: MouseEvent, interaction: NavInteractionType) => {
       if (interaction === "click" && persistOn !== "click") {
         navItemLink && router.push(navItemLink.href);
-        setIsOpen(false);
+        setHeaderAction(null);
       }
 
       if (hasChildren) {
@@ -57,7 +57,7 @@ const NavItemRow: FC<any> = ({
         }
       } else if (interaction === "click") {
         navItemLink && router.push(navItemLink.href);
-        setIsOpen(false);
+        setHeaderAction(null);
       } else if (interaction === "hover" && persistOn === "hover") {
         updatePanels({
           items: null,

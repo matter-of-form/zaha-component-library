@@ -5,6 +5,9 @@ import Email from "./assets/icons/mail.svg";
 import Facebook from "./assets/icons/facebook.svg";
 import LinkedIn from "./assets/icons/linkedin.svg";
 import Twitter from "./assets/icons/twitter.svg";
+import SearchIcon from "./assets/icons/searchIcon.svg";
+import ZahaArrow from "./assets/icons/zhaArrow.svg";
+
 // MOF component library presets and overrides
 
 export default {
@@ -61,6 +64,16 @@ export default {
     share: {
       icons: {
         iconPost: <Arrow />,
+      },
+    },
+    search: {
+      icons: {
+        iconPost: <ZahaArrow />,
+      },
+    },
+    navSearch: {
+      icons: {
+        iconPost: <SearchIcon />,
       },
     },
   },

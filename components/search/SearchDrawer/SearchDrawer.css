@@ -1,0 +1,46 @@
+.search {
+  &-drawer {
+    @apply absolute 
+    top-[3.5rem] md:top-[4.5rem] xxl:top-[5.5rem]
+    w-full 
+    rounded-md
+    bg-white
+    overflow-hidden;
+
+    .box {
+      @apply p-6 
+      flex
+      w-full
+      justify-between
+      gap-6;
+    }
+
+    .button-search {
+      @apply text-black/0 shrink-0 md:text-black h-fit px-0 relative;
+
+      .stack {
+        @apply !gap-4;
+
+        svg {
+          @apply size-7 text-black md:text-current;
+        }
+      }
+
+      &:disabled {
+        @apply md:text-black/25;
+
+        svg {
+          @apply text-black/25 md:text-current;
+        }
+      }
+    }
+  }
+
+  &-input {
+    @apply font-primary w-full text-black;
+
+    &::placeholder {
+      @apply text-black/50;
+    }
+  }
+}

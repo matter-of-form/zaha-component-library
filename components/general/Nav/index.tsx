@@ -6,12 +6,13 @@ import {
   useRef,
   useState,
 } from "react";
-import { navVars } from "./Nav.styles";
+import { divider, navVars } from "./Nav.styles";
 import { NavProps } from "./Nav.types";
 import { NavContext, NavItem, NavWrapperRow } from "./chunks";
 import { useDimensions } from "../../../hooks";
-import { Stack } from "../../../components";
+import { Box, Stack } from "../../../components";
 import { remapNavData, extractAllOfType, setupNav } from "../../../utils";
+import SearchButton from "./chunks/SearchButton";
 
 export const Nav: NavProps = forwardRef(
   (
@@ -22,8 +23,8 @@ export const Nav: NavProps = forwardRef(
       defaultImage,
       itemsPerColumn,
       isActive = false,
-      isOpen = false,
-      setIsOpen,
+      headerAction = null,
+      setHeaderAction,
       navProps,
       onBreakpointChange,
       scrollContainer,
@@ -84,7 +85,7 @@ export const Nav: NavProps = forwardRef(
       renderItems = (
         <NavWrapperRow
           data={navState}
-          isOpen={isOpen}
+          isOpen={headerAction === "navigation"}
           navSettings={navSettings}
         />
       );
@@ -95,7 +96,12 @@ export const Nav: NavProps = forwardRef(
     return (
       <Stack
         ref={navRef}
-        {...navVars(variant, baseLevelSettings.persistOn, isOpen, className)}
+        {...navVars(
+          variant,
+          baseLevelSettings.persistOn,
+          headerAction === "navigation",
+          className,
+        )}
         direction={baseLevelSettings.direction}
         {...props}
       >
@@ -111,8 +117,8 @@ export const Nav: NavProps = forwardRef(
             setCurrTier,
             currTier,
             menuWidth,
-            isOpen,
-            setIsOpen,
+            headerAction,
+            setHeaderAction,
             variant,
             navSettings,
             setPanelWidth,
@@ -122,6 +128,7 @@ export const Nav: NavProps = forwardRef(
           }}
         >
           {renderItems}
+          <SearchButton setSearchOpen={setHeaderAction} />
         </NavContext.Provider>
       </Stack>
     );

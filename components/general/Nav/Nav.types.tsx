@@ -5,8 +5,8 @@ import { nav } from "./Nav.styles";
 export interface NavProps extends StackProps, VariantProps<typeof nav> {
   data?: any;
   navProps?: any;
-  isOpen?: boolean;
-  setIsOpen?: (isOpen: boolean) => void;
+  headerAction?: "navigation" | "search" | null;
+  setHeaderAction?: (headerAction: "navigation" | "search" | null) => void;
   isActive?: boolean;
   itemsPerColumn?: number;
   displayName?: string;
