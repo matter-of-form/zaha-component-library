@@ -13,7 +13,7 @@ const SearchInput = ({
   const [searchQuery, setSearchQuery] = useState<string>(initialValue);
 
   return (
-    <>
+    <form>
       <input
         type="text"
         name="searchQuery"
@@ -28,7 +28,7 @@ const SearchInput = ({
         text={buttonText}
         disabled={searchQuery.length < 1}
       />
-    </>
+    </form>
   );
 };
 

@@ -7,9 +7,7 @@ import { SearchDrawerProps } from "./SearchDrawer.types";
 const SearchDrawer = ({ searchOpen }: SearchDrawerProps) => {
   return (
     <Box {...searchDrawer(searchOpen)}>
-      <Box>
-        <SearchInput />
-      </Box>
+      <SearchInput />
     </Box>
   );
 };
