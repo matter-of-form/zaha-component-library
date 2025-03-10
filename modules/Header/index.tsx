@@ -19,6 +19,7 @@ const Header: FC<any> = ({
   icons,
   scrollContainer,
   enableDesktopScrollLock = false,
+  hideSearchButton = false,
   ...props
 }) => {
   const router = useRouter();
@@ -49,8 +50,6 @@ const Header: FC<any> = ({
   const closeIfClickedOutside = (e: MouseEvent) => {
     const nav: any = navRef.current;
     const toggle: any = toggleRef.current;
-
-    console.log(e.target);
 
     if (!nav || !toggle) return;
 
@@ -132,6 +131,7 @@ const Header: FC<any> = ({
           headerAction={headerAction}
           setHeaderAction={setHeaderAction}
           scrollContainer={scrollContainer}
+          hideSearchButton={hideSearchButton}
           enableDesktopScrollLock={enableDesktopScrollLock}
           {...showHideMotion}
         />
@@ -143,7 +143,7 @@ const Header: FC<any> = ({
             moduleAnims?.toggleWrapper,
           )}
         >
-          <SearchButton setSearchOpen={setHeaderAction} />
+          {!hideSearchButton && <SearchButton setSearchOpen={setHeaderAction} />}
           <Box {...navOpen(moduleAnims?.toggleOpen)} onClick={toggleNav}>
             {icons?.navOpen}
           </Box>

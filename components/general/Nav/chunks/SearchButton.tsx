@@ -7,9 +7,9 @@ import { Button } from "../../../base/Button";
 const SearchButton = ({
   setSearchOpen,
 }: {
-  setSearchOpen: (
-    headerAction: "search" | "navigation" | null,
-  ) => void | undefined;
+  setSearchOpen:
+    | ((headerAction: "search" | "navigation" | null) => void)
+    | undefined;
 }) => {
   return (
     <Stack {...searchButtonWrapper}>
