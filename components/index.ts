@@ -31,6 +31,8 @@ export { default as Video } from "./general/Video";
 export { default as DropdownFilter } from "./search/DropdownFilter";
 export { default as Pagination } from "./search/Pagination";
 export { default as SearchFilters } from "./search/SearchFilters";
+export { default as SearchDrawer } from "./search/SearchDrawer";
+export { default as SearchInput } from "./search/SearchDrawer/chunks/SearchInput";
 
 //  base types
 export type { BoxProps } from "./base/Box/Box.types";
