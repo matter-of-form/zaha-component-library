@@ -3,6 +3,7 @@ import { Button } from "../../../../base/Button";
 import React, { useState } from "react";
 import { SearchInputProps } from "./SearchInput.types";
 import { searchInput } from "../../SearchDrawer.styles";
+import { useRouter } from "next/navigation";
 
 const SearchInput = ({
   initialValue = "",
@@ -10,10 +11,16 @@ const SearchInput = ({
   searchUrl = "/search",
   buttonText = "Enter to search",
 }: SearchInputProps) => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>(initialValue);
 
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        router.push(`${searchUrl}?q=${searchQuery}`);
+      }}
+    >
       <input
         type="text"
         name="searchQuery"
@@ -24,6 +31,8 @@ const SearchInput = ({
       />
       <Button
         href={`${searchUrl}?q=${searchQuery}`}
+        onClick={(e) => e.preventDefault()}
+        type="submit"
         variant="search"
         text={buttonText}
         disabled={searchQuery.length < 1}
