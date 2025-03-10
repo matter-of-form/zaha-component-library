@@ -1,8 +1,8 @@
-import { Stack } from "@/components/base/Stack";
+import { Stack } from "../../../base/Stack";
 import React from "react";
 import { divider, searchButtonWrapper } from "../Nav.styles";
-import { Box } from "@/components/base/Box";
-import { Button } from "@/components/base/Button";
+import { Box } from "../../../base/Box";
+import { Button } from "../../../base/Button";
 
 const SearchButton = ({
   setSearchOpen,

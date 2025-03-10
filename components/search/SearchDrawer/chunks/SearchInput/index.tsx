@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/base/Button";
+import { Button } from "../../../../base/Button";
 import React, { useState } from "react";
 import { SearchInputProps } from "./SearchInput.types";
 import { searchInput } from "../../SearchDrawer.styles";

@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { Box, Media, Nav, Stack } from "../../components";
+import { Box, Media, Nav, Stack, SearchDrawer } from "../../components";
 import {
   headerWrapper,
   headerContent,
@@ -9,8 +9,7 @@ import {
   navToggleButtons,
 } from "./Header.styles";
 import { useRouter } from "next/navigation";
-import SearchDrawer from "@/components/search/SearchDrawer";
-import SearchButton from "@/components/general/Nav/chunks/SearchButton";
+import SearchButton from "../../components/general/Nav/chunks/SearchButton";
 
 const Header: FC<any> = ({
   data,

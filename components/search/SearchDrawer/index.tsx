@@ -1,4 +1,4 @@
-import { Box } from "@/components/base/Box";
+import { Box } from "../../base/Box";
 import React from "react";
 import { searchDrawer } from "./SearchDrawer.styles";
 import SearchInput from "./chunks/SearchInput";
