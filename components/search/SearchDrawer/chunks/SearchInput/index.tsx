@@ -25,7 +25,7 @@ const SearchInput = ({
 
     if (!drawerOpen) {
       setTimeout(() => {
-        setSearchQuery("");
+        setSearchQuery(initialValue);
       }, 300);
     }
   }, [drawerOpen]);
@@ -34,7 +34,7 @@ const SearchInput = ({
     if (e.key === "Escape") {
       setHeaderAction && setHeaderAction(null);
       setTimeout(() => {
-        setSearchQuery("");
+        setSearchQuery(initialValue);
       }, 300);
     }
   };
