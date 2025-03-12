@@ -18,19 +18,19 @@ const SearchInput = ({
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        router.push(`${searchUrl}?q=${searchQuery}`);
+        router.push(`${searchUrl}?keyword=${searchQuery}`);
       }}
     >
       <input
         type="text"
-        name="searchQuery"
+        name="keyword"
         placeholder={placeholder}
         value={searchQuery}
         {...searchInput}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
       <Button
-        href={`${searchUrl}?q=${searchQuery}`}
+        href={`${searchUrl}?keyword=${searchQuery}`}
         onClick={(e) => e.preventDefault()}
         type="submit"
         variant="search"

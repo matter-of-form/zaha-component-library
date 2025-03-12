@@ -17,6 +17,7 @@ const Header: FC<any> = ({
   moduleAnims,
   variant,
   icons,
+  searchButtonText,
   scrollContainer,
   enableDesktopScrollLock = false,
   hideSearchButton = false,
@@ -159,6 +160,7 @@ const Header: FC<any> = ({
         <SearchDrawer
           searchOpen={headerAction === "search"}
           breakpoint={currBreakpoint}
+          buttonText={searchButtonText}
         />
       </Stack>
     </Box>

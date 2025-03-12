@@ -4,10 +4,16 @@ import { searchDrawer } from "./SearchDrawer.styles";
 import SearchInput from "./chunks/SearchInput";
 import { SearchDrawerProps } from "./SearchDrawer.types";
 
-const SearchDrawer = ({ searchOpen, breakpoint }: SearchDrawerProps) => {
+const SearchDrawer = ({
+  searchOpen,
+  breakpoint,
+  buttonText,
+}: SearchDrawerProps) => {
   return (
     <Box {...searchDrawer(searchOpen)}>
-      <SearchInput buttonText={breakpoint !== "sm" ? "Enter to search" : ""} />
+      <SearchInput
+        buttonText={breakpoint !== "sm" ? buttonText || "Enter to search" : ""}
+      />
     </Box>
   );
 };
