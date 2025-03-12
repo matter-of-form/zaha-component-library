@@ -24,7 +24,7 @@ export const Nav: NavProps = forwardRef(
       itemsPerColumn,
       isActive = false,
       headerAction = null,
-      setHeaderAction,
+      setHeaderAction = () => {},
       navProps,
       onBreakpointChange,
       hideSearchButton = false,
