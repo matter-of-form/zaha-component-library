@@ -143,7 +143,9 @@ const Header: FC<any> = ({
             moduleAnims?.toggleWrapper,
           )}
         >
-          {!hideSearchButton && <SearchButton setSearchOpen={setHeaderAction} />}
+          {!hideSearchButton && (
+            <SearchButton setSearchOpen={setHeaderAction} />
+          )}
           <Box {...navOpen(moduleAnims?.toggleOpen)} onClick={toggleNav}>
             {icons?.navOpen}
           </Box>
@@ -153,7 +155,10 @@ const Header: FC<any> = ({
           <Box {...navClose(moduleAnims?.toggleClose)}>{icons?.navClose}</Box>
         )}
 
-        <SearchDrawer searchOpen={headerAction === "search"} />
+        <SearchDrawer
+          searchOpen={headerAction === "search"}
+          breakpoint={currBreakpoint}
+        />
       </Stack>
     </Box>
   );
