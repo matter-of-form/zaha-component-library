@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "../../../../base/Button";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SearchInputProps } from "./SearchInput.types";
 import { searchInput } from "../../SearchDrawer.styles";
 import { useRouter } from "next/navigation";
@@ -10,9 +10,34 @@ const SearchInput = ({
   placeholder = "Search",
   searchUrl = "/search",
   buttonText = "Enter to search",
+  headerAction,
+  setHeaderAction,
 }: SearchInputProps) => {
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>(initialValue);
+  const drawerOpen = headerAction === "search";
+
+  useEffect(() => {
+    if (drawerOpen && inputRef.current) {
+      inputRef?.current?.focus();
+    }
+
+    if (!drawerOpen) {
+      setTimeout(() => {
+        setSearchQuery("");
+      }, 300);
+    }
+  }, [drawerOpen]);
+
+  const closeDrawerOnESC = (e) => {
+    if (e.key === "Escape") {
+      setHeaderAction(null);
+      setTimeout(() => {
+        setSearchQuery("");
+      }, 300);
+    }
+  };
 
   return (
     <form
@@ -22,12 +47,16 @@ const SearchInput = ({
       }}
     >
       <input
+        ref={inputRef}
         type="text"
         name="keyword"
         placeholder={placeholder}
         value={searchQuery}
         {...searchInput}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => {
+          setSearchQuery(e.target.value);
+        }}
+        onKeyDown={(e) => closeDrawerOnESC(e)}
       />
       <Button
         href={`${searchUrl}?keyword=${searchQuery}`}

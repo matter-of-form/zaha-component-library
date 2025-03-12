@@ -158,7 +158,8 @@ const Header: FC<any> = ({
         )}
 
         <SearchDrawer
-          searchOpen={headerAction === "search"}
+          headerAction={headerAction}
+          setHeaderAction={setHeaderAction}
           breakpoint={currBreakpoint}
           buttonText={searchButtonText}
         />

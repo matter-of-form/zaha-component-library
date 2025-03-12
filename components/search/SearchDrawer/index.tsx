@@ -5,14 +5,17 @@ import SearchInput from "./chunks/SearchInput";
 import { SearchDrawerProps } from "./SearchDrawer.types";
 
 const SearchDrawer = ({
-  searchOpen,
+  headerAction,
+  setHeaderAction,
   breakpoint,
   buttonText,
 }: SearchDrawerProps) => {
   return (
-    <Box {...searchDrawer(searchOpen)}>
+    <Box {...searchDrawer(headerAction === "search")}>
       <SearchInput
         buttonText={breakpoint !== "sm" ? buttonText || "Enter to search" : ""}
+        headerAction={headerAction}
+        setHeaderAction={setHeaderAction}
       />
     </Box>
   );
