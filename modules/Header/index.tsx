@@ -57,12 +57,13 @@ const Header: FC<any> = ({
       !nav.contains(e.target) &&
       !toggle.contains(e.target) &&
       // @ts-ignore
-      !Array.from(e?.target?.classList).some(
-        (className: string) =>
-          className?.includes("nav") ||
+      !Array.from(e?.target?.classList).some((className: string) => {
+        return className?.includes("nav") ||
           className?.includes("search-input") ||
-          className?.includes("button-search"),
-      )
+          className?.includes("button-search")
+          ? true
+          : false;
+      })
     ) {
       setHeaderAction(null);
     }
