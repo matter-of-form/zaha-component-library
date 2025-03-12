@@ -32,7 +32,7 @@ const SearchInput = ({
 
   const closeDrawerOnESC = (e) => {
     if (e.key === "Escape") {
-      setHeaderAction(null);
+      setHeaderAction && setHeaderAction(null);
       setTimeout(() => {
         setSearchQuery("");
       }, 300);
