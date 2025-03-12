@@ -9,12 +9,14 @@ const SearchDrawer = ({
   setHeaderAction,
   breakpoint,
   buttonText,
+  placeholder,
 }: SearchDrawerProps) => {
   return (
     <Box {...searchDrawer(headerAction === "search")}>
       <SearchInput
         buttonText={breakpoint !== "sm" ? buttonText || "Enter to search" : ""}
         headerAction={headerAction}
+        placeholder={placeholder}
         setHeaderAction={setHeaderAction}
       />
     </Box>

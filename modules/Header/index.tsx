@@ -21,6 +21,7 @@ const Header: FC<any> = ({
   scrollContainer,
   enableDesktopScrollLock = false,
   hideSearchButton = false,
+  searchInputPlaceholder = "Search",
   ...props
 }) => {
   const router = useRouter();
@@ -158,6 +159,7 @@ const Header: FC<any> = ({
         )}
 
         <SearchDrawer
+          placeholder={searchInputPlaceholder}
           headerAction={headerAction}
           setHeaderAction={setHeaderAction}
           breakpoint={currBreakpoint}
