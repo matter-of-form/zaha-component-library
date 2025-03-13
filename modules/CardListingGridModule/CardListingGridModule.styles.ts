@@ -13,6 +13,14 @@ export const gridWrapper = (motion: any) => ({
   ...motion,
 });
 
+export const resultCountWrapper = {
+  className: 'result-count-wrapper',
+}
+
+export const resultCountText = {
+  className: 'result-count-text',
+}
+
 export const listingSearchBarWrapper = {
   className: "listing-search-bar-wrapper",
 };

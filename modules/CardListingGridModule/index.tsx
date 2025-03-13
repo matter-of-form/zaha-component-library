@@ -1,6 +1,7 @@
 "use client";
 import { FC, useEffect, useState } from "react";
 import {
+  ClearAllButton,
   ListingGrid,
   ModuleBase,
   Pagination,
@@ -9,7 +10,12 @@ import {
   Text,
 } from "../../components";
 import { HeadingSideModule } from "../../modules";
-import { gridWrapper, moduleWrapper } from "./CardListingGridModule.styles";
+import {
+  gridWrapper,
+  moduleWrapper,
+  resultCountText,
+  resultCountWrapper,
+} from "./CardListingGridModule.styles";
 import { CardListingGridModuleProps } from "./CardListingGridModule.types";
 import { useSearchParams } from "next/navigation";
 import { areArraysEqual } from "../../utils";
@@ -31,6 +37,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   peopleSearchPlaceholder,
   peopleSearchActivePlaceholder,
   noResultText,
+  clearAllButtonText,
   ...props
 }) => {
   const searchParams = useSearchParams();
@@ -61,6 +68,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
     teamMembersFilter?.length > 0;
   const renderResultsCount =
     cardType === "TeamMember" || cardType === "Project";
+  const renderClearAllButton = cardType === "Project";
   const isGroup = cards[0]?.moduleName?.includes("Group");
   let renderCardContent = null;
   if (filteredCards && filteredCards.length > 0) {
@@ -179,14 +187,20 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
           />
         )}
         {renderResultsCount && (
-          <Text
-            text={
-              cardType === "TeamMember"
-                ? `${teamMembersFilter.length} <span>${peopleResultCountText || "people"}</span>`
-                : `${totalCount} <span>${projectResultCountText || "projects"}</span>`
-            }
-            textStyle={textStyles?.result}
-          />
+          <Stack {...resultCountWrapper}>
+            {renderClearAllButton && (
+              <ClearAllButton buttonText={clearAllButtonText} />
+            )}
+            <Text
+              {...resultCountText}
+              text={
+                cardType === "TeamMember"
+                  ? `${teamMembersFilter.length} <span>${peopleResultCountText || "people"}</span>`
+                  : `${totalCount} <span>${projectResultCountText || "projects"}</span>`
+              }
+              textStyle={textStyles?.result}
+            />
+          </Stack>
         )}
         {renderCardContent}
         <Pagination

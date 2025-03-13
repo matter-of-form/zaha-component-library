@@ -1,5 +1,5 @@
 "use client";
-import { Box, Media, Stack, Text } from "../../../components";
+import { Media, Stack, Text } from "../../../components";
 import React, { useEffect, useState } from "react";
 import {
   PeopleSearchOption,
