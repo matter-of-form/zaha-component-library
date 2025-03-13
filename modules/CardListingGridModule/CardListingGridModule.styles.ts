@@ -34,17 +34,14 @@ export const listingSearchBarResults = (hasResult: boolean) => ({
   initial: {
     height: 0,
     opacity: 0,
-    marginTop: 0,
   },
   animate: {
     height: hasResult ? "var(--resultDrawerHeight)" : "auto",
     opacity: 1,
-    marginTop: 8,
   },
   exit: {
     height: 0,
     opacity: 0,
-    marginTop: 0,
   },
   transition: {
     type: "spring",
