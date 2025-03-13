@@ -41,6 +41,7 @@ const getQueryData = (
 const cardListingConfig = {
   getItems: renderCards,
   getQueryData,
+  compactFilterTitle: "Filter",
 };
 
 export default cardListingConfig;

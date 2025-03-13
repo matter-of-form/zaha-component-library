@@ -18,6 +18,7 @@ export type CardListingGridModuleProps = {
   peopleSearchActivePlaceholder: string;
   noResultText: string;
   clearAllButtonText: string;
+  compactFilterTitle: string;
 };
 
 export type PeopleSearchOption = {

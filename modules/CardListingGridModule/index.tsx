@@ -38,6 +38,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   peopleSearchActivePlaceholder,
   noResultText,
   clearAllButtonText,
+  compactFilterTitle,
   ...props
 }) => {
   const searchParams = useSearchParams();
@@ -186,6 +187,8 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             filters={searchFilters}
             icons={icons}
             textStyles={textStyles}
+            compactOnMobile={renderClearAllButton}
+            compactFilterTitle={compactFilterTitle}
           />
         )}
         {renderResultsCount && (

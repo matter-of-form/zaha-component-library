@@ -1,17 +1,23 @@
 import { FC, useState, useEffect } from "react";
-import { DropdownFilter, Stack } from "../../../components";
+import { DropdownFilter, Popover, Stack } from "../../../components";
 import { filterWrapper } from "./SearchFilters.styles";
 import { useSearchParams } from "next/navigation";
+import { useDimensions } from "@/hooks";
 
 const SearchFilters: FC<any> = ({
   dropdownVariant,
   filters,
   onChange,
   textStyles,
+  compactOnMobile,
+  compactFilterTitle,
   icons,
 }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const searchParams = useSearchParams();
+  const { breakpoint } = useDimensions();
+
+  const isMobile = ["base", "sm"].includes(breakpoint);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -36,8 +42,24 @@ const SearchFilters: FC<any> = ({
   };
 
   if (!filters || filters.length < 1) return;
-  return (
-    <Stack {...filterWrapper}>
+  return compactOnMobile ? (
+    <Stack {...filterWrapper(compactOnMobile)}>
+      <Popover title={compactFilterTitle} icons={icons}>
+        {filters.map((filter: any, index: number) => (
+          <DropdownFilter
+            key={`filter${index}`}
+            selectedFilters={selectedFilters}
+            filter={filter}
+            onChange={handleOnChange}
+            icons={icons}
+            textStyles={textStyles}
+            variant={dropdownVariant}
+          />
+        ))}
+      </Popover>
+    </Stack>
+  ) : (
+    <Stack {...filterWrapper()}>
       {filters.map((filter: any, index: number) => (
         <DropdownFilter
           key={`filter${index}`}
