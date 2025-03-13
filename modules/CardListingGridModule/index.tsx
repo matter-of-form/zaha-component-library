@@ -166,6 +166,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             peopleResultCountText={peopleResultCountText}
             noResultIcon={icons?.noResult}
             noResultText={noResultText}
+            searchResultIcon={icons?.searchResult}
           />
         )}
         {displayFilters && (
