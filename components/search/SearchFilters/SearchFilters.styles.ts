@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export const filterWrapper = (compact?: boolean) => ({
+export const filterWrapper = (compact?: boolean, open?: boolean) => ({
   className: classNames("filter-wrapper", { compact, open }),
 });
 
@@ -13,6 +13,11 @@ export const compactFilters = (open?: boolean) => ({
     open: {
       height: "auto",
     },
+  },
+  transition: {
+    type: "spring",
+    damping: 30,
+    stiffness: 150,
   },
   initial: "closed",
   animate: open ? "open" : "closed",
