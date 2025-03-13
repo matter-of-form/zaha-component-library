@@ -6,12 +6,14 @@ import {
   Pagination,
   SearchFilters,
   Stack,
+  Text,
 } from "../../components";
 import { HeadingSideModule } from "../../modules";
 import { gridWrapper, moduleWrapper } from "./CardListingGridModule.styles";
 import { CardListingGridModuleProps } from "./CardListingGridModule.types";
 import { useSearchParams } from "next/navigation";
 import { areArraysEqual } from "../../utils";
+import ListingGridSearchBar from "./chunks/ListingGridSearchBar";
 
 const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   data,
@@ -24,6 +26,9 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   paginationType,
   showMoreText,
   dropdownVariant,
+  peopleResultCountText,
+  projectResultCountText,
+  noResultText,
   ...props
 }) => {
   const searchParams = useSearchParams();
@@ -40,6 +45,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
     totalPages,
     pageSize,
     sortByOptions,
+    teamMembersFilter,
   } = data?.filtersAndCards;
   const [filteredCards, setFilteredCards] = useState<any[]>(cards);
   const [searchFilters, setSearchFilters] = useState<any[]>(filter);
@@ -47,6 +53,12 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   const [currFilters, setCurrFilters] = useState<any>([]);
   const [currTotal, setCurrTotal] = useState<number>(totalPages);
 
+  const renderSearchBar =
+    cardType === "TeamMember" &&
+    teamMembersFilter &&
+    teamMembersFilter?.length > 0;
+  const renderResultsCount =
+    cardType === "TeamMember" || cardType === "Project";
   const isGroup = cards[0]?.moduleName?.includes("Group");
   let renderCardContent = null;
   if (filteredCards && filteredCards.length > 0) {
@@ -146,11 +158,31 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
         moduleAnims={moduleAnims?.headingSide}
       />
       <Stack direction="column" {...gridWrapper(moduleAnims?.gridWrapper)}>
+        {renderSearchBar && (
+          <ListingGridSearchBar
+            options={teamMembersFilter}
+            placeholder="people directory"
+            focusPlaceholder="start typing a name"
+            peopleResultCountText={peopleResultCountText}
+            noResultIcon={icons?.noResult}
+            noResultText={noResultText}
+          />
+        )}
         {displayFilters && (
           <SearchFilters
             filters={searchFilters}
             icons={icons}
             textStyles={textStyles}
+          />
+        )}
+        {renderResultsCount && (
+          <Text
+            text={
+              cardType === "TeamMember"
+                ? `${teamMembersFilter.length} <span>${peopleResultCountText || "people"}</span>`
+                : `${totalCount} <span>${projectResultCountText || "projects"}</span>`
+            }
+            textStyle={textStyles?.result}
           />
         )}
         {renderCardContent}

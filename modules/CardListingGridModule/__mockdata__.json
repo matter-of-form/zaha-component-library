@@ -1,6 +1,368 @@
 {
   "filtersAndCards": {
     "cardType": "TeamMember",
+    "teamMembersFilter": [
+      {
+        "name": "Abdel Chehab",
+        "title": "Lead Designer",
+        "image": {
+          "imageUrl": "/media/chspxabj/01667_cp_n101268.jpg?rxy=0.02506265664160401,0.974937343358396",
+          "mediaId": 3914,
+          "caption": "Cornelius Schlotthauer",
+          "imageAlt": "Cornelius Schlotthauer",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Abdel Chehab",
+          "href": "/people/abdel-chehab",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Charles Walker",
+        "title": "Director",
+        "image": {
+          "imageUrl": "/media/uxujd5hc/charles-walker.png",
+          "mediaId": 3859,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Charles Walker",
+          "href": "/people/charles-walker",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Craig Kiner",
+        "title": "Associate Director",
+        "image": {
+          "imageUrl": "/media/e1sifspr/01667_cp_n101269.jpg",
+          "mediaId": 3915,
+          "caption": "Craig Kiner",
+          "imageAlt": "Craig Kiner",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Craig Kiner",
+          "href": "/people/craig-kiner",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Cristina Capanna",
+        "title": "Senior Associate",
+        "image": {
+          "imageUrl": "/media/yesm1lu3/headshot-01.png",
+          "mediaId": 3873,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Cristina Capanna",
+          "href": "/people/cristina-capanna",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Daniel Fišer",
+        "title": "Associate Director",
+        "image": {
+          "imageUrl": "/media/dgshhcfr/01667_cp_n101272.jpg",
+          "mediaId": 3917,
+          "caption": "Daniel Fisher",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Daniel Fišer",
+          "href": "/people/daniel-fiser",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Gerhild Orthacker",
+        "title": "Associate Directors",
+        "image": {
+          "imageUrl": "/media/osvcrxkh/01667_cp_n101289.jpg",
+          "mediaId": 3932,
+          "caption": "Gerhild Orthacker",
+          "imageAlt": "OS-location-shot-1",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Gerhild Orthacker",
+          "href": "/people/gerhild-orthacker",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Gianluca Racana",
+        "title": "Director",
+        "image": {
+          "imageUrl": "/media/34vbb2np/gianluca-racana.jpeg",
+          "mediaId": 3855,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Gianluca Racana",
+          "href": "/people/gianluca-racana",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Greg Unsworth",
+        "title": "Associate Knowledge Management ",
+        "image": {
+          "imageUrl": "/media/dybj2sr4/headshot-03.png",
+          "mediaId": 3874,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Greg Unsworth",
+          "href": "/people/greg-unsworth",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Harry Spraiter",
+        "title": "Associate",
+        "image": {
+          "imageUrl": "/media/w2vlfvrs/headshot-02.png",
+          "mediaId": 3872,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Harry Spraiter",
+          "href": "/people/harry-spraiter",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Jim Heverin",
+        "title": "Director",
+        "image": {
+          "imageUrl": "/media/dimfmf5z/jim-heverin.jpeg",
+          "mediaId": 3857,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Jim Heverin",
+          "href": "/people/jim-heverin",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Johannes Schafelner",
+        "title": "Associate Director",
+        "image": {
+          "imageUrl": "/media/yl0dritj/01667_cp_n101293.jpg",
+          "mediaId": 3936,
+          "caption": "Hannes Schafelner",
+          "imageAlt": "Hannes Schafelner",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Johannes Schafelner",
+          "href": "/people/johannes-schafelner",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Kutbuddin Nadiadi",
+        "title": "Associate Directors",
+        "image": {
+          "imageUrl": "/media/wa4dtpdt/01667_cp_n101311.jpg",
+          "mediaId": 3951,
+          "caption": "Kutbuddin Nadiadi",
+          "imageAlt": "Kutbuddin Nadiadi",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Kutbuddin Nadiadi",
+          "href": "/people/kutbuddin-nadiadi",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Melodie Leung",
+        "title": "Associate Director",
+        "image": {
+          "imageUrl": "/media/5dlkcjcc/melodie-leung.png",
+          "mediaId": 3858,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Melodie Leung",
+          "href": "/people/melodie-leung",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Mouzhan Majidi",
+        "title": "Chief Executive",
+        "image": {
+          "imageUrl": "/media/lg4lcvlx/mouzhan-majidi.jpeg",
+          "mediaId": 3856,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Mouzhan Majidi",
+          "href": "/people/mouzhan-majidi",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Paolo Zilli",
+        "title": "Associate Director",
+        "image": {
+          "imageUrl": "/media/autfg34t/01667_cp_n101336.jpg",
+          "mediaId": 3972,
+          "caption": "Paolo Zilli",
+          "imageAlt": "Paolo Zilli",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Paolo Zilli",
+          "href": "/people/paolo-zilli",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Patrik Schumacher",
+        "title": "Principal",
+        "image": {
+          "imageUrl": "/media/upvfzbxi/zaha_hadid_architects_-patrikschumacher-583x583-1.jpg",
+          "mediaId": 13358,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Patrik Schumacher",
+          "href": "/people/patrik-schumacher",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Sara Criscenti",
+        "title": "Associate",
+        "image": {
+          "imageUrl": "/media/yesm1lu3/headshot-01.png",
+          "mediaId": 3873,
+          "caption": "",
+          "imageAlt": "",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Sara Criscenti",
+          "href": "/people/sara-criscenti",
+          "linkType": "Content",
+          "target": null
+        }
+      },
+      {
+        "name": "Shajay Bhooshan",
+        "title": "Associate Director ",
+        "image": {
+          "imageUrl": "/media/g4rnzckf/01667_cp_n101351.jpg",
+          "mediaId": 3987,
+          "caption": "Shajay Bhooshan",
+          "imageAlt": "Shajay Bhooshan",
+          "imageCredit": "",
+          "photographer": "",
+          "isSvg": false,
+          "isVideo": false
+        },
+        "cta": {
+          "text": "Shajay Bhooshan",
+          "href": "/people/shajay-bhooshan",
+          "linkType": "Content",
+          "target": null
+        }
+      }
+    ],
     "displayFilters": true,
     "filter": [
       {
