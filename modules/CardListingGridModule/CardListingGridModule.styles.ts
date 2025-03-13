@@ -23,6 +23,23 @@ export const listingSearchBar = {
 
 export const listingSearchBarResults = {
   className: "listing-search-bar-results",
+  initial: {
+    height: 0,
+    opacity: 0,
+  },
+  animate: {
+    height: "auto",
+    opacity: 1,
+  },
+  exit: {
+    height: 0,
+    opacity: 0,
+  },
+  transition: {
+    type: "spring",
+    damping: 20,
+    stiffness: 150,
+  },
 };
 
 export const listingSearchBarResultsWrapper = {
