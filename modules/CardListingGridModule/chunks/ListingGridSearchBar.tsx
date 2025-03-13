@@ -67,7 +67,7 @@ const ListingGridSearchBar = ({
         {searchTerm.length > 0 && (
           <Stack {...listingSearchBarResults} style={{ height: "2rem" }}>
             <Text
-              text={`${filteredOptions.length} <span>${peopleResultCountText || "people"}</span>`}
+              text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
             />
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option, index) => (
@@ -80,11 +80,7 @@ const ListingGridSearchBar = ({
             ) : (
               <Stack {...listingSearchNoResult}>
                 {noResultIcon}
-                <Text
-                  text={
-                    noResultText || "There were no people found for this search"
-                  }
-                />
+                <Text text={noResultText} />
               </Stack>
             )}
           </Stack>

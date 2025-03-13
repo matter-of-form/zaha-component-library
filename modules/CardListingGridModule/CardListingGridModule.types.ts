@@ -14,6 +14,8 @@ export type CardListingGridModuleProps = {
   dropdownVariant?: string;
   peopleResultCountText: string;
   projectResultCountText: string;
+  peopleSearchPlaceholder: string;
+  peopleSearchActivePlaceholder: string;
   noResultText: string;
 };
 

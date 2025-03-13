@@ -28,6 +28,8 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   dropdownVariant,
   peopleResultCountText,
   projectResultCountText,
+  peopleSearchPlaceholder,
+  peopleSearchActivePlaceholder,
   noResultText,
   ...props
 }) => {
@@ -161,8 +163,8 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
         {renderSearchBar && (
           <ListingGridSearchBar
             options={teamMembersFilter}
-            placeholder="people directory"
-            focusPlaceholder="start typing a name"
+            placeholder={peopleSearchPlaceholder}
+            focusPlaceholder={peopleSearchActivePlaceholder}
             peopleResultCountText={peopleResultCountText}
             noResultIcon={icons?.noResult}
             noResultText={noResultText}
