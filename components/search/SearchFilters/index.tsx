@@ -47,7 +47,7 @@ const SearchFilters: FC<any> = ({
   }
 
   if (!filters || filters.length < 1) return;
-  return compactOnMobile && isMobile && (
+  return compactOnMobile && isMobile ? (
     <Stack {...filterWrapper(compactOnMobile)}>
       <Button onClick={toggleOpen} text={compactFilterTitle} iconPost={icons?.dropdown} />
       <Stack {...compactFilters}>
