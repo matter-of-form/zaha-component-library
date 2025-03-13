@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
-export const filterWrapper = (compact?: boolean) => ({
-  className: classNames("filter-wrapper", { compact }),
+export const filterWrapper = (compact?: boolean, open?: boolean) => ({
+  className: classNames("filter-wrapper", { compact, open }),
 });
 
 export const compactFilters = {
