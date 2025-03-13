@@ -14,12 +14,12 @@ export const gridWrapper = (motion: any) => ({
 });
 
 export const resultCountWrapper = {
-  className: 'result-count-wrapper',
-}
+  className: "result-count-wrapper",
+};
 
 export const resultCountText = {
-  className: 'result-count-text',
-}
+  className: "result-count-text",
+};
 
 export const listingSearchBarWrapper = {
   className: "listing-search-bar-wrapper",
@@ -36,7 +36,7 @@ export const listingSearchBarResults = {
     opacity: 0,
   },
   animate: {
-    height: "auto",
+    height: "var(--resultDrawerHeight)",
     opacity: 1,
   },
   exit: {
