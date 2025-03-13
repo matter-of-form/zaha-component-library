@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from "react";
 import { DropdownFilter, Popover, Stack } from "../../../components";
 import { filterWrapper } from "./SearchFilters.styles";
 import { useSearchParams } from "next/navigation";
-import { useDimensions } from "@/hooks";
+import { useDimensions } from "../../../hooks";
 
 const SearchFilters: FC<any> = ({
   dropdownVariant,
