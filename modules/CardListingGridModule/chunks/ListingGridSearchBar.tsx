@@ -8,6 +8,7 @@ import {
 import { AnimatePresence } from "framer-motion";
 import {
   listingSearchBar,
+  listingSearchBarResultDrawer,
   listingSearchBarResults,
   listingSearchBarResultsWrapper,
   listingSearchBarWrapper,
@@ -64,31 +65,33 @@ const ListingGridSearchBar = ({
         }
         {...listingSearchBar}
       />
-      <AnimatePresence>
-        {searchTerm.length > 0 && (
-          <Stack {...listingSearchBarResults}>
-            <Text
-              text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
-            />
-            {filteredOptions.length > 0 ? (
-              <Stack {...listingSearchBarResultsWrapper}>
-                {filteredOptions.map((option, index) => (
-                  <ListingGridSearchResultCard
-                    key={`peopleSearchOption-${index}`}
-                    data={option}
-                    icon={searchResultIcon}
-                  />
-                ))}
-              </Stack>
-            ) : (
-              <Stack {...listingSearchNoResult}>
-                {noResultIcon}
-                <Text text={noResultText} />
-              </Stack>
-            )}
-          </Stack>
-        )}
-      </AnimatePresence>
+      <Stack {...listingSearchBarResultDrawer}>
+        <AnimatePresence>
+          {searchTerm.length > 0 && (
+            <Stack {...listingSearchBarResults}>
+              <Text
+                text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
+              />
+              {filteredOptions.length > 0 ? (
+                <Stack {...listingSearchBarResultsWrapper}>
+                  {filteredOptions.map((option, index) => (
+                    <ListingGridSearchResultCard
+                      key={`peopleSearchOption-${index}`}
+                      data={option}
+                      icon={searchResultIcon}
+                    />
+                  ))}
+                </Stack>
+              ) : (
+                <Stack {...listingSearchNoResult}>
+                  {noResultIcon}
+                  <Text text={noResultText} />
+                </Stack>
+              )}
+            </Stack>
+          )}
+        </AnimatePresence>
+      </Stack>
     </Stack>
   );
 };
