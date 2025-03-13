@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from "react";
-import { DropdownFilter, Popover, Stack } from "../../../components";
-import { filterWrapper } from "./SearchFilters.styles";
+import { Button, DropdownFilter, Stack } from "../../../components";
+import { compactFilters, filterWrapper } from "./SearchFilters.styles";
 import { useSearchParams } from "next/navigation";
 import { useDimensions } from "../../../hooks";
 
@@ -16,6 +16,7 @@ const SearchFilters: FC<any> = ({
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const searchParams = useSearchParams();
   const { breakpoint } = useDimensions();
+  const [open, setOpen] = useState<boolean>(false);
 
   const isMobile = ["base", "sm"].includes(breakpoint);
 
@@ -41,10 +42,15 @@ const SearchFilters: FC<any> = ({
     }
   };
 
+  const toggleOpen = () => {
+    setOpen(prev => !prev);
+  }
+
   if (!filters || filters.length < 1) return;
-  return compactOnMobile ? (
+  return compactOnMobile && isMobile && (
     <Stack {...filterWrapper(compactOnMobile)}>
-      <Popover title={compactFilterTitle} icons={icons}>
+      <Button onClick={toggleOpen} text={compactFilterTitle} iconPost={icons?.dropdown} />
+      <Stack {...compactFilters}>
         {filters.map((filter: any, index: number) => (
           <DropdownFilter
             key={`filter${index}`}
@@ -56,7 +62,7 @@ const SearchFilters: FC<any> = ({
             variant={dropdownVariant}
           />
         ))}
-      </Popover>
+      </Stack>
     </Stack>
   ) : (
     <Stack {...filterWrapper()}>
