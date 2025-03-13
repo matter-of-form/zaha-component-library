@@ -9,6 +9,7 @@ import { AnimatePresence } from "framer-motion";
 import {
   listingSearchBar,
   listingSearchBarResults,
+  listingSearchBarResultsWrapper,
   listingSearchBarWrapper,
   listingSearchNoResult,
   listingSearchResult,
@@ -70,7 +71,7 @@ const ListingGridSearchBar = ({
               text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
             />
             {filteredOptions.length > 0 ? (
-              <Stack>
+              <Stack {...listingSearchBarResultsWrapper}>
                 {filteredOptions.map((option, index) => (
                   <ListingGridSearchResultCard
                     key={`peopleSearchOption-${index}`}
