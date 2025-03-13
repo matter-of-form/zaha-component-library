@@ -177,6 +177,8 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             noResultIcon={icons?.noResult}
             noResultText={noResultText}
             searchResultIcon={icons?.searchResult}
+            searchIcon={icons?.search}
+            deleteIcon={icons?.delete}
           />
         )}
         {displayFilters && (
@@ -193,11 +195,11 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             )}
             <Text
               {...resultCountText}
-              text={
+              text={`${totalCount} <span>${
                 cardType === "TeamMember"
-                  ? `${teamMembersFilter.length} <span>${peopleResultCountText || "people"}</span>`
-                  : `${totalCount} <span>${projectResultCountText || "projects"}</span>`
-              }
+                  ? peopleResultCountText || "people"
+                  : projectResultCountText || "projects"
+              }</span>`}
               textStyle={textStyles?.result}
             />
           </Stack>

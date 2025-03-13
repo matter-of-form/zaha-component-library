@@ -49,4 +49,6 @@ export type PeopleSearchProps = {
   noResultIcon: React.ReactNode;
   noResultText: string;
   searchResultIcon: React.ReactNode;
+  searchIcon: React.ReactNode;
+  deleteIcon: React.ReactNode;
 };

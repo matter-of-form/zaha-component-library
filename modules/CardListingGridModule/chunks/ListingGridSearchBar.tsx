@@ -1,5 +1,5 @@
 "use client";
-import { Media, Stack, Text } from "../../../components";
+import { Button, Media, Stack, Text } from "../../../components";
 import React, { useEffect, useState } from "react";
 import {
   PeopleSearchOption,
@@ -29,10 +29,13 @@ const ListingGridSearchBar = ({
   noResultIcon,
   noResultText,
   searchResultIcon,
+  searchIcon,
+  deleteIcon,
 }: PeopleSearchProps) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activePlaceholder, setActivePlaceholder] =
     useState<string>(placeholder);
+  const [activeIcon, setActiveIcon] = useState<React.ReactNode>(searchIcon);
   const [filteredOptions, setFilteredOptions] = useState<any[]>(
     options.sort((a: PeopleSearchOption, b: PeopleSearchOption) => {
       if (a.name < b.name) {
@@ -46,29 +49,48 @@ const ListingGridSearchBar = ({
   );
 
   useEffect(() => {
-    const newFilteredOptions = options.filter((option) =>
-      option.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+    const newFilteredOptions = options
+      .sort((a: PeopleSearchOption, b: PeopleSearchOption) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      })
+      .filter((option) =>
+        option.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
 
     setFilteredOptions(newFilteredOptions);
   }, [searchTerm, options]);
   return (
     <Stack {...listingSearchBarWrapper}>
-      <input
-        type="text"
-        placeholder={activePlaceholder}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onFocus={() => setActivePlaceholder(focusPlaceholder)}
-        onBlur={() =>
-          searchTerm.length === 0 && setActivePlaceholder(placeholder)
-        }
-        {...listingSearchBar}
-      />
+      <div>
+        <input
+          type="text"
+          placeholder={activePlaceholder}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={() => {
+            setActivePlaceholder(focusPlaceholder);
+            setActiveIcon(deleteIcon);
+          }}
+          onBlur={() => {
+            if (searchTerm.length === 0) {
+              setActivePlaceholder(placeholder);
+              setActiveIcon(searchIcon);
+            }
+          }}
+          {...listingSearchBar}
+        />
+        <Button onClick={() => setSearchTerm("")} iconPost={activeIcon} />
+      </div>
       <Stack {...listingSearchBarResultDrawer}>
         <AnimatePresence>
           {searchTerm.length > 0 && (
-            <Stack {...listingSearchBarResults}>
+            <Stack {...listingSearchBarResults(filteredOptions.length > 0)}>
               <Text
                 text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
               />

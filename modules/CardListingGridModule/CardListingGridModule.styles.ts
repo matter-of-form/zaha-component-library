@@ -29,26 +29,29 @@ export const listingSearchBar = {
   className: "listing-search-bar",
 };
 
-export const listingSearchBarResults = {
+export const listingSearchBarResults = (hasResult: boolean) => ({
   className: "listing-search-bar-results",
   initial: {
     height: 0,
     opacity: 0,
+    marginTop: 0,
   },
   animate: {
-    height: "var(--resultDrawerHeight)",
+    height: hasResult ? "var(--resultDrawerHeight)" : "auto",
     opacity: 1,
+    marginTop: 8,
   },
   exit: {
     height: 0,
     opacity: 0,
+    marginTop: 0,
   },
   transition: {
     type: "spring",
-    damping: 20,
+    damping: 30,
     stiffness: 150,
   },
-};
+});
 
 export const listingSearchBarResultsWrapper = {
   className: "listing-search-bar-results-wrapper",
