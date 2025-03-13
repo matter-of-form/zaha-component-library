@@ -2,6 +2,18 @@ import classNames from "classnames";
 
 export const filterWrapper = (compact?: boolean, open?: boolean) => ({
   className: classNames("filter-wrapper", { compact, open }),
+  variants: compact
+    ? {
+        closed: {
+          height: 0,
+        },
+        open: {
+          height: "auto",
+        },
+      }
+    : {},
+  initial: "closed",
+  animate: open ? "open" : "closed",
 });
 
 export const compactFilters = {
