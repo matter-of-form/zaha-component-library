@@ -27,6 +27,7 @@ export const listingSearchBarResults = {
 
 export const listingSearchBarResultsWrapper = {
   className: "listing-search-bar-results-wrapper",
+  noScrollX: true,
 };
 
 export const listingSearchBarResultDrawer = {

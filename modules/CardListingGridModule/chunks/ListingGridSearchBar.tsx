@@ -20,6 +20,7 @@ import {
 } from "../CardListingGridModule.styles";
 import Link from "next/link";
 import Arrow from "../../../assets/icons/zhaArrow.svg";
+import Scrollbars from "react-scrollbars-custom";
 
 const ListingGridSearchBar = ({
   options,
@@ -73,7 +74,7 @@ const ListingGridSearchBar = ({
                 text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
               />
               {filteredOptions.length > 0 ? (
-                <Stack {...listingSearchBarResultsWrapper}>
+                <Scrollbars {...listingSearchBarResultsWrapper}>
                   {filteredOptions.map((option, index) => (
                     <ListingGridSearchResultCard
                       key={`peopleSearchOption-${index}`}
@@ -81,7 +82,7 @@ const ListingGridSearchBar = ({
                       icon={searchResultIcon}
                     />
                   ))}
-                </Stack>
+                </Scrollbars>
               ) : (
                 <Stack {...listingSearchNoResult}>
                   {noResultIcon}
