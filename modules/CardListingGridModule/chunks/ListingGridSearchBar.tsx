@@ -65,18 +65,20 @@ const ListingGridSearchBar = ({
       />
       <AnimatePresence>
         {searchTerm.length > 0 && (
-          <Stack {...listingSearchBarResults} style={{ height: "2rem" }}>
+          <Stack {...listingSearchBarResults}>
             <Text
               text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
             />
             {filteredOptions.length > 0 ? (
-              filteredOptions.map((option, index) => (
-                <ListingGridSearchResultCard
-                  key={`peopleSearchOption-${index}`}
-                  data={option}
-                  icon={searchResultIcon}
-                />
-              ))
+              <Stack>
+                {filteredOptions.map((option, index) => (
+                  <ListingGridSearchResultCard
+                    key={`peopleSearchOption-${index}`}
+                    data={option}
+                    icon={searchResultIcon}
+                  />
+                ))}
+              </Stack>
             ) : (
               <Stack {...listingSearchNoResult}>
                 {noResultIcon}

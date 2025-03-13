@@ -25,6 +25,10 @@ export const listingSearchBarResults = {
   className: "listing-search-bar-results",
 };
 
+export const listingSearchBarResultsWrapper = {
+  className: "listing-search-bar-results-wrapper",
+}
+
 export const listingSearchResult = {
   className: "listing-search-result",
 };
