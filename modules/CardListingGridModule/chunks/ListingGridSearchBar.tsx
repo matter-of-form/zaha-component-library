@@ -90,7 +90,7 @@ const ListingGridSearchBar = ({
       <Stack {...listingSearchBarResultDrawer}>
         <AnimatePresence>
           {searchTerm.length > 0 && (
-            <Stack {...listingSearchBarResults(filteredOptions.length > 0)}>
+            <Stack {...listingSearchBarResults}>
               <Text
                 text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
               />

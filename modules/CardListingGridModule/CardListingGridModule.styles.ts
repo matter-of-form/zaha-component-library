@@ -29,14 +29,14 @@ export const listingSearchBar = {
   className: "listing-search-bar",
 };
 
-export const listingSearchBarResults = (hasResult: boolean) => ({
+export const listingSearchBarResults = {
   className: "listing-search-bar-results",
   initial: {
     height: 0,
     opacity: 0,
   },
   animate: {
-    height: hasResult ? "var(--resultDrawerHeight)" : "auto",
+    height: "var(--resultDrawerHeight)",
     opacity: 1,
   },
   exit: {
@@ -48,11 +48,10 @@ export const listingSearchBarResults = (hasResult: boolean) => ({
     damping: 30,
     stiffness: 150,
   },
-});
+};
 
 export const listingSearchBarResultsWrapper = {
   className: "listing-search-bar-results-wrapper",
-  noScrollX: true,
 };
 
 export const listingSearchBarResultDrawer = {
