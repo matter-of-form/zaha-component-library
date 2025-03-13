@@ -43,7 +43,7 @@ const SearchInput = ({
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        router.push(`${searchUrl}?keyword=${searchQuery}`);
+        router.push(`${searchUrl}?keyword=${encodeURIComponent(searchQuery)}`);
       }}
     >
       <input
@@ -59,7 +59,7 @@ const SearchInput = ({
         onKeyDown={(e) => closeDrawerOnESC(e)}
       />
       <Button
-        href={`${searchUrl}?keyword=${searchQuery}`}
+        href={`${searchUrl}?keyword=${encodeURIComponent(searchQuery)}`}
         onClick={(e) => e.preventDefault()}
         type="submit"
         variant="search"
