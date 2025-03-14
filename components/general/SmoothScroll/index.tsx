@@ -17,7 +17,11 @@ export const SmoothScroll: FC<SmoothScrollProps> = ({
 
     // Initialize Lenis on the first render
     if (!lenisRef.current) {
-      lenisRef.current = new Lenis(props);
+      lenisRef.current = new Lenis({
+        ...props,
+        prevent: (node) =>
+          node.classList.contains("listing-search-bar-results-wrapper"),
+      });
       onLoaded(lenisRef.current);
 
       if (typeof window !== undefined && main) {

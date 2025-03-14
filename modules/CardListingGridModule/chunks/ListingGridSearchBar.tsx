@@ -1,6 +1,6 @@
 "use client";
 import { Button, Media, Stack, Text } from "../../../components";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   PeopleSearchOption,
   PeopleSearchProps,
@@ -19,6 +19,7 @@ import {
   listingSearchResultTitle,
 } from "../CardListingGridModule.styles";
 import Link from "next/link";
+import { remove } from "diacritics";
 import Arrow from "../../../assets/icons/zhaArrow.svg";
 
 const ListingGridSearchBar = ({
@@ -32,39 +33,37 @@ const ListingGridSearchBar = ({
   searchIcon,
   deleteIcon,
 }: PeopleSearchProps) => {
+  const sortedOptions: PeopleSearchOption[] = options.sort((a, b) =>
+    a.name.localeCompare(b.name),
+  );
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activePlaceholder, setActivePlaceholder] =
     useState<string>(placeholder);
   const [activeIcon, setActiveIcon] = useState<React.ReactNode>(searchIcon);
-  const [filteredOptions, setFilteredOptions] = useState<any[]>(
-    options.sort((a: PeopleSearchOption, b: PeopleSearchOption) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    }),
-  );
+  const [filteredOptions, setFilteredOptions] =
+    useState<PeopleSearchOption[]>(sortedOptions);
+  const drawerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const newFilteredOptions = options
-      .sort((a: PeopleSearchOption, b: PeopleSearchOption) => {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      })
       .filter((option) =>
-        option.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        remove(option.name)
+          .toLowerCase()
+          .includes(remove(searchTerm).toLowerCase()),
+      )
+      .sort(
+        (a, b) =>
+          remove(a.name)
+            .toLowerCase()
+            .indexOf(remove(searchTerm).toLowerCase()) -
+          remove(b.name)
+            .toLowerCase()
+            .indexOf(remove(searchTerm).toLowerCase()),
       );
 
     setFilteredOptions(newFilteredOptions);
   }, [searchTerm, options]);
+
   return (
     <Stack {...listingSearchBarWrapper}>
       <div>
@@ -95,10 +94,17 @@ const ListingGridSearchBar = ({
                 text={`${filteredOptions.length} <span>${peopleResultCountText}</span>`}
               />
               {filteredOptions.length > 0 ? (
-                <Stack {...listingSearchBarResultsWrapper}>
-                  {filteredOptions.map((option, index) => (
+                <Stack
+                  {...listingSearchBarResultsWrapper}
+                  ref={drawerRef}
+                  onScroll={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
+                  {filteredOptions.map((option) => (
                     <ListingGridSearchResultCard
-                      key={`peopleSearchOption-${index}`}
+                      key={`peopleSearchOption-${option.cta.href}`}
                       data={option}
                       icon={searchResultIcon}
                     />

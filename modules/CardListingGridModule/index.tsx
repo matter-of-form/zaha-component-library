@@ -70,6 +70,12 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   const renderResultsCount =
     cardType === "TeamMember" || cardType === "Project";
   const renderClearAllButton = cardType === "Project";
+  const resultsCount =
+    cardType === "TeamMember"
+      ? Object.values(filteredCards)
+          .map((v) => v.props.people.length)
+          .reduce((acc, v) => acc + v, 0)
+      : filteredCards.length;
   const isGroup = cards[0]?.moduleName?.includes("Group");
   let renderCardContent = null;
   if (filteredCards && filteredCards.length > 0) {
@@ -198,7 +204,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             )}
             <Text
               {...resultCountText}
-              text={`${totalCount} <span>${
+              text={`${resultsCount} <span>${
                 cardType === "TeamMember"
                   ? peopleResultCountText || "people"
                   : projectResultCountText || "projects"
