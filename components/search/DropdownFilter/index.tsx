@@ -45,7 +45,6 @@ const DropdownFilter: FC<any> = ({
 
       onChange(filter?.filterValue, newSelected);
       setIsChecked(checked);
-      console.log(newSelected);
       setIsDirty(
         options.some(({ filterGuid }) => newSelected.includes(filterGuid)),
       );
@@ -57,7 +56,6 @@ const DropdownFilter: FC<any> = ({
 
       onChange(filter?.filterValue, newSelected);
       setIsChecked(checked);
-      console.log(newSelected);
       setIsDirty(
         options.some(({ filterGuid }) => newSelected.includes(filterGuid)),
       );
