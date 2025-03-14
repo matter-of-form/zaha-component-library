@@ -134,7 +134,7 @@ const ListingGridSearchResultCard = ({
   icon: React.ReactNode;
 }) => {
   return (
-    <Link href={data.cta.href} {...listingSearchResult}>
+    <Link href={data.cta.href} {...listingSearchResult} prefetch>
       <Media data={data.image} />
       <Stack {...listingSearchResultContent}>
         <Text text={data.name} {...listingSearchResultTitle} />
