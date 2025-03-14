@@ -45,7 +45,10 @@ const DropdownFilter: FC<any> = ({
 
       onChange(filter?.filterValue, newSelected);
       setIsChecked(checked);
-      setIsDirty(newSelected.length > 0);
+      console.log(newSelected);
+      setIsDirty(
+        options.some(({ filterGuid }) => newSelected.includes(filterGuid)),
+      );
     } else {
       checked
         ? !newSelected.includes(selectedValue) &&
@@ -54,7 +57,10 @@ const DropdownFilter: FC<any> = ({
 
       onChange(filter?.filterValue, newSelected);
       setIsChecked(checked);
-      setIsDirty(newSelected.length > 0);
+      console.log(newSelected);
+      setIsDirty(
+        options.some(({ filterGuid }) => newSelected.includes(filterGuid)),
+      );
     }
   };
 

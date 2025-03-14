@@ -20,7 +20,8 @@ export const SmoothScroll: FC<SmoothScrollProps> = ({
       lenisRef.current = new Lenis({
         ...props,
         prevent: (node) =>
-          node.classList.contains("listing-search-bar-results-wrapper"),
+          node.classList.contains("listing-search-bar-results-wrapper") ||
+          node.classList.contains("popover-content"),
       });
       onLoaded(lenisRef.current);
 
