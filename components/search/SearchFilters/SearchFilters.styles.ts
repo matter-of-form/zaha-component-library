@@ -9,13 +9,9 @@ export const compactFilters = (open?: boolean) => ({
   variants: {
     closed: {
       height: 0,
-      overflow: "hidden",
     },
     open: {
       height: "auto",
-      transitionEnd: {
-        overflow: "visible",
-      },
     },
   },
   transition: {
