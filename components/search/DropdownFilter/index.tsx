@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Popover, Stack, Text } from "../../../components";
 import { getOptionLabel } from "../../../utils";
 import { dropdownOption } from "./DropdownFilter.styles";
@@ -17,6 +17,13 @@ const DropdownFilter: FC<any> = ({
 
   const singleSelect = filter?.singleSelect || false;
   const options = filter?.filters || [];
+
+  useEffect(() => {
+    setIsDirty(
+      options.some(({ filterGuid }) => selectedFilters.includes(filterGuid)),
+    );
+  }, [selectedFilters, options]);
+
   if (options.length < 1) return null;
 
   const handleOnChange = (checked: boolean, selectedValue: string) => {

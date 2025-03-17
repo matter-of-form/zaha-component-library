@@ -135,7 +135,7 @@ const ListingGridSearchResultCard = ({
 }) => {
   return (
     <Link href={data.cta.href} {...listingSearchResult} prefetch>
-      <Media data={data.image} />
+      <Media imageSizes="30px" data={data.image} />
       <Stack {...listingSearchResultContent}>
         <Text text={data.name} {...listingSearchResultTitle} />
         <Text text={data.title} {...listingSearchResultLabel} />

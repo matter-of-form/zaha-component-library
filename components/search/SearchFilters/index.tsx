@@ -22,9 +22,9 @@ const SearchFilters: FC<any> = ({
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
-    const filters: string[] = params.getAll("filterid") || [];
-    setSelectedFilters(filters);
-  }, []);
+    const filtersArray: string[] = params.getAll("filterid") || [];
+    setSelectedFilters([...filtersArray]);
+  }, [searchParams]);
 
   /* selectedFilters is an array of all available filter ids across filter dropdowns
    * handleOnChange determines which of these active IDs belong to which category and sends it back
@@ -37,23 +37,27 @@ const SearchFilters: FC<any> = ({
       params.delete("page");
       selected.forEach((id: string) => params.append("filterid", id));
       window.history.pushState(null, "", `?${params.toString()}`);
-      setSelectedFilters(selected);
+      setSelectedFilters([...selected]);
       onChange && onChange();
     }
   };
 
   const toggleOpen = () => {
-    setOpen(prev => !prev);
-  }
+    setOpen((prev) => !prev);
+  };
 
   if (!filters || filters.length < 1) return;
   return compactOnMobile && isMobile ? (
     <Stack {...filterWrapper(compactOnMobile, open)}>
-      <Button onClick={toggleOpen} text={compactFilterTitle} iconPost={icons?.dropdown} />
+      <Button
+        onClick={toggleOpen}
+        text={compactFilterTitle}
+        iconPost={icons?.dropdown}
+      />
       <Stack {...compactFilters(open)}>
         {filters.map((filter: any, index: number) => (
           <DropdownFilter
-            key={`filter${index}`}
+            key={`filter${filter.filterName}`}
             selectedFilters={selectedFilters}
             filter={filter}
             onChange={handleOnChange}
@@ -68,7 +72,7 @@ const SearchFilters: FC<any> = ({
     <Stack {...filterWrapper()}>
       {filters.map((filter: any, index: number) => (
         <DropdownFilter
-          key={`filter${index}`}
+          key={`filter${filter.filterName}`}
           selectedFilters={selectedFilters}
           filter={filter}
           onChange={handleOnChange}
