@@ -199,7 +199,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
         )}
         {renderResultsCount && (
           <Stack {...resultCountWrapper}>
-            {renderClearAllButton && (
+            {renderClearAllButton && displayFilters && (
               <ClearAllButton buttonText={clearAllButtonText} />
             )}
             <Text
