@@ -9,8 +9,8 @@ function stripQueryString(str: string = "", andRemoveFirstSlash = false) {
 }
 export async function getBase64(
   imagePath: string,
-  imageHeight?: number,
-  focalPoint?: string,
+  imageHeight: string | null,
+  focalPoint: string | null,
 ) {
   "use server";
 
