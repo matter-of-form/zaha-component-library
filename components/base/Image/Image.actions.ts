@@ -7,31 +7,50 @@ function stripQueryString(str: string = "", andRemoveFirstSlash = false) {
   }
   return url;
 }
-export const getBase64 = async (
+export async function getBase64(
   imagePath: string,
-  imageHeight?: any,
-  focalPoint?: any,
-) => {
+  imageHeight?: number,
+  focalPoint?: string,
+) {
   "use server";
-  const imageUrl = imagePath.includes("http")
+
+  const isAbsoluteUrl = imagePath.startsWith("http");
+  const baseUrl = process.env.IMAGE_PROCESSOR_URL || "";
+  const sanitizedPath = isAbsoluteUrl
     ? imagePath
-    : `${process.env.IMAGE_PROCESSOR_URL}${stripQueryString(imagePath, true)}`;
-  const hasFocalPoint = focalPoint ? `&rxy=${focalPoint}` : "";
-  const hasHeight = imageHeight ? `&height=${imageHeight}` : "";
+    : `${baseUrl}${stripQueryString(imagePath, false)}`;
+
+  const url = new URL(sanitizedPath);
+  const searchParams = new URLSearchParams(url.search);
+
+  searchParams.set("width", "10");
+  searchParams.set("quality", "10");
+
+  if (focalPoint) {
+    searchParams.set("rxy", focalPoint);
+  }
+
+  if (imageHeight) {
+    searchParams.set("height", imageHeight.toString());
+  }
+
   try {
     const response = await fetch(
-      `${imageUrl}?width=10&quality=10${hasFocalPoint}${hasHeight}`,
+      `${url.origin}${url.pathname}?${searchParams.toString()}`,
     );
+
     if (!response.ok) {
       return null;
     }
+
     const arrayBuffer = await response.arrayBuffer();
     return `data:image/jpeg;base64,${arrayBufferToBase64(arrayBuffer)}`;
-  } catch {
-    console.error("Failed to fetch image");
+  } catch (error) {
+    console.error("Failed to fetch image", url);
     return null;
   }
-};
+}
+
 function arrayBufferToBase64(arrayBuffer: any) {
   const uint8Array = new Uint8Array(arrayBuffer);
   let binaryString = "";
