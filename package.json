@@ -1,6 +1,6 @@
 {
   "name": "zaha-component-library",
-  "version": "0.1.460",
+  "version": "0.1.461",
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
