@@ -45,6 +45,7 @@ const SearchInput = ({
         e.preventDefault();
         router.push(`${searchUrl}?keyword=${encodeURIComponent(searchQuery)}`);
       }}
+      autoComplete="off"
     >
       <input
         ref={inputRef}
