@@ -51,7 +51,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
     currentPage = 1,
     displayFilters,
     filter = [],
-    totalCount,
+    totalCount: initialTotalCount,
     totalPages,
     pageSize,
     sortByOptions,
@@ -62,6 +62,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   const [currPage, setCurrPage] = useState<number>(currentPage);
   const [currFilters, setCurrFilters] = useState<any>([]);
   const [currTotal, setCurrTotal] = useState<number>(totalPages);
+  const [totalCount, setTotalCount] = useState<number>(initialTotalCount);
 
   const renderSearchBar =
     cardType === "TeamMember" &&
@@ -70,12 +71,6 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   const renderResultsCount =
     cardType === "TeamMember" || cardType === "Project";
   const renderClearAllButton = cardType === "Project";
-  const resultsCount =
-    cardType === "TeamMember"
-      ? Object.values(filteredCards)
-          .map((v) => v.props.people.length)
-          .reduce((acc, v) => acc + v, 0)
-      : filteredCards.length;
   const isGroup = cards[0]?.moduleName?.includes("Group");
   let renderCardContent = null;
   if (filteredCards && filteredCards.length > 0) {
@@ -134,6 +129,8 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
         pageNumber: fetchPage,
       };
 
+      // console.log(queryData);
+
       try {
         await getQueryData({ queryData }).then((result: any) => {
           // if load more and pageNumber++ append cards to list, otherwise replace
@@ -148,6 +145,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
           setCurrPage(currentPage);
           setCurrFilters(allFilters);
           setCurrTotal(result?.totalPages || 1);
+          setTotalCount(result?.totalCount);
         });
       } catch (error) {
         console.warn(error);
@@ -204,7 +202,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             )}
             <Text
               {...resultCountText}
-              text={`${resultsCount} <span>${
+              text={`${totalCount} <span>${
                 cardType === "TeamMember"
                   ? peopleResultCountText || "people"
                   : projectResultCountText || "projects"
