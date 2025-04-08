@@ -25,7 +25,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   data,
   moduleAnims,
   getItems = (items?: any) => [],
-  getQueryData = ({}, pageId) => Promise,
+  getQueryData = ({}) => {},
   textStyles,
   icons,
   paginationButtonVariants,
@@ -126,6 +126,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
         filters,
         cardsType: cardType,
         pageSize,
+        pageId,
         displayFilters,
         sortByOptions,
         pageNumber: fetchPage,
@@ -134,7 +135,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
       // console.log(queryData);
 
       try {
-        await getQueryData({ queryData }, pageId).then((result: any) => {
+        await getQueryData({ queryData }).then((result: any) => {
           // if load more and pageNumber++ append cards to list, otherwise replace
           let updatedCards = result?.cards || [];
           let updatedSearchFilters = result?.filter || [];
