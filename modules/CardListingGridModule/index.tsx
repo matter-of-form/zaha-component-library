@@ -194,7 +194,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             filters={searchFilters}
             icons={icons}
             textStyles={textStyles}
-            compactOnMobile={renderClearAllButton}
+            compactOnMobile={cardType === "Project"}
             compactFilterTitle={compactFilterTitle}
           />
         )}
