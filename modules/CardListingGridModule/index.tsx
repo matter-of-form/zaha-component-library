@@ -25,7 +25,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   data,
   moduleAnims,
   getItems = (items?: any) => [],
-  getQueryData = ({}) => {},
+  getQueryData = ({}, pageId) => Promise,
   textStyles,
   icons,
   paginationButtonVariants,
@@ -39,6 +39,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   noResultText,
   clearAllButtonText,
   compactFilterTitle,
+  pageId,
   ...props
 }) => {
   const searchParams = useSearchParams();
@@ -70,7 +71,8 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
     teamMembersFilter?.length > 0;
   const renderResultsCount =
     cardType === "TeamMember" || cardType === "Project";
-  const renderClearAllButton = cardType === "Project";
+  const renderClearAllButton =
+    cardType === "Project" || cardType === "Award" || cardType === "Event";
   const isGroup = cards[0]?.moduleName?.includes("Group");
   let renderCardContent = null;
   if (filteredCards && filteredCards.length > 0) {
@@ -117,7 +119,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             return null;
           })
           .filter((f: any) => f !== null)
-      : null;
+      : [];
 
     const fetchData = async () => {
       const queryData = {
@@ -132,7 +134,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
       // console.log(queryData);
 
       try {
-        await getQueryData({ queryData }).then((result: any) => {
+        await getQueryData({ queryData }, pageId).then((result: any) => {
           // if load more and pageNumber++ append cards to list, otherwise replace
           let updatedCards = result?.cards || [];
           let updatedSearchFilters = result?.filter || [];
@@ -195,11 +197,15 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
             compactFilterTitle={compactFilterTitle}
           />
         )}
-        {renderResultsCount && (
-          <Stack {...resultCountWrapper}>
-            {renderClearAllButton && displayFilters && (
-              <ClearAllButton buttonText={clearAllButtonText} />
-            )}
+
+        <Stack {...resultCountWrapper}>
+          {renderClearAllButton && displayFilters && (
+            <ClearAllButton
+              buttonText={clearAllButtonText}
+              disabled={currFilters.length === 0}
+            />
+          )}
+          {renderResultsCount && (
             <Text
               {...resultCountText}
               text={`${totalCount} <span>${
@@ -209,8 +215,9 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
               }</span>`}
               textStyle={textStyles?.result}
             />
-          </Stack>
-        )}
+          )}
+        </Stack>
+
         {renderCardContent}
         <Pagination
           totalCount={totalCount}

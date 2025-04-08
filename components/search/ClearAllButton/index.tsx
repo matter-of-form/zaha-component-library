@@ -3,7 +3,13 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../../base/Button";
 
-const ClearAllButton = ({ buttonText }: { buttonText: string }) => {
+const ClearAllButton = ({
+  buttonText,
+  disabled,
+}: {
+  buttonText: string;
+  disabled: boolean;
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -14,7 +20,13 @@ const ClearAllButton = ({ buttonText }: { buttonText: string }) => {
     router.replace(`?${params.toString()}`, { scroll: false });
   };
 
-  return <Button text={buttonText} onClick={handleClearAllFilters} />;
+  return (
+    <Button
+      text={buttonText}
+      disabled={disabled}
+      onClick={handleClearAllFilters}
+    />
+  );
 };
 
 export default ClearAllButton;

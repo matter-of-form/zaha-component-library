@@ -19,6 +19,7 @@ export type CardListingGridModuleProps = {
   noResultText: string;
   clearAllButtonText: string;
   compactFilterTitle: string;
+  pageId: number;
 };
 
 export type PeopleSearchOption = {
