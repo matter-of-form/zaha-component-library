@@ -53,6 +53,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
     displayFilters,
     filter = [],
     totalCount: initialTotalCount,
+    totalPeopleCount,
     totalPages,
     pageSize,
     sortByOptions,
@@ -63,7 +64,10 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
   const [currPage, setCurrPage] = useState<number>(currentPage);
   const [currFilters, setCurrFilters] = useState<any>([]);
   const [currTotal, setCurrTotal] = useState<number>(totalPages);
-  const [totalCount, setTotalCount] = useState<number>(initialTotalCount);
+
+  const [totalCount, setTotalCount] = useState<number>(
+    cardType === "TeamMember" ? totalPeopleCount : initialTotalCount,
+  );
 
   const renderSearchBar =
     cardType === "TeamMember" &&
@@ -148,7 +152,11 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
           setCurrPage(currentPage);
           setCurrFilters(allFilters);
           setCurrTotal(result?.totalPages || 1);
-          setTotalCount(result?.totalCount);
+          setTotalCount(
+            cardType === "TeamMember"
+              ? result?.totalPeopleCount
+              : result?.totalCount,
+          );
         });
       } catch (error) {
         console.warn(error);
