@@ -3,6 +3,7 @@ import { FC, useEffect, useContext, useRef, useState } from "react";
 import { VideoContext, VideoControls } from "./";
 import { useDimensions } from "../../../../hooks";
 import ReactPlayer from "react-player/lazy";
+import { useInView } from "framer-motion";
 
 const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
   const {
@@ -21,6 +22,7 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
     setInlineViewer,
     wrapper,
   } = useContext(VideoContext);
+  const inView = useInView(wrapper);
   const { width, height } = useDimensions(wrapper);
   const [progress, setProgress] = useState(null);
   const [duration, setDuration] = useState(null);
@@ -82,19 +84,11 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
       if (container) {
         setInlineViewer(container);
         if (data?.autoPlay) {
-          const videoObserver = new IntersectionObserver((entries) => {
-            entries.map((entry) => {
-              if (entry.isIntersecting) {
-                onAutoPlayStarted && onAutoPlayStarted();
-                setInit(false);
-                setTimeout(() => setIsPlaying(true), 200);
-              }
-            });
-          });
-
-          videoObserver.observe(container);
-
-          return () => videoObserver.disconnect();
+          setInit(false);
+          onAutoPlayStarted && onAutoPlayStarted();
+          if (inView) {
+            setTimeout(() => setIsPlaying(true), 200);
+          }
         }
       }
     } else {
