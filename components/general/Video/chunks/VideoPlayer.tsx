@@ -82,9 +82,19 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
       if (container) {
         setInlineViewer(container);
         if (data?.autoPlay) {
-          onAutoPlayStarted && onAutoPlayStarted();
-          setInit(false);
-          setIsPlaying(true);
+          const videoObserver = new IntersectionObserver((entries) => {
+            entries.map((entry) => {
+              if (entry.isIntersecting) {
+                onAutoPlayStarted && onAutoPlayStarted();
+                setInit(false);
+                setTimeout(() => setIsPlaying(true), 200);
+              }
+            });
+          });
+
+          videoObserver.observe(container);
+
+          return () => videoObserver.disconnect();
         }
       }
     } else {
