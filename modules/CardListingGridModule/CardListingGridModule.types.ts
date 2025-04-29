@@ -23,7 +23,8 @@ export type CardListingGridModuleProps = {
 };
 
 export type PeopleSearchOption = {
-  name: string;
+  firstName: string;
+  lastName: string;
   title: string;
   image: {
     imageUrl: string;

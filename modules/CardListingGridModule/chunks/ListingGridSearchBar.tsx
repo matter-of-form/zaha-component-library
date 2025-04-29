@@ -1,6 +1,11 @@
 "use client";
 import { Button, Media, Stack, Text } from "../../../components";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  // useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   PeopleSearchOption,
   PeopleSearchProps,
@@ -19,8 +24,20 @@ import {
   listingSearchResultTitle,
 } from "../CardListingGridModule.styles";
 import Link from "next/link";
-import { remove } from "diacritics";
+// import { remove } from "diacritics";
 import Arrow from "../../../assets/icons/zhaArrow.svg";
+import Fuse, { IFuseOptions } from "fuse.js";
+
+const fuseOptions: IFuseOptions<PeopleSearchOption> = {
+  keys: [
+    { name: "firstName", weight: 0.9 },
+    { name: "lastName", weight: 0.55 },
+  ],
+  ignoreDiacritics: true,
+  location: 0,
+  includeScore: true,
+  threshold: 0.6,
+};
 
 const ListingGridSearchBar = ({
   options,
@@ -33,36 +50,43 @@ const ListingGridSearchBar = ({
   searchIcon,
   deleteIcon,
 }: PeopleSearchProps) => {
-  const sortedOptions: PeopleSearchOption[] = options.sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
+  // const sortedOptions: PeopleSearchOption[] = options.sort((a, b) =>
+  //   `${a.firstName} ${a.lastName}`.localeCompare(
+  //     `${b.firstName} ${b.lastName}`,
+  //   ),
+  // );
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activePlaceholder, setActivePlaceholder] =
     useState<string>(placeholder);
   const [activeIcon, setActiveIcon] = useState<React.ReactNode>(searchIcon);
-  const [filteredOptions, setFilteredOptions] =
-    useState<PeopleSearchOption[]>(sortedOptions);
+  // const [filteredOptions, setFilteredOptions] =
+  //   useState<PeopleSearchOption[]>(options);
   const drawerRef = useRef<HTMLDivElement | null>(null);
+  const fuse = useMemo(() => new Fuse(options, fuseOptions), [options]);
 
-  useEffect(() => {
-    const newFilteredOptions = options
-      .filter((option) =>
-        remove(option.name)
-          .toLowerCase()
-          .includes(remove(searchTerm).toLowerCase()),
-      )
-      .sort(
-        (a, b) =>
-          remove(a.name)
-            .toLowerCase()
-            .indexOf(remove(searchTerm).toLowerCase()) -
-          remove(b.name)
-            .toLowerCase()
-            .indexOf(remove(searchTerm).toLowerCase()),
-      );
+  const filteredOptions = useMemo(() => {
+    return fuse.search(searchTerm);
+  }, [searchTerm, fuse]);
 
-    setFilteredOptions(newFilteredOptions);
-  }, [searchTerm, options]);
+  // useEffect(() => {
+  //   const newFilteredOptions = options
+  //     .filter((option) =>
+  //       remove(option.name)
+  //         .toLowerCase()
+  //         .includes(remove(searchTerm).toLowerCase()),
+  //     )
+  //     .sort(
+  //       (a, b) =>
+  //         remove(a.name)
+  //           .toLowerCase()
+  //           .indexOf(remove(searchTerm).toLowerCase()) -
+  //         remove(b.name)
+  //           .toLowerCase()
+  //           .indexOf(remove(searchTerm).toLowerCase()),
+  //     );
+
+  //   setFilteredOptions(newFilteredOptions);
+  // }, [searchTerm, options]);
 
   return (
     <Stack {...listingSearchBarWrapper}>
@@ -102,7 +126,7 @@ const ListingGridSearchBar = ({
                     e.stopPropagation();
                   }}
                 >
-                  {filteredOptions.map((option) => (
+                  {filteredOptions.map(({ item: option }) => (
                     <ListingGridSearchResultCard
                       key={`peopleSearchOption-${option.cta.href}`}
                       data={option}
@@ -137,7 +161,10 @@ const ListingGridSearchResultCard = ({
     <Link href={data.cta.href} {...listingSearchResult} prefetch>
       <Media imageSizes="30px" data={data.image} />
       <Stack {...listingSearchResultContent}>
-        <Text text={data.name} {...listingSearchResultTitle} />
+        <Text
+          text={`${data.firstName} ${data.lastName}`}
+          {...listingSearchResultTitle}
+        />
         <Text text={data.title} {...listingSearchResultLabel} />
         {icon || <Arrow />}
       </Stack>
