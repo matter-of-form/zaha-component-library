@@ -66,6 +66,16 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
     }
   };
 
+  useEffect(() => {
+    if (data?.autoPlay) {
+      if (inView) {
+        setInit(false);
+        setTimeout(() => setIsPlaying(true), 500);
+        onAutoPlayStarted && onAutoPlayStarted();
+      }
+    }
+  }, [data?.autoPlay, inView, onAutoPlayStarted]);
+
   const handleReady = () => {
     onPlayerReady && onPlayerReady();
 
@@ -83,13 +93,6 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
 
       if (container) {
         setInlineViewer(container);
-        if (data?.autoPlay) {
-          setInit(false);
-          onAutoPlayStarted && onAutoPlayStarted();
-          if (inView) {
-            setTimeout(() => setIsPlaying(true), 200);
-          }
-        }
       }
     } else {
       const fullPlayer = document.getElementById("fullPlayer");
@@ -138,7 +141,7 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
         muted={isMuted}
         onProgress={updateProgress}
         onDuration={getDuration}
-        autoPlay={data?.autoPlay && isInline}
+        // autoPlay={data?.autoPlay && isInline}
         playsinline={isInline}
         progressInterval={isInline ? 2000 : 100}
         loop={data?.loop}
