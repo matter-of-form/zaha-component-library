@@ -31,12 +31,13 @@ import Fuse, { IFuseOptions } from "fuse.js";
 const fuseOptions: IFuseOptions<PeopleSearchOption> = {
   keys: [
     { name: "firstName", weight: 0.9 },
-    { name: "lastName", weight: 0.55 },
+    { name: "lastName", weight: 0.35 },
   ],
   ignoreDiacritics: true,
   location: 0,
   includeScore: true,
-  threshold: 0.6,
+  threshold: 0.2,
+  ignoreFieldNorm: true,
 };
 
 const ListingGridSearchBar = ({
