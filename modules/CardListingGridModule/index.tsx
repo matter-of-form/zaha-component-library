@@ -110,7 +110,6 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
     const filters = hasFilters
       ? filter
           .map((category: any) => {
-            console.log({ category });
             const fieldGuIds = category.filters
               .filter(
                 (f: any) => allFilters?.includes(f.filterGuid) || f.isSelected,
