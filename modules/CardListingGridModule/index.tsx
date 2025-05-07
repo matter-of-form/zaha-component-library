@@ -105,13 +105,16 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
       fetchPage = 1;
     }
 
-    const hasFilters = displayFilters && filter && filter.length > 0;
+    const hasFilters = filter && filter.length > 0;
 
     const filters = hasFilters
       ? filter
           .map((category: any) => {
+            console.log({ category });
             const fieldGuIds = category.filters
-              .filter((f: any) => allFilters?.includes(f.filterGuid))
+              .filter(
+                (f: any) => allFilters?.includes(f.filterGuid) || f.isSelected,
+              )
               .map((f: any) => f.filterGuid);
 
             if (fieldGuIds.length > 0) {
@@ -135,8 +138,6 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
         sortByOptions,
         pageNumber: fetchPage,
       };
-
-      // console.log(queryData);
 
       try {
         await getQueryData({ queryData }).then((result: any) => {

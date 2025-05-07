@@ -1,6 +1,6 @@
 {
   "name": "zaha-component-library",
-  "version": "0.1.474",
+  "version": "0.1.475",
   "main": "./index.js",
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.2",
