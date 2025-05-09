@@ -39,7 +39,21 @@ export const Media = forwardRef(
       />
     );
     if (data?.coverImage) {
-      const remappedVideoData = {
+      const remappedVideoData: {
+        image: {
+          src: string;
+          alt?: string;
+        };
+        video: {
+          src: string | number;
+          type: "vimeo" | "youtube";
+          autoPlay: boolean;
+          loop: boolean;
+          allowFullscreen: boolean;
+          allowControls: boolean;
+          allowSound: boolean;
+        };
+      } = {
         image: {
           src: data?.coverImage?.imageUrl,
           alt: data?.coverImage?.imageAlt,
@@ -61,16 +75,14 @@ export const Media = forwardRef(
         data?.videoFromGallery
       ) {
         variant = (
-          <Suspense>
-            <Video
-              onAutoPlayStarted={onAutoPlayStarted}
-              onPlayerReady={onPlayerReady}
-              data={remappedVideoData}
-              {...hasImageSizes}
-              priority={priority} // for cover image
-              imageQuality={imageQuality}
-            />
-          </Suspense>
+          <Video
+            onAutoPlayStarted={onAutoPlayStarted}
+            onPlayerReady={onPlayerReady}
+            data={remappedVideoData}
+            {...hasImageSizes}
+            priority={priority} // for cover image
+            imageQuality={imageQuality}
+          />
         );
       } else {
         // catch for images with video marked as cover images
@@ -108,9 +120,11 @@ export const Media = forwardRef(
 );
 
 const getVideoType = (data: any) => {
-  let vidType;
+  let vidType: "vimeo" | "youtube" = "vimeo";
   if (data?.vimeoId && data?.vimeoId?.length > 0) vidType = "vimeo";
   if (data?.youtubeId && data?.youtubeId?.length > 0) vidType = "youtube";
 
   return vidType;
 };
+
+Media.displayName = "Media";

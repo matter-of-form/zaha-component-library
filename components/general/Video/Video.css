@@ -102,12 +102,19 @@ body {
       &-timeline {
         @apply w-full
         h-1
+        relative
         cursor-pointer
+        pointer-events-none
         bg-white/30;
+
+        input[type="range"] {
+          @apply h-1 w-full pointer-events-auto absolute z-20 appearance-none cursor-pointer opacity-0;
+        }
 
         &-progress {
           @apply relative
           h-full
+          pointer-events-none
           z-[1]
             bg-white;
         }
@@ -115,6 +122,8 @@ body {
         &-loaded {
           @apply top-0
             left-0
+            absolute
+            pointer-events-none
             bg-white/10
             bottom-0;
         }

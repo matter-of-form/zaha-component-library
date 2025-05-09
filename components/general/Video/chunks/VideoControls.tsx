@@ -44,23 +44,25 @@ const VideoControls: FC<any> = ({
     setIsPlaying(false);
   };
 
-  const handleSeek = (e: any) => {
+  const handleSeek = ({ target: { value: pos } }: any) => {
     const player: any = playerRef.current;
     if (player) {
-      const scrubX = e.clientX - x;
-      const scrubPos = (scrubX / width) * duration;
-      player.seekTo(scrubPos);
+      const scrubPos = (pos * duration) / 100;
+      player.setCurrentTime(scrubPos);
     }
   };
+
+  console.log(progress, progress?.played / duration);
 
   if (isFullscreen) {
     return (
       <Box {...videoControls(isPlaying, !init)}>
         <Button onClick={handleClose} variant="videoClose" />
         <Stack direction="column" {...videoControlsToolbar}>
-          <Box ref={timelineRef} {...videoTimeline} onClick={handleSeek}>
-            <Box {...videoProgress(progress?.played)} />
-            <Box {...videoLoadedProgress(progress?.loaded)} />
+          <Box ref={timelineRef} {...videoTimeline}>
+            <input type="range" onInput={(e) => handleSeek(e)} />
+            <Box {...videoProgress(progress?.played / duration)} />
+            <Box {...videoLoadedProgress(progress?.loaded / duration)} />
           </Box>
           <Stack {...videoControlsToolbarButtons}>
             <Button
@@ -81,7 +83,7 @@ const VideoControls: FC<any> = ({
             />
             <Text
               text={`<span class="timer-elapsed">${secondsToHMS(
-                progress?.playedSeconds,
+                progress?.played,
               )}</span> / <span class="timer-duration">${secondsToHMS(
                 duration,
               )}</span>`}

@@ -10,14 +10,37 @@ import {
 } from "./chunks";
 import "./Video.css";
 
-const Video: FC<any> = ({
+type VideoProps = {
+  data: {
+    image: {
+      src: string;
+      alt?: string;
+    };
+    video: {
+      src: string | number;
+      type: "vimeo" | "youtube";
+      autoPlay: boolean;
+      loop: boolean;
+      allowFullscreen: boolean;
+      allowControls: boolean;
+      allowSound: boolean;
+    };
+  };
+  imageSizes?: string;
+  priority?: string | boolean;
+  onPlayerReady?: () => void;
+  onAutoPlayStarted?: () => void;
+  imageQuality?: number | string;
+};
+
+const Video: FC<VideoProps> = ({
   data,
   imageSizes,
   priority = "false",
   onPlayerReady,
   onAutoPlayStarted,
   imageQuality,
-}: any) => {
+}: VideoProps) => {
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -32,7 +55,7 @@ const Video: FC<any> = ({
 
     setIsMuted(false);
     setIsFullscreen(true);
-    setIsPlaying(true);
+    setTimeout(() => setIsPlaying(true), 250);
 
     e && e.stopPropagation();
   };
@@ -68,15 +91,15 @@ const Video: FC<any> = ({
           wrapper: videoWrapperRef,
         }}
       >
-        <Suspense fallback={null}>
-          <VideoPlayer />
-        </Suspense>
-        <VideoCoverImage
-          data={cover}
-          sizes={imageSizes}
-          priority={priority}
-          quality={imageQuality}
-        />
+        <VideoPlayer />
+        {!isPlaying && (
+          <VideoCoverImage
+            data={cover}
+            sizes={imageSizes}
+            priority={priority}
+            quality={imageQuality}
+          />
+        )}
         <VideoFullscreen isFullscreen={isFullscreen} />
       </VideoContext.Provider>
     </Box>

@@ -1,9 +1,10 @@
 "use client";
-import { FC, useEffect, useContext, useRef, useState } from "react";
-import { VideoContext, VideoControls } from "./";
-import { useDimensions } from "../../../../hooks";
-import ReactPlayer from "react-player/lazy";
+import Player from "@vimeo/player";
 import { useInView } from "framer-motion";
+import { FC, useContext, useEffect, useRef, useState } from "react";
+import { useDimensions } from "../../../../hooks";
+import { videoContainer } from "../Video.styles";
+import { VideoContext, VideoControls } from "./";
 
 const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
   const {
@@ -22,142 +23,214 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
     setInlineViewer,
     wrapper,
   } = useContext(VideoContext);
-  const inView = useInView(wrapper);
-  const { width, height } = useDimensions(wrapper);
-  const [progress, setProgress] = useState(null);
-  const [duration, setDuration] = useState(null);
-  const [playerDimensions, setPlayerDimensions] = useState({
-    vidWidth: 640,
-    vidHeight: 390,
-    aspect: 1,
-    container: null,
-  });
-  const vidWrapper = wrapper.current;
-  const playerRef = useRef(null);
 
-  let vidSrc = data?.src;
-  const vidType = data?.type;
-  if (vidType === "vimeo") vidSrc = `https://vimeo.com/${vidSrc}`;
-  if (vidType === "youtube")
-    vidSrc = `https://www.youtube.com/watch?v=${data?.vidSrc}`;
+  const { width, height } = useDimensions(wrapper);
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const player = useRef<Player>();
+  // const fullscreen = useRef<boolean>(false);
+  const [playerDimensions, setPlayerDimensions] = useState<{
+    width: string;
+    height: string;
+  }>({
+    width: "100%",
+    height: "100%",
+  });
+  const [progress, setProgress] = useState<{
+    played: number | undefined;
+    loaded: number | undefined;
+  }>({
+    played: 0,
+    loaded: 0,
+  });
+  const [duration, setDuration] = useState<number>(0);
+
+  function getCurrentTime() {
+    Promise.all([
+      player.current?.getCurrentTime(),
+      player.current?.getBuffered(),
+    ]).then(([currentTime, buffered]) => {
+      if (currentTime !== undefined && buffered !== undefined) {
+        if (buffered[0]) {
+          setProgress({ played: currentTime, loaded: buffered[0][1] });
+        }
+        // console.log(buffered[0][1]);
+      }
+    });
+  }
+
+  useEffect(() => {
+    if (!isNaN(data?.src)) {
+      player.current = new Player(containerRef?.current!, {
+        id: data?.src,
+        autoplay: data.autoPlay,
+        background: isInline && isMuted,
+        loop: data.loop,
+        controls: false,
+        muted: isMuted === undefined ? false : isMuted,
+        dnt: true,
+        pip: false,
+      });
+
+      player.current.ready().then(() => {
+        onPlayerReady && onPlayerReady();
+
+        if (containerRef.current && isInline) {
+          const iframe: HTMLIFrameElement =
+            containerRef.current.getElementsByTagName("iframe")[0];
+
+          handleResize();
+
+          if (iframe) {
+            setInlineViewer(iframe);
+
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+          }
+        } else {
+          const fullPlayer = document.getElementById("fullPlayer");
+          const iframe = fullPlayer?.getElementsByTagName("iframe")[0];
+
+          if (iframe) {
+            setFullViewer(iframe);
+
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+          }
+        }
+      });
+
+      if (data.autoPlay) {
+        player.current.play().then(() => {
+          onAutoPlayStarted && onAutoPlayStarted();
+          setInit(false);
+          setIsPlaying(true);
+        });
+      }
+
+      player.current.getDuration().then((duration) => setDuration(duration));
+    } else {
+      console.error(`'${data?.src}' is not a valid vimeo ID`);
+    }
+  }, [
+    onPlayerReady,
+    onAutoPlayStarted,
+    data,
+    isMuted,
+    isInline,
+    containerRef,
+    wrapper,
+  ]);
 
   useEffect(() => {
     handleResize();
-  }, [vidWrapper, width, height, inlineViewer]);
+  }, [wrapper.current, width, height, inlineViewer]);
 
-  const handleResize = () => {
-    if (vidWrapper) {
-      const { aspect } = playerDimensions;
-      const vidHolder = vidWrapper.querySelector("#backgroundPlayer");
+  const handleResize = async () => {
+    if (!player.current) return;
 
-      let containerWidth = width;
-      let containerHeight = width * 10;
+    const w = await player.current.getVideoWidth();
+    const h = await player.current.getVideoHeight();
 
-      if (height * aspect > width) {
-        containerWidth = height * 10;
-        containerHeight = height;
-      }
+    const videoAspect = h / w;
+    const parentAspect =
+      wrapper.current.parentElement.offsetHeight /
+      wrapper.current.parentElement.offsetWidth;
 
-      if (vidHolder) {
-        // + 2 gives a pixel grace either side.
-        vidHolder.style.width = `${Math.ceil(containerWidth + 2)}px`;
-        vidHolder.style.height = `${Math.ceil(containerHeight + 2)}px`;
-      }
+    if (parentAspect > videoAspect) {
+      setPlayerDimensions({
+        width: (parentAspect / videoAspect) * 100 + "%",
+        height: "100%",
+      });
+    } else {
+      setPlayerDimensions({
+        width: "100%",
+        height: (videoAspect / parentAspect) * 100 + "%",
+      });
     }
   };
 
   useEffect(() => {
-    if (data?.autoPlay) {
-      if (inView) {
-        setInit(false);
-        setTimeout(() => setIsPlaying(true), 500);
-        onAutoPlayStarted && onAutoPlayStarted();
-      }
-    }
-  }, [data?.autoPlay, inView, onAutoPlayStarted]);
+    if (isInline) return;
 
-  const handleReady = () => {
-    onPlayerReady && onPlayerReady();
+    getCurrentTime();
+    const progressInterval = setInterval(getCurrentTime, 1000);
 
-    if (vidWrapper && isInline) {
-      const container: any = vidWrapper.getElementsByTagName("iframe")[0];
-      const vidWidth = container?.width;
-      const vidHeight = container?.height;
+    return () => {
+      clearInterval(progressInterval);
+    };
+  }, [player]);
+  // const monitorFullScreen = () => {
+  //   if (
+  //     document.fullscreen ||
+  //     document.mozFullScreen ||
+  //     document.webkitIsFullScreen
+  //   ) {
+  //     setTimeout(() => {
+  //       monitorFullScreen();
+  //     }, 100);
+  //   } else {
+  //     if (fullscreen.current) {
+  //       fullscreen.current = false;
+  //     }
+  //   }
+  // };
 
-      setPlayerDimensions({
-        vidWidth,
-        vidHeight,
-        aspect: vidWidth / vidHeight,
-        container,
-      });
-
-      if (container) {
-        setInlineViewer(container);
-      }
-    } else {
-      const fullPlayer = document.getElementById("fullPlayer");
-      const container = fullPlayer?.getElementsByTagName("iframe")[0];
-      setFullViewer(container);
-    }
-  };
-
-  const updateProgress = (progress: any) => {
-    if (!isInline) {
-      setProgress(progress);
-    }
-  };
-
-  const getDuration = (duration: any) => {
-    if (!isInline) {
-      setDuration(duration);
-    }
-  };
-
-  const togglePlay = (e: any) => {
+  // function openFullscreen() {
+  //   if (
+  //     (data.allowFullScreen === undefined || data.allowFullScreen === true) &&
+  //     !fullscreen.current &&
+  //     player.current
+  //   ) {
+  //     fullscreen.current = true;
+  //     player.current.requestFullscreen();
+  //     player.current.play();
+  //     setIsPlaying(true);
+  //     setTimeout(() => {
+  //       monitorFullScreen();
+  //     }, 1000);
+  //   }
+  // }
+  function togglePlay(e: any) {
     e.stopPropagation();
 
     isInline
       ? (inlineViewer.playing = !isPlaying)
       : (fullViewer.playing = !isPlaying);
-    setIsPlaying(!isPlaying);
-  };
 
-  const toggleMute = (e: any) => {
+    if (isPlaying) {
+      setIsPlaying(false);
+      player.current?.pause().catch((e) => console.warn(e));
+    } else {
+      setIsPlaying(true);
+      player.current?.play().catch((e) => console.warn(e));
+    }
+  }
+
+  function toggleMute(e: any) {
     e.stopPropagation();
-    setIsMuted(!isMuted);
-  };
 
-  const skipRender = !vidSrc || (isFullscreen && isInline);
+    player.current?.getMuted().then((muted) => {
+      if (muted) {
+        setIsMuted(false);
+        player.current?.setMuted(false);
+      } else {
+        setIsMuted(true);
+        player.current?.setMuted(true);
+      }
+    });
+  }
 
-  return skipRender ? null : (
+  return (
     <>
-      <ReactPlayer
-        ref={playerRef}
+      <div
         id={isInline ? "backgroundPlayer" : "fullPlayer"}
-        url={vidSrc}
-        playing={isPlaying}
-        onReady={handleReady}
-        controls={false}
-        muted={isMuted}
-        onProgress={updateProgress}
-        onDuration={getDuration}
-        // autoPlay={data?.autoPlay && isInline}
-        playsinline={isInline}
-        progressInterval={isInline ? 2000 : 100}
-        loop={data?.loop}
-        volume={isMuted ? 0 : 1}
-        width="100%"
-        height="100%"
-        config={{
-          vimeo: {
-            playerOptions: {
-              background: isInline && isMuted,
-            },
-          },
-        }}
-      />
+        style={{ ...playerDimensions }}
+      >
+        <div ref={containerRef} {...videoContainer} />
+      </div>
       <VideoControls
-        {...{ togglePlay, toggleMute, progress, duration, playerRef }}
+        {...{ togglePlay, toggleMute, progress, duration, playerRef: player }}
       />
     </>
   );
