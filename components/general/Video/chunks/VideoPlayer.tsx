@@ -67,7 +67,8 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
         background: isInline && isMuted,
         loop: data.loop,
         controls: false,
-        muted: isMuted === undefined ? false : isMuted,
+        muted: true,
+        playsinline: isInline,
         dnt: true,
         pip: false,
       });

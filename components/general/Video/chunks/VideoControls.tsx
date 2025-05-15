@@ -52,8 +52,6 @@ const VideoControls: FC<any> = ({
     }
   };
 
-  console.log(progress, progress?.played / duration);
-
   if (isFullscreen) {
     return (
       <Box {...videoControls(isPlaying, !init)}>
