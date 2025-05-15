@@ -101,11 +101,14 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
       });
 
       if (data.autoPlay) {
-        player.current.play().then(() => {
-          onAutoPlayStarted && onAutoPlayStarted();
-          setInit(false);
-          setIsPlaying(true);
-        });
+        player.current
+          .play()
+          .then(() => {
+            onAutoPlayStarted && onAutoPlayStarted();
+            setInit(false);
+            setIsPlaying(true);
+          })
+          .catch((e) => console.error(e));
       }
 
       player.current.getDuration().then((duration) => setDuration(duration));
