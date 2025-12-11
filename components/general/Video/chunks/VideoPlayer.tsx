@@ -1,12 +1,20 @@
 "use client";
 import Player from "@vimeo/player";
 import { useInView } from "framer-motion";
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { useDimensions } from "../../../../hooks";
 import { videoContainer } from "../Video.styles";
 import { VideoContext, VideoControls } from "./";
 
-const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
+const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
   const {
     data,
     fullViewer,
@@ -28,6 +36,7 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const player = useRef<Player>();
+  useImperativeHandle(ref, () => player.current!);
   // const fullscreen = useRef<boolean>(false);
   const [playerDimensions, setPlayerDimensions] = useState<{
     width: string;
@@ -68,7 +77,7 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
         loop: data.loop,
         controls: false,
         muted: true,
-        playsinline: isInline,
+        playsinline: isInline || isFullscreen,
         dnt: true,
         pip: false,
       });
@@ -238,6 +247,8 @@ const VideoPlayer: FC<any> = ({ isInline = true }: any) => {
       />
     </>
   );
-};
+});
+
+VideoPlayer.displayName = "VideoPlayer";
 
 export default VideoPlayer;

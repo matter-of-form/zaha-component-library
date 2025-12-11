@@ -47,12 +47,28 @@ body {
   #video-fullscreen {
     @apply absolute
     inset-0
-    !scale-100;
+    !scale-100
+    opacity-0
+    pointer-events-none
+    hidden
+    transition-all duration-300;
+
+    &.active {
+      @apply block opacity-100 pointer-events-auto;
+      transition: opacity 0.3s 0.3s;
+    }
 
     #fullPlayer {
       @apply bg-black
-       absolute
-       inset-0;
+      absolute
+      top-1/2
+      left-1/2
+      -translate-x-1/2
+      -translate-y-1/2;
+
+      iframe {
+        @apply w-full h-full;
+      }
     }
     .video {
       &-controls {

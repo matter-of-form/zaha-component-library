@@ -45,9 +45,12 @@ export const videoControlsToolbarButtons = {
   className: classNames("video-controls-toolbar-buttons"),
 };
 
-export const videoFullscreen = {
+export const videoFullscreen = (isFullscreen: boolean) => ({
   id: "video-fullscreen",
-};
+  className: classNames("video-fullscreen", { active: isFullscreen }),
+  animateOnScrollDown: false,
+  scrollTrigger: false,
+});
 
 export const videoTimeline = {
   className: classNames("video-timeline"),
