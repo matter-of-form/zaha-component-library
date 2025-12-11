@@ -74,9 +74,15 @@ class Color {
   }
 
   multiply(matrix) {
-    const newR = this.clamp(this.r * matrix[0] + this.g * matrix[1] + this.b * matrix[2]);
-    const newG = this.clamp(this.r * matrix[3] + this.g * matrix[4] + this.b * matrix[5]);
-    const newB = this.clamp(this.r * matrix[6] + this.g * matrix[7] + this.b * matrix[8]);
+    const newR = this.clamp(
+      this.r * matrix[0] + this.g * matrix[1] + this.b * matrix[2],
+    );
+    const newG = this.clamp(
+      this.r * matrix[3] + this.g * matrix[4] + this.b * matrix[5],
+    );
+    const newB = this.clamp(
+      this.r * matrix[6] + this.g * matrix[7] + this.b * matrix[8],
+    );
     this.r = newR;
     this.g = newG;
     this.b = newB;
@@ -289,7 +295,13 @@ export const hexToRgb = (hex) => {
   });
 
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
+  return result
+    ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16),
+      ]
+    : null;
 };
 
 /**
@@ -304,7 +316,7 @@ export const hexToCssFilter = (hexColor) => {
   }
   const rgb = hexToRgb(hexColor);
   if (rgb === null || rgb.length !== 3) {
-    console.error('Invalid hexColor format!', hexColor);
+    console.error("Invalid hexColor format!", hexColor);
     return;
   }
 
@@ -316,7 +328,7 @@ export const hexToCssFilter = (hexColor) => {
 };
 
 export const isColorDark = (color) => {
-  if (!color || color === '') {
+  if (!color || color === "") {
     return false;
   }
   // Variables for red, green, blue values
@@ -325,14 +337,16 @@ export const isColorDark = (color) => {
   // Check the format of the color, HEX or RGB?
   if (color.match(/^rgb/)) {
     // If RGB --> store the red, green, blue values in separate variables
-    color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+    color = color.match(
+      /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/,
+    );
 
     r = color[1];
     g = color[2];
     b = color[3];
   } else {
     // If hex --> Convert it to RGB: http://gist.github.com/983661
-    color = +('0x' + color.slice(1).replace(color.length < 5 && /./g, '$&$&'));
+    color = +("0x" + color.slice(1).replace(color.length < 5 && /./g, "$&$&"));
 
     r = color >> 16;
     g = (color >> 8) & 255;
@@ -349,11 +363,11 @@ export const isColorDark = (color) => {
 };
 
 export const getDarkColor = () => {
-  return '#000000';
+  return "#000000";
 };
 
 export const getLightColor = () => {
-  return '#ffffff';
+  return "#ffffff";
 };
 
 /**
@@ -362,7 +376,7 @@ export const getLightColor = () => {
  * Dark = #000000
  */
 export const colorFromType = (colorType) => {
-  return colorType === 'Light' ? getLightColor() : getDarkColor();
+  return colorType === "Light" ? getLightColor() : getDarkColor();
 };
 
 /**
@@ -377,8 +391,8 @@ export const cssFilterFromType = (colorType) => {
  */
 export const colorFromBgColor = (color, opacity = 1) => {
   let resultColor = isColorDark(color) ? getLightColor() : getDarkColor();
-  if (color === '#') {
-    resultColor = '#000';
+  if (color === "#") {
+    resultColor = "#000";
   }
   if (opacity !== 1) {
     return addOpacityToColor(resultColor, opacity);
@@ -406,5 +420,5 @@ export const cssFilterBgColor = (color) => {
 };
 
 export const fixColor = (color) => {
-  return color ? (color.startsWith('#') ? color : '#' + color) : null;
+  return color ? (color.startsWith("#") ? color : "#" + color) : null;
 };

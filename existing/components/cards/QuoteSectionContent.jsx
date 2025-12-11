@@ -1,17 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { HeadingTag, Link, PreHeading } from 'components';
-import { stripHtml } from 'utils';
+import React from "react";
+import PropTypes from "prop-types";
+import { HeadingTag, Link, PreHeading } from "components";
+import { stripHtml } from "utils";
 
 const QuoteSectionContent = ({
-  buttonWrapperClassName = 'text-right mt-8 lg:mt-20',
-  quoteWrapperClassName = 'xl:flex w-full',
-  authorSourceWrapperClassName = 'grow self-end text-right',
+  buttonWrapperClassName = "text-right mt-8 lg:mt-20",
+  quoteWrapperClassName = "xl:flex w-full",
+  authorSourceWrapperClassName = "grow self-end text-right",
   showBottomSpacing = false,
   data,
   ...props
 }) => {
-  const { quoteTitle, quote, preHeading, primaryCTA, secondaryCTA, author, source } = data || {};
+  const {
+    quoteTitle,
+    quote,
+    preHeading,
+    primaryCTA,
+    secondaryCTA,
+    author,
+    source,
+  } = data || {};
 
   return (
     <div {...props}>
@@ -36,7 +44,9 @@ const QuoteSectionContent = ({
             className="font-primary xl:max-w-[912px] text-[1.375rem] leading-[1.875rem] md:text-[1.625rem] md:leading-[2.5rem] lg:text-[1.75rem] mb-6 xl:mb-0"
           ></div>
         )}
-        <div className={`author-source-wrapper ${authorSourceWrapperClassName}`}>
+        <div
+          className={`author-source-wrapper ${authorSourceWrapperClassName}`}
+        >
           {author && (
             <div
               dangerouslySetInnerHTML={{ __html: author }}
@@ -44,17 +54,28 @@ const QuoteSectionContent = ({
             ></div>
           )}
           {source && (
-            <div dangerouslySetInnerHTML={{ __html: source }} className="font-primary text-grey1 text-base"></div>
+            <div
+              dangerouslySetInnerHTML={{ __html: source }}
+              className="font-primary text-grey1 text-base"
+            ></div>
           )}
         </div>
       </div>
       {showBottomSpacing && <div className="mt-20"></div>}
       {(primaryCTA || secondaryCTA) && (
         <div className={`button-wrapper ${buttonWrapperClassName}`}>
-          {primaryCTA && <Link className="btn primary self-end px-2 md:px-2.5 mt-2 sm:mt-0" link={primaryCTA} />}
+          {primaryCTA && (
+            <Link
+              className="btn primary self-end px-2 md:px-2.5 mt-2 sm:mt-0"
+              link={primaryCTA}
+            />
+          )}
 
           {secondaryCTA && (
-            <Link className="btn secondary self-end px-2 md:px-2.5 ml-4 mt-2 sm:mt-0" link={secondaryCTA} />
+            <Link
+              className="btn secondary self-end px-2 md:px-2.5 ml-4 mt-2 sm:mt-0"
+              link={secondaryCTA}
+            />
           )}
         </div>
       )}

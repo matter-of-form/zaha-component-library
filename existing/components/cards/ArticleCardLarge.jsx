@@ -1,22 +1,22 @@
-import PropTypes from 'prop-types';
-import { ResponsiveImage, Link, PreHeading, Skeleton } from '..';
-import classNames from 'classnames';
-import { useTranslation } from 'next-i18next';
+import PropTypes from "prop-types";
+import { ResponsiveImage, Link, PreHeading, Skeleton } from "..";
+import classNames from "classnames";
+import { useTranslation } from "next-i18next";
 
 const ArticleCardLarge = ({ data, loading, className, ...props }) => {
   const lDate = new Date(data.date);
-  let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(lDate);
-  let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(lDate);
-  let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(lDate);
+  let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(lDate);
+  let mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(lDate);
+  let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(lDate);
   const formatedDate = `${da}.${mo}.${ye}`;
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
     <div
       {...props}
       className={classNames(
-        'main-wrapper bg-white flex flex-col lg:flex-row gap-6 lg:gap-14 p-4 md:p-6 font-primary',
+        "main-wrapper bg-white flex flex-col lg:flex-row gap-6 lg:gap-14 p-4 md:p-6 font-primary",
         className,
       )}
     >
@@ -34,11 +34,15 @@ const ArticleCardLarge = ({ data, loading, className, ...props }) => {
         <div className="text-wrapper">
           <div className="mb-2 md:mb-4 lg:mb-6">
             {!loading && data.preHeading && (
-              <PreHeading className="font-semibold text-grey3 text-small-paragraph ">{data.preHeading}</PreHeading>
+              <PreHeading className="font-semibold text-grey3 text-small-paragraph ">
+                {data.preHeading}
+              </PreHeading>
             )}
             {loading && <Skeleton className="h-5 w-1/3" />}
           </div>
-          {!loading && data.headingTitle && <p className="text-h5">{data.headingTitle}</p>}
+          {!loading && data.headingTitle && (
+            <p className="text-h5">{data.headingTitle}</p>
+          )}
           {loading && <Skeleton className="h-10 w-2/3" />}
           <div className="date-wrapper my-4 md:my-6 font-semibold text-small-paragraph text-grey3">
             {!loading && (
@@ -60,10 +64,12 @@ const ArticleCardLarge = ({ data, loading, className, ...props }) => {
           <div className="button-wrapper mt-6 lg:mt-10 inline-flex gap-4 justify-between">
             {!loading && (
               <Link className="btn primary" link={data.primaryCta}>
-                {t('cards.$viewArticle')}
+                {t("cards.$viewArticle")}
               </Link>
             )}
-            {!loading && <Link className="btn secondary" link={data.secondaryCta} />}
+            {!loading && (
+              <Link className="btn secondary" link={data.secondaryCta} />
+            )}
             {loading && <Skeleton className="h-11 w-40" />}
           </div>
         )}

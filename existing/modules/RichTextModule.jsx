@@ -1,4 +1,4 @@
-import { ModuleBase, SectionContent } from 'components';
+import { ModuleBase, SectionContent } from "components";
 
 const RichTextModule = ({ data }) => {
   return (

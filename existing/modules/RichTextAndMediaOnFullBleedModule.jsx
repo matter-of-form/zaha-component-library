@@ -1,4 +1,10 @@
-import { Link, ResponsiveImage, ModuleBase, HeadingTag, Media } from 'components';
+import {
+  Link,
+  ResponsiveImage,
+  ModuleBase,
+  HeadingTag,
+  Media,
+} from "components";
 
 const RichTextAndMediaOnFullBleedModule = ({ data }) => {
   return (
@@ -23,9 +29,14 @@ const RichTextAndMediaOnFullBleedModule = ({ data }) => {
 
         <div className="text-wrapper pt-14 pb-[21px] md:px-10 lg:px-[20px] md:pt-10 md:pb-4 container ml-0 lg:h-[800px] lg:max-h-screen w-full md:w-[65%] lg:w-full h-full lg:absolute lg:top-0 lg:left-1/2 lg:-translate-x-2/4 lg:flex lg:justify-between lg:items-center color-from-bg">
           <div className="title-wrapper lg:w-[35%]">
-            <p className="pre-heading uppercase font-primary font-semibold text-subheading ">{data.preHeading}</p>
+            <p className="pre-heading uppercase font-primary font-semibold text-subheading ">
+              {data.preHeading}
+            </p>
 
-            <HeadingTag data={data.headingTitle} className="font-primary font-[300] text-h2 my-4 lg:pr-6" />
+            <HeadingTag
+              data={data.headingTitle}
+              className="font-primary font-[300] text-h2 my-4 lg:pr-6"
+            />
           </div>
 
           <div className="description-wrapper lg:w-[30%]">
@@ -35,9 +46,16 @@ const RichTextAndMediaOnFullBleedModule = ({ data }) => {
               "
             ></div>
 
-            {data.primaryCTA && <Link className="btn primary mr-4 mt-10" link={data.primaryCTA} />}
+            {data.primaryCTA && (
+              <Link className="btn primary mr-4 mt-10" link={data.primaryCTA} />
+            )}
 
-            {data.secondaryCTA && <Link className="btn secondary mr-2 mt-10" link={data.secondaryCTA} />}
+            {data.secondaryCTA && (
+              <Link
+                className="btn secondary mr-2 mt-10"
+                link={data.secondaryCTA}
+              />
+            )}
           </div>
         </div>
       </div>

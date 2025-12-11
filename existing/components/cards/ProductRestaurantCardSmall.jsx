@@ -1,22 +1,22 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useEffect } from 'react';
-import { ResponsiveImage, PreHeading, Link } from 'components';
-import Flicking, { FlickingError, ViewportSlot } from '@egjs/react-flicking';
+import PropTypes from "prop-types";
+import React, { useRef, useEffect } from "react";
+import { ResponsiveImage, PreHeading, Link } from "components";
+import Flicking, { FlickingError, ViewportSlot } from "@egjs/react-flicking";
 
-import { Pagination } from '@egjs/flicking-plugins';
-import '@egjs/flicking-plugins/dist/pagination.css';
-import '@egjs/react-flicking/dist/flicking.css';
-import Arrow from 'assets/arrow.svg';
-import classNames from 'classnames';
-import { useTranslation } from 'next-i18next';
+import { Pagination } from "@egjs/flicking-plugins";
+import "@egjs/flicking-plugins/dist/pagination.css";
+import "@egjs/react-flicking/dist/flicking.css";
+import Arrow from "assets/arrow.svg";
+import classNames from "classnames";
+import { useTranslation } from "next-i18next";
 
 const ProductRestaurantCardSmall = ({ data, className, ...props }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const carousel = useRef();
   useEffect(() => {
-    carousel.current.on('ready', (e) => {
-      e.currentTarget.addPlugins(new Pagination({ type: 'fraction' }));
+    carousel.current.on("ready", (e) => {
+      e.currentTarget.addPlugins(new Pagination({ type: "fraction" }));
     });
   });
 
@@ -34,7 +34,13 @@ const ProductRestaurantCardSmall = ({ data, className, ...props }) => {
     }
   };
   return (
-    <div className={classNames('restaurant-card-small flex flex-col p-4 md:p-6 font-primary', className)} {...props}>
+    <div
+      className={classNames(
+        "restaurant-card-small flex flex-col p-4 md:p-6 font-primary",
+        className,
+      )}
+      {...props}
+    >
       <div className="img-wrapper w-full">
         <Flicking
           ref={carousel}
@@ -46,7 +52,10 @@ const ProductRestaurantCardSmall = ({ data, className, ...props }) => {
           className=""
         >
           {data.images.map((restaurantItem, restaurantIndex) => (
-            <div className="img-items mx-auto relative w-full aspect-3/2" key={restaurantIndex}>
+            <div
+              className="img-items mx-auto relative w-full aspect-3/2"
+              key={restaurantIndex}
+            >
               <ResponsiveImage
                 image={restaurantItem}
                 widths={{ xs: 238, md: 402, lg: 344, xl: 344 }}
@@ -59,14 +68,26 @@ const ProductRestaurantCardSmall = ({ data, className, ...props }) => {
 
           <ViewportSlot>
             <div className="wrapper ml-auto relative flex justify-between items-center bottom-[47px]  w-[154px] ">
-              <button className="btn text pt-3 pl-3 pb-3 pr-[20px] hidden md:block z-10 " onClick={move}>
-                <Arrow role="presentation" className="rotate-180 w-[24px] h-[24px]" />
+              <button
+                className="btn text pt-3 pl-3 pb-3 pr-[20px] hidden md:block z-10 "
+                onClick={move}
+              >
+                <Arrow
+                  role="presentation"
+                  className="rotate-180 w-[24px] h-[24px]"
+                />
               </button>
 
               <div className="flicking-pagination [&_.flicking-pagination-fraction-current]:mr-2 [&_.flicking-pagination-fraction-total]:ml-2 hidden md:flex justify-center items-center  h-[48px] -mb-[10px] absolute bg-white"></div>
 
-              <button className="btn text pt-3 pl-3 pb-3 pr-[20px] hidden md:block  z-10" onClick={() => move(1)}>
-                <Arrow role="presentation" className="w-[24px] h-[24px] mt-[4px]" />
+              <button
+                className="btn text pt-3 pl-3 pb-3 pr-[20px] hidden md:block  z-10"
+                onClick={() => move(1)}
+              >
+                <Arrow
+                  role="presentation"
+                  className="w-[24px] h-[24px] mt-[4px]"
+                />
               </button>
             </div>
           </ViewportSlot>
@@ -85,12 +106,16 @@ const ProductRestaurantCardSmall = ({ data, className, ...props }) => {
               {data.headingTitle}
             </p>
           )}
-          {data.description && <p className="text-small-paragraph md:text-paragraph font-[400]">{data.description}</p>}
+          {data.description && (
+            <p className="text-small-paragraph md:text-paragraph font-[400]">
+              {data.description}
+            </p>
+          )}
         </div>
         {(data.primaryCta || data.secondaryCta) && (
           <div className="button-wrapper mt-4 md:mt-8 lg:mt-10 flex flex-col gap-3">
             <Link className="btn primary w-fit" link={data.primaryCta}>
-              {t('cards.$viewRestaurant')}
+              {t("cards.$viewRestaurant")}
             </Link>
             <Link className="btn secondary w-fit" link={data.secondaryCta} />
           </div>

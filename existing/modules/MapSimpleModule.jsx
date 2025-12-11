@@ -1,6 +1,6 @@
-import React from 'react';
-import { ModuleBase, HeadingTag } from 'components';
-import GoogleMapReact from 'google-map-react';
+import React from "react";
+import { ModuleBase, HeadingTag } from "components";
+import GoogleMapReact from "google-map-react";
 
 const MapSimpleModule = ({ data }) => {
   return (
@@ -9,8 +9,14 @@ const MapSimpleModule = ({ data }) => {
         <div className="w-full md:max-w-md lg:max-w-1/2 lg:p-10">
           {data.contactDetails?.map((contact, index) => (
             <div key={index} className="mt-6 first:mt-0 first:mb-10">
-              <HeadingTag data={contact.headingTitle} className="text-paragraph md:large-paragraph font-semibold" />
-              <div dangerouslySetInnerHTML={{ __html: contact.description }} className="richtext-content" />
+              <HeadingTag
+                data={contact.headingTitle}
+                className="text-paragraph md:large-paragraph font-semibold"
+              />
+              <div
+                dangerouslySetInnerHTML={{ __html: contact.description }}
+                className="richtext-content"
+              />
             </div>
           ))}
         </div>

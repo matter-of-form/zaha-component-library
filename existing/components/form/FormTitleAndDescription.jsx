@@ -1,4 +1,7 @@
-const FormTitleAndDescription = ({ settings = { captionTag: '', caption: '', bodyText: '' }, ...props }) => {
+const FormTitleAndDescription = ({
+  settings = { captionTag: "", caption: "", bodyText: "" },
+  ...props
+}) => {
   const { captionTag, caption, bodyText } = settings;
   const CaptionTag = captionTag;
 

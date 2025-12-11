@@ -1,10 +1,10 @@
-import { ModuleBase, Link, ResponsiveImage } from 'components';
-import PropTypes from 'prop-types';
-import Instagram from 'assets/instagram.svg';
-import Facebook from 'assets/facebook.svg';
-import Linkedin from 'assets/linkedin.svg';
-import Youtube from 'assets/youtube.svg';
-import Twitter from 'assets/twitter.svg';
+import { ModuleBase, Link, ResponsiveImage } from "components";
+import PropTypes from "prop-types";
+import Instagram from "assets/instagram.svg";
+import Facebook from "assets/facebook.svg";
+import Linkedin from "assets/linkedin.svg";
+import Youtube from "assets/youtube.svg";
+import Twitter from "assets/twitter.svg";
 
 const FooterHorizontal = ({ data }) => {
   const linkWrapperClass = `
@@ -18,7 +18,12 @@ const FooterHorizontal = ({ data }) => {
   lg:mb-0 lg:last:mb-0`;
 
   return (
-    <ModuleBase data={data} className="container font-primary pb-4 md:px-10" role="contentinfo" aria-label="footer">
+    <ModuleBase
+      data={data}
+      className="container font-primary pb-4 md:px-10"
+      role="contentinfo"
+      aria-label="footer"
+    >
       <div className={`${linkWrapperClass}`}>
         {data.links.map((linkItem, linkIndex) => (
           <Link link={linkItem} key={linkIndex} className={`${linkItemClass}`}>
@@ -41,13 +46,23 @@ const FooterHorizontal = ({ data }) => {
           <div className="details w-full lg:w-[78%] flex flex-col md:flex-row md:justify-between md:mb-14">
             {data.displayAddress && (
               <div className="adress-wrapper w-full md:w-[32%] lg:w-[25%] text-center md:text-left">
-                <p className="font-[600] mb-2 text-paragraph">{data.findUsLabel}</p>
+                <p className="font-[600] mb-2 text-paragraph">
+                  {data.findUsLabel}
+                </p>
 
                 <div className="adress text-center md:text-start">
-                  <p className="text-small-paragraph mb-2">{data.addressStreet}</p>
-                  <p className="text-small-paragraph mb-2">{data.addressCity}</p>
-                  <p className="text-small-paragraph mb-2">{data.addressCountry}</p>
-                  <p className="text-small-paragraph mb-0">{data.addressPostCode}</p>
+                  <p className="text-small-paragraph mb-2">
+                    {data.addressStreet}
+                  </p>
+                  <p className="text-small-paragraph mb-2">
+                    {data.addressCity}
+                  </p>
+                  <p className="text-small-paragraph mb-2">
+                    {data.addressCountry}
+                  </p>
+                  <p className="text-small-paragraph mb-0">
+                    {data.addressPostCode}
+                  </p>
                 </div>
 
                 {data.googleMaps && (
@@ -65,13 +80,21 @@ const FooterHorizontal = ({ data }) => {
 
             {data.displayContactDetails && (
               <div className="contacts-wrapper w-full md:w-[32%] lg:w-[25%] text-center md:text-left">
-                <p className="font-[600] mb-4 text-paragraph">{data.contactsLabel}</p>
+                <p className="font-[600] mb-4 text-paragraph">
+                  {data.contactsLabel}
+                </p>
 
                 <div className="phone-and-email mb-6 md:mb-0 flex flex-col items-center md:items-start  w-full">
-                  <a href={`tel:${data.phoneNumber}`} className="border-b w-fit mb-4 text-small-paragraph">
+                  <a
+                    href={`tel:${data.phoneNumber}`}
+                    className="border-b w-fit mb-4 text-small-paragraph"
+                  >
                     {data.phoneNumber}
                   </a>
-                  <a href={`mailto:${data.emailAddress}`} className="border-b w-fit text-small-paragraph">
+                  <a
+                    href={`mailto:${data.emailAddress}`}
+                    className="border-b w-fit text-small-paragraph"
+                  >
                     {data.emailAddress}
                   </a>
                 </div>
@@ -80,28 +103,38 @@ const FooterHorizontal = ({ data }) => {
 
             {data.displaySocialLinks && (
               <div className="social-wrapper w-full md:w-[32%] lg:w-[25%] text-center md:text-left mb-10 md:mb-0">
-                <p className="font-[600] mb-[18px] text-paragraph">{data.followLabel}</p>
+                <p className="font-[600] mb-[18px] text-paragraph">
+                  {data.followLabel}
+                </p>
 
                 <div className="social-links flex justify-center flex-wrap md:justify-start">
                   {data.socialLinks.map((socialItem, socialIndex) => (
-                    <div className="social-link-item mr-[42px] md:mr-[25px] last:mr-0 md:mb-2" key={socialIndex}>
-                      {socialItem.socialPlatform.toLowerCase() === 'facebook' ? (
+                    <div
+                      className="social-link-item mr-[42px] md:mr-[25px] last:mr-0 md:mb-2"
+                      key={socialIndex}
+                    >
+                      {socialItem.socialPlatform.toLowerCase() ===
+                      "facebook" ? (
                         <Link link={socialItem.link}>
                           <Facebook role="presentation" />
                         </Link>
-                      ) : socialItem.socialPlatform.toLowerCase() === 'instagram' ? (
+                      ) : socialItem.socialPlatform.toLowerCase() ===
+                        "instagram" ? (
                         <Link link={socialItem.link}>
                           <Instagram role="presentation" />
                         </Link>
-                      ) : socialItem.socialPlatform.toLowerCase() === 'linkedin' ? (
+                      ) : socialItem.socialPlatform.toLowerCase() ===
+                        "linkedin" ? (
                         <Link link={socialItem.link}>
                           <Linkedin role="presentation" />
                         </Link>
-                      ) : socialItem.socialPlatform.toLowerCase() === 'youtube' ? (
+                      ) : socialItem.socialPlatform.toLowerCase() ===
+                        "youtube" ? (
                         <Link link={socialItem.link}>
                           <Youtube role="presentation" />
                         </Link>
-                      ) : socialItem.socialPlatform.toLowerCase() === 'twitter' ? (
+                      ) : socialItem.socialPlatform.toLowerCase() ===
+                        "twitter" ? (
                         <Link link={socialItem.link}>
                           <Twitter role="presentation" />
                         </Link>

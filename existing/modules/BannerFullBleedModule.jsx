@@ -1,5 +1,5 @@
-import { ModuleBase, Media } from 'components';
-import SectionContent from 'components/cards/SectionContent.jsx';
+import { ModuleBase, Media } from "components";
+import SectionContent from "components/cards/SectionContent.jsx";
 const BannerFullBleedModule = ({ data }) => {
   return (
     <ModuleBase data={data} className="font-primary">

@@ -18,11 +18,11 @@ const MultiCheckbox = ({ options, name, ...props }) => {
   return (
     <>
       {options.map((option, index) => (
-        <label key={name + '-' + index} className={`multi-checkbox ${name}`}>
+        <label key={name + "-" + index} className={`multi-checkbox ${name}`}>
           <input
             type="checkbox"
-            className={`input ${props.value.includes(option.value) ? 'checked' : ''}`}
-            id={name + '-' + option.value}
+            className={`input ${props.value.includes(option.value) ? "checked" : ""}`}
+            id={name + "-" + option.value}
             name={name}
             disabled={props.disabled}
             value={option.value}

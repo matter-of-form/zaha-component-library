@@ -1,5 +1,5 @@
-import React from 'react';
-import { SectionContent, ModuleBase, ResponsiveImage, Media } from 'components';
+import React from "react";
+import { SectionContent, ModuleBase, ResponsiveImage, Media } from "components";
 
 const HeroWithTwoMediaModule = ({ data }) => {
   return (
@@ -9,24 +9,52 @@ const HeroWithTwoMediaModule = ({ data }) => {
           <div className=" w-full h-full relative grid grid-cols-10 grid-rows-12">
             <div
               className="image-bottom aspect-3/4 w-[218px] lg:w-full xl:w-[392px] justify-self-end"
-              style={{ gridArea: '1 / 4 / 9 / -1' }}
+              style={{ gridArea: "1 / 4 / 9 / -1" }}
             >
               <ResponsiveImage
                 image={data.backgroundMedia}
-                widths={{ xs: 392, sm: 392, md: 392, lg: 392, xl: 392, xxl: 392 }}
-                heights={{ xs: 523, sm: 523, md: 523, lg: 523, xl: 523, xxl: 523 }}
+                widths={{
+                  xs: 392,
+                  sm: 392,
+                  md: 392,
+                  lg: 392,
+                  xl: 392,
+                  xxl: 392,
+                }}
+                heights={{
+                  xs: 523,
+                  sm: 523,
+                  md: 523,
+                  lg: 523,
+                  xl: 523,
+                  xxl: 523,
+                }}
                 className="h-full w-full object-cover"
                 dataNotLazy
               />
             </div>
             <div
               className="image-top aspect-3/4 w-[157px] md:w-[159px] lg:w-full xl:w-[288px] z-[1] justify-self-start "
-              style={{ gridArea: '5 / 1 / 12 / 5' }}
+              style={{ gridArea: "5 / 1 / 12 / 5" }}
             >
               <Media
                 media={data.foregroundMedia}
-                widths={{ xs: 157, sm: 157, md: 157, lg: 288, xl: 288, xxl: 288 }}
-                heights={{ xs: 210, sm: 210, md: 210, lg: 384, xl: 384, xxl: 384 }}
+                widths={{
+                  xs: 157,
+                  sm: 157,
+                  md: 157,
+                  lg: 288,
+                  xl: 288,
+                  xxl: 288,
+                }}
+                heights={{
+                  xs: 210,
+                  sm: 210,
+                  md: 210,
+                  lg: 384,
+                  xl: 384,
+                  xxl: 384,
+                }}
                 className="h-full w-full object-cover"
                 dataNotLazy
               />

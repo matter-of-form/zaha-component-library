@@ -1,11 +1,11 @@
-import { ModuleBase, ResponsiveImage } from 'components';
-import SectionContent from 'components/cards/SectionContent.jsx';
+import { ModuleBase, ResponsiveImage } from "components";
+import SectionContent from "components/cards/SectionContent.jsx";
 const BannerSlimModule = ({ data }) => {
   const moduleHeight = () => {
     if (data.primaryCTA || data.secondaryCTA) {
-      return 'max-h-[622px]';
+      return "max-h-[622px]";
     } else {
-      return 'max-h-[464px]';
+      return "max-h-[464px]";
     }
   };
   return (

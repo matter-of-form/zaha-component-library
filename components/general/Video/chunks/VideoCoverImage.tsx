@@ -1,6 +1,6 @@
-'use client';
-import { FC } from 'react';
-import { Image } from '../../../';
+"use client";
+import { FC } from "react";
+import { Image } from "../../../";
 
 const VideoCoverImage: FC<any> = ({ data: { src, alt }, ...props }: any) => {
   if (!src) return null;

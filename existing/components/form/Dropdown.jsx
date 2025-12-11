@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { PopoverMenu } from 'components';
-import classNames from 'classnames';
+import React, { useEffect, useState } from "react";
+import { PopoverMenu } from "components";
+import classNames from "classnames";
 
-const Dropdown = ({ name, options, value, placeholder, onChange, onBlur, displayEmpty, className, ...props }) => {
+const Dropdown = ({
+  name,
+  options,
+  value,
+  placeholder,
+  onChange,
+  onBlur,
+  displayEmpty,
+  className,
+  ...props
+}) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState();
 
@@ -31,19 +41,23 @@ const Dropdown = ({ name, options, value, placeholder, onChange, onBlur, display
       open={open}
       title={title || placeholder}
       onOpen={() => setOpen(true)}
-      className={classNames(title && 'selected', className)}
+      className={classNames(title && "selected", className)}
       {...props}
     >
       <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
         {displayEmpty && (
           <li onClick={() => _onChange({})}>
-            <div className="option block px-4 py-2 cursor-pointer hover:bg-grey6">&nbsp;</div>
+            <div className="option block px-4 py-2 cursor-pointer hover:bg-grey6">
+              &nbsp;
+            </div>
           </li>
         )}
         {options &&
           options.map((option) => (
             <li key={option.value} onClick={() => _onChange(option)}>
-              <div className="option block px-4 py-2 cursor-pointer hover:bg-grey6">{option.label}</div>
+              <div className="option block px-4 py-2 cursor-pointer hover:bg-grey6">
+                {option.label}
+              </div>
             </li>
           ))}
       </ul>

@@ -1,11 +1,11 @@
-import { ModuleBase, SectionContent, ResponsiveImage, Link } from 'components';
+import { ModuleBase, SectionContent, ResponsiveImage, Link } from "components";
 
 const LogoListModule = ({ data }) => {
   const threeCase = () => {
     if (data.logoListingSection.length === 3) {
-      return 'flex justify-between';
+      return "flex justify-between";
     } else {
-      return 'flex flex-wrap justify-center px-12 md:px-0';
+      return "flex flex-wrap justify-center px-12 md:px-0";
     }
   };
 
@@ -37,8 +37,14 @@ const LogoListModule = ({ data }) => {
         </div>
         {(data.primaryCTA || data.secondaryCTA) && (
           <div className="button-wrapper flex justify-center">
-            <Link className="btn primary self-end mt-10 md:mt-16 first:mr-4 only:mr-0" link={data.primaryCTA} />
-            <Link className="btn secondary self-end mt-10 md:mt-16" link={data.secondaryCTA} />
+            <Link
+              className="btn primary self-end mt-10 md:mt-16 first:mr-4 only:mr-0"
+              link={data.primaryCTA}
+            />
+            <Link
+              className="btn secondary self-end mt-10 md:mt-16"
+              link={data.secondaryCTA}
+            />
           </div>
         )}
       </div>

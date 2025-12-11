@@ -1,21 +1,21 @@
-.heading-vertically-stacked .card .media-holder{
-    @apply order-2 h-[534px] md:h-[480px] xl:h-[649px] 2xl:h-[731px];
+.heading-vertically-stacked .card .media-holder {
+  @apply order-2 h-[534px] md:h-[480px] xl:h-[649px] 2xl:h-[731px];
 }
 
 .heading-vertically-stacked .card {
-    @apply gap-[24px] md:gap-[40px];
+  @apply gap-[24px] md:gap-[40px];
 }
 .heading-vertically-stacked .card > .stack {
-    @apply gap-[16px] md:gap-[24px] xl:flex-row
+  @apply gap-[16px] md:gap-[24px] xl:flex-row
     px-2 md:px-8 2xl:px-10;
 }
 .heading-vertically-stacked .card > .stack .heading-title {
-    @apply grow;
+  @apply grow;
 }
 .heading-vertically-stacked .card > .stack .description {
-    @apply w-full md:w-[495px] xl:w-[456px] 2xl:w-[436px] opacity-75;
+  @apply w-full md:w-[495px] xl:w-[456px] 2xl:w-[436px] opacity-75;
 }
 .heading-vertically-stacked .card > .stack .pre-content,
 .heading-vertically-stacked .card > .stack .button-group {
-    @apply hidden;
+  @apply hidden;
 }

@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ModuleBase, EntityCard } from 'components';
-import Flicking, { FlickingError, ViewportSlot } from '@egjs/react-flicking';
-import { Pagination } from '@egjs/flicking-plugins';
-import tailwindConfig from '../tailwind.config.js';
-import { useLayoutEffect } from 'utils';
-import '@egjs/flicking-plugins/dist/pagination.css';
-import '@egjs/react-flicking/dist/flicking.css';
-import Arrow from 'assets/arrow.svg';
+import React, { useState, useRef, useEffect } from "react";
+import { ModuleBase, EntityCard } from "components";
+import Flicking, { FlickingError, ViewportSlot } from "@egjs/react-flicking";
+import { Pagination } from "@egjs/flicking-plugins";
+import tailwindConfig from "../tailwind.config.js";
+import { useLayoutEffect } from "utils";
+import "@egjs/flicking-plugins/dist/pagination.css";
+import "@egjs/react-flicking/dist/flicking.css";
+import Arrow from "assets/arrow.svg";
 
 const CardCarouselGenericModule = ({ data }) => {
   const { cardRow } = data || {};
@@ -18,8 +18,8 @@ const CardCarouselGenericModule = ({ data }) => {
   }, []);
 
   useLayoutEffect(() => {
-    window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
   const resize = () => {
@@ -33,13 +33,16 @@ const CardCarouselGenericModule = ({ data }) => {
   }, [plugins]);
 
   const setPaginationPlugin = () => {
-    const isMobile = window.innerWidth < parseInt(tailwindConfig.theme.screens.md, 10);
+    const isMobile =
+      window.innerWidth < parseInt(tailwindConfig.theme.screens.md, 10);
 
     setPlugins([
       new Pagination({
-        type: isMobile ? 'fraction' : 'bullet',
-        selector: '.main-pagination',
-        renderBullet: !isMobile && ((className) => `<span class="${className}" role="button"></span>`),
+        type: isMobile ? "fraction" : "bullet",
+        selector: ".main-pagination",
+        renderBullet:
+          !isMobile &&
+          ((className) => `<span class="${className}" role="button"></span>`),
       }),
     ]);
   };
@@ -61,7 +64,10 @@ const CardCarouselGenericModule = ({ data }) => {
   return (
     <ModuleBase data={data}>
       {cardRow.map((row, rIndex) => (
-        <div key={rIndex} className="w-[327px] md:w-[688px] xl:w-[1224px] m-auto ">
+        <div
+          key={rIndex}
+          className="w-[327px] md:w-[688px] xl:w-[1224px] m-auto "
+        >
           <Flicking
             ref={carousel}
             plugins={plugins}
@@ -74,7 +80,10 @@ const CardCarouselGenericModule = ({ data }) => {
           >
             {row.props.cards.map((card, index) => (
               <div key={index} className="flex mx-3 bg-white">
-                <EntityCard data={card} className="w-[327px] md:w-[332px] xl:w-[392px]" />
+                <EntityCard
+                  data={card}
+                  className="w-[327px] md:w-[332px] xl:w-[392px]"
+                />
               </div>
             ))}
             <ViewportSlot>
@@ -82,11 +91,19 @@ const CardCarouselGenericModule = ({ data }) => {
             </ViewportSlot>
           </Flicking>
           <div className="flex gap-20 md:gap-3 justify-center md:justify-end -mt-28 md:-mt-32">
-            <button className="btn text border circle p-0 w-10 h-10 z-10" onClick={move} aria-label="Prevues">
+            <button
+              className="btn text border circle p-0 w-10 h-10 z-10"
+              onClick={move}
+              aria-label="Prevues"
+            >
               <Arrow role="presentation" className="rotate-180" />
             </button>
 
-            <button className="btn text border circle p-0 w-10 h-10 z-10" onClick={() => move(1)} aria-label="Next">
+            <button
+              className="btn text border circle p-0 w-10 h-10 z-10"
+              onClick={() => move(1)}
+              aria-label="Next"
+            >
               <Arrow role="presentation" />
             </button>
           </div>

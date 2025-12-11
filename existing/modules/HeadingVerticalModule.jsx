@@ -1,5 +1,5 @@
-import { ModuleBase } from 'components';
-import SectionContent from 'components/cards/SectionContent.jsx';
+import { ModuleBase } from "components";
+import SectionContent from "components/cards/SectionContent.jsx";
 
 const HeadingVerticalModule = ({ data }) => {
   return (

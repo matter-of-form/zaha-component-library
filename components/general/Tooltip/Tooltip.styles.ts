@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from "classnames";
 
 export const tooltipWrapper = (
   isActive: boolean,
@@ -8,13 +8,13 @@ export const tooltipWrapper = (
   /** If motion is enabled, set the initial and animate props */
   const motionProps = motion
     ? {
-        initial: 'inactive',
-        animate: isActive ? 'active' : 'inactive',
+        initial: "inactive",
+        animate: isActive ? "active" : "inactive",
       }
     : {};
 
   return {
-    className: classNames('tooltip-wrapper', [className], {
+    className: classNames("tooltip-wrapper", [className], {
       show: isActive,
     }),
     ...motionProps,
@@ -23,7 +23,7 @@ export const tooltipWrapper = (
 
 export const tooltipBubble = (anchor: string, motion = {}) => {
   return {
-    className: classNames('tooltip-bubble', [`anchor-${anchor}`]),
+    className: classNames("tooltip-bubble", [`anchor-${anchor}`]),
     ...motion,
   };
 };

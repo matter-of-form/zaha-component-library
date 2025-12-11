@@ -1,7 +1,7 @@
-import React from 'react';
-import { type VariantProps } from 'class-variance-authority';
-import { stack } from './Stack.styles';
-import { MotionProps } from 'framer-motion';
+import React from "react";
+import { type VariantProps } from "class-variance-authority";
+import { stack } from "./Stack.styles";
+import { MotionProps } from "framer-motion";
 
 type HTMLAndMotionProps = React.HTMLAttributes<HTMLElement> & MotionProps;
 
@@ -21,8 +21,8 @@ export interface StackProps
 }
 
 export type StackVars = (
-  direction: StackProps['direction'],
-  align: StackProps['align'],
-  gap: StackProps['gap'],
-  className: StackProps['className'],
+  direction: StackProps["direction"],
+  align: StackProps["align"],
+  gap: StackProps["gap"],
+  className: StackProps["className"],
 ) => Record<any, any>;

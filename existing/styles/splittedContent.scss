@@ -1,7 +1,7 @@
 $skewXpos: 10deg;
 $skewXneg: -10deg;
 
-$primary: #CC917A;
+$primary: #cc917a;
 $color: #fff;
 $reverseColor: #000;
 
@@ -11,163 +11,160 @@ $sm: 576px;
 $sm: 576px;
 
 @mixin maxSize($size) {
-    @media (max-width: $size) {
-        @content;
-    }
+  @media (max-width: $size) {
+    @content;
+  }
 }
 
 @mixin transition($args...) {
-    -webkit-transition: $args;
-    -moz-transition: $args;
-    -ms-transition: $args;
-    -o-transition: $args;
-    transition: $args;
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
 }
 
 @mixin flex($value) {
-    -webkit-box-flex: $value;
-    -webkit-flex: $value;
-    -ms-flex: $value;
-    flex: $value;
+  -webkit-box-flex: $value;
+  -webkit-flex: $value;
+  -ms-flex: $value;
+  flex: $value;
 }
 
 @mixin flexWrap() {
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-orient: vertical;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 @mixin backfaceVisibility($value) {
-    -webkit-backface-visibility: $value;
-    backface-visibility: $value;
+  -webkit-backface-visibility: $value;
+  backface-visibility: $value;
 }
 
 @keyframes bounceIn {
-    0% {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    60% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .oblique {
-    position: relative;
+  position: relative;
+  overflow: hidden;
+  .main-block-oblique {
     overflow: hidden;
-    .main-block-oblique {
-        overflow: hidden;
-        position: relative;
-        z-index: 0;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-        flex-direction: row;
-        -webkit-flex-wrap: nowrap;
-        -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-        background-repeat: no-repeat;
-        @include maxSize($md) {
-            @include flexWrap();
-        }
+    position: relative;
+    z-index: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    background-repeat: no-repeat;
+    @include maxSize($md) {
+      @include flexWrap();
     }
-    .skew-block {
-        margin-left: -15vh;
-        margin-right: -15vh;
+  }
+  .skew-block {
+    margin-left: -15vh;
+    margin-right: -15vh;
+  }
+  .skew-block-repeat {
+    will-change: transform;
+    @include transition(all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1));
+    opacity: 0.8;
+    min-height: 100vh;
+    float: left;
+    position: relative;
+    z-index: 0;
+    @include flex(1);
+    @include backfaceVisibility(hidden);
+    margin: 0 -1px;
+    @include maxSize($md) {
+      min-height: 50vh;
     }
-    .skew-block-repeat {
-        will-change: transform;
-        @include transition(all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1));
-        opacity: 0.8;
-        min-height: 100vh;
-        float: left;
+    &:hover {
+      @include flex(1.5);
+      opacity: 1;
+    }
+    @include transition(all ease-in-out 300ms);
+    outline: none !important;
+    .oblique-inner {
+      -webkit-transform: skewX($skewXneg);
+      transform: skewX($skewXneg);
+      margin-left: 0;
+      margin-right: 0;
+      @include transition(box-shadow 0.2s ease-out);
+      position: relative;
+      @include backfaceVisibility(hidden);
+      overflow: hidden;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      .image-wrapper {
+        margin-left: -10vh;
+        margin-right: -10vh;
+        -webkit-transform: skewX($skewXpos);
+        transform: skewX($skewXpos);
         position: relative;
-        z-index: 0;
-        @include flex(1);
         @include backfaceVisibility(hidden);
-        margin: 0 -1px;
-        @include maxSize($md) {
-            min-height: 50vh;
+        height: 100%;
+        .main-image {
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          .image-img {
+            position: absolute;
+            width: 100%;
+            -o-object-fit: cover;
+            object-fit: cover;
+            height: 100%;
+            @include backfaceVisibility(hidden);
+            @include transition(0.2s ease-out);
+            max-width: 100%;
+            max-height: 100%;
+            vertical-align: middle;
+            border: 0;
+          }
         }
-        &:hover {
-            @include flex(1.5);
-            opacity: 1;
-            
-        }
-            @include transition(all ease-in-out 300ms);
-            outline: none !important;
-            .oblique-inner {
-                -webkit-transform: skewX($skewXneg);
-                transform: skewX($skewXneg);
-                margin-left: 0;
-                margin-right: 0;
-                @include transition(box-shadow 0.2s ease-out);
-                position: relative;
-                @include backfaceVisibility(hidden);
-                overflow: hidden;
-                height: 100%;
-                position: absolute;
-                width: 100%;
-                .image-wrapper {
-                    margin-left: -10vh;
-                    margin-right: -10vh;
-                    -webkit-transform: skewX($skewXpos);
-                    transform: skewX($skewXpos);
-                    position: relative;
-                    @include backfaceVisibility(hidden);
-                    height: 100%;
-                    .main-image {
-                        position: absolute;
-                        top: -2px;
-                        left: -2px;
-                        right: -2px;
-                        bottom: -2px;
-                        .image-img {
-                            position: absolute;
-                            width: 100%;
-                            -o-object-fit: cover;
-                            object-fit: cover;
-                            height: 100%;
-                            @include backfaceVisibility(hidden);
-                            @include transition(0.2s ease-out);
-                            max-width: 100%;
-                            max-height: 100%;
-                            vertical-align: middle;
-                            border: 0;
-                        }
-                    }
-                }
-            }
-            .oblique-caption {
-                position: absolute;
-                bottom: 90px;
-                z-index: 1;
-                width: 100%;
-                bottom: auto;
-                top: 80%;
-                -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
-                text-align: center;
-                &.caption-top {
-                    @include maxSize($md) {
-                        top: 40%;
-                    }
-                }
-                
-                
-            }
+      }
     }
+    .oblique-caption {
+      position: absolute;
+      bottom: 90px;
+      z-index: 1;
+      width: 100%;
+      bottom: auto;
+      top: 80%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      text-align: center;
+      &.caption-top {
+        @include maxSize($md) {
+          top: 40%;
+        }
+      }
+    }
+  }
 }

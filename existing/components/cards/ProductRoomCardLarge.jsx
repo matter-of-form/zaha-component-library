@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
-import { ResponsiveImage, Link, PreHeading } from '..';
-import classNames from 'classnames';
-import { useTranslation } from 'next-i18next';
+import PropTypes from "prop-types";
+import { ResponsiveImage, Link, PreHeading } from "..";
+import classNames from "classnames";
+import { useTranslation } from "next-i18next";
 
 const ProductRoomCardLarge = ({ data, className, ...props }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
     <div
       {...props}
       className={classNames(
-        'room-card-large bg-white flex flex-col lg:flex-row gap-6 lg:gap-20 font-primary p-4 md:p-6 mt-10',
+        "room-card-large bg-white flex flex-col lg:flex-row gap-6 lg:gap-20 font-primary p-4 md:p-6 mt-10",
         className,
       )}
     >
@@ -30,14 +30,21 @@ const ProductRoomCardLarge = ({ data, className, ...props }) => {
               {data.preHeading}
             </PreHeading>
           )}
-          {data.headingTitle && <p className="text-h5 mb-4 md:mb-6">{data.headingTitle}</p>}
+          {data.headingTitle && (
+            <p className="text-h5 mb-4 md:mb-6">{data.headingTitle}</p>
+          )}
           {data.description && (
-            <p className="text-small-paragraph md:text-paragraph font-[400] mb-4 md:mb-6">{data.description}</p>
+            <p className="text-small-paragraph md:text-paragraph font-[400] mb-4 md:mb-6">
+              {data.description}
+            </p>
           )}
         </div>
         <div className="flex flex-col justify-start gap-4 md:gap-6 md:flex-row md:flex-wrap">
           {data.keyFeatures.map((featureItem, featureIndex) => (
-            <div className="feature-wrapper w-full md:w-[40%] flex items-center" key={featureIndex}>
+            <div
+              className="feature-wrapper w-full md:w-[40%] flex items-center"
+              key={featureIndex}
+            >
               <div className="logo aspect-square w-[24px] h-[24px] mr-3">
                 <ResponsiveImage
                   image={featureItem.logo}
@@ -60,8 +67,11 @@ const ProductRoomCardLarge = ({ data, className, ...props }) => {
               <p>Price</p>
             </div>
             <div>
-              <Link className="btn primary mb-3 md:mb-0 mr-4 only:mr-0" link={data.primaryCta}>
-                {t('cards.$viewRoom')}
+              <Link
+                className="btn primary mb-3 md:mb-0 mr-4 only:mr-0"
+                link={data.primaryCta}
+              >
+                {t("cards.$viewRoom")}
               </Link>
               <Link className="btn secondary" link={data.secondaryCta} />
             </div>

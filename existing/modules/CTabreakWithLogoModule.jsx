@@ -1,4 +1,10 @@
-import { ModuleBase, PreHeading, Link, HeadingTag, ResponsiveImage } from 'components';
+import {
+  ModuleBase,
+  PreHeading,
+  Link,
+  HeadingTag,
+  ResponsiveImage,
+} from "components";
 
 const CTabreakWithLogoModule = ({ data }) => {
   return (
@@ -16,7 +22,7 @@ const CTabreakWithLogoModule = ({ data }) => {
         <div className="w-full md:w-full flex flex-col lg:flex-row lg:justify-between">
           <div
             className={`flex flex-col gap-4 lg:w-[65%] ${
-              data.primaryCTA || data.secondaryCTA ? 'mb-10 lg:mb-0' : 'mb-0'
+              data.primaryCTA || data.secondaryCTA ? "mb-10 lg:mb-0" : "mb-0"
             }`}
           >
             {data.preHeading && (
@@ -25,9 +31,19 @@ const CTabreakWithLogoModule = ({ data }) => {
               </PreHeading>
             )}
 
-            {data.headingTitle && <HeadingTag data={data.headingTitle} className="text-h2"></HeadingTag>}
+            {data.headingTitle && (
+              <HeadingTag
+                data={data.headingTitle}
+                className="text-h2"
+              ></HeadingTag>
+            )}
 
-            {data.text && <div dangerouslySetInnerHTML={{ __html: data.text }} className=" text-paragraph"></div>}
+            {data.text && (
+              <div
+                dangerouslySetInnerHTML={{ __html: data.text }}
+                className=" text-paragraph"
+              ></div>
+            )}
           </div>
 
           {(data.primaryCTA || data.secondaryCTA) && (

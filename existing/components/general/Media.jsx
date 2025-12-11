@@ -1,9 +1,9 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
-import { ResponsiveImage, VimeoPlayer } from 'components';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
-import { selectIsRobot } from 'store/index';
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
+import PropTypes from "prop-types";
+import { ResponsiveImage, VimeoPlayer } from "components";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { selectIsRobot } from "store/index";
 
 const Media = forwardRef(function Media(
   {
@@ -28,36 +28,38 @@ const Media = forwardRef(function Media(
 
   const vimeo = useRef();
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        openFullscreen() {
-          if (media.vimeoId) {
-            vimeo?.current?.openFullscreen();
-          }
-        },
-        play() {
-          if (media.vimeoId) {
-            vimeo?.current?.play();
-          }
-        },
-        pause() {
-          if (media.vimeoId) {
-            vimeo?.current?.pause();
-          }
-        },
-      };
-    },
-    [media],
-  );
+  useImperativeHandle(ref, () => {
+    return {
+      openFullscreen() {
+        if (media.vimeoId) {
+          vimeo?.current?.openFullscreen();
+        }
+      },
+      play() {
+        if (media.vimeoId) {
+          vimeo?.current?.play();
+        }
+      },
+      pause() {
+        if (media.vimeoId) {
+          vimeo?.current?.pause();
+        }
+      },
+    };
+  }, [media]);
 
   if (!media) {
     return null;
   }
 
   return (
-    <div className={classNames('w-full h-full relative overflow-hidden', className)} {...props}>
+    <div
+      className={classNames(
+        "w-full h-full relative overflow-hidden",
+        className,
+      )}
+      {...props}
+    >
       {media.coverImage && (
         <ResponsiveImage
           image={media.coverImage}

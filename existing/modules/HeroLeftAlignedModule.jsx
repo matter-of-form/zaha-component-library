@@ -1,4 +1,4 @@
-import { ModuleBase, SectionContent, Media } from 'components';
+import { ModuleBase, SectionContent, Media } from "components";
 
 const HeroLeftAlignedModule = ({ data }) => {
   return (
@@ -7,7 +7,14 @@ const HeroLeftAlignedModule = ({ data }) => {
         <div className="absolute top-0 left-0 right-0 h-full w-full">
           <Media
             media={data.backgroundMedia}
-            widths={{ xs: 425, sm: 640, md: 768, lg: 1024, xl: 1280, xxl: 2560 }}
+            widths={{
+              xs: 425,
+              sm: 640,
+              md: 768,
+              lg: 1024,
+              xl: 1280,
+              xxl: 2560,
+            }}
             cover
             dataNotLazy
           />

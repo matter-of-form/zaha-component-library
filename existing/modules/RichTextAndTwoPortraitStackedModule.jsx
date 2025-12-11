@@ -1,12 +1,14 @@
-import { ModuleBase, ResponsiveImage, Media } from 'components';
-import SectionContent from 'components/cards/SectionContent.jsx';
+import { ModuleBase, ResponsiveImage, Media } from "components";
+import SectionContent from "components/cards/SectionContent.jsx";
 
 const RichTextAndTwoPortraitStackedModule = ({ data }) => {
   return (
     <ModuleBase data={data}>
       <div
         className={`container main-data flex lg:justify-between lg:px-24 ${
-          data.mediaAlignment === 'Left' ? 'flex-col-reverse lg:flex-row-reverse' : 'flex-col lg:flex-row'
+          data.mediaAlignment === "Left"
+            ? "flex-col-reverse lg:flex-row-reverse"
+            : "flex-col lg:flex-row"
         }`}
       >
         <div className="text-wrapper lg:my-auto w-full md:w-[65%] lg:w-[45%]">
@@ -20,9 +22,9 @@ const RichTextAndTwoPortraitStackedModule = ({ data }) => {
 
         <div
           className={`img-wrapper my-auto h-fit w-full lg:w-[45%] relative aspect-3/4 ${
-            data.mediaAlignment === 'Left'
-              ? 'mb-14 md:mb-10 lg:mb-0 self-start'
-              : 'mt-10 md:mt-10 lg:mt-0 lg:mb-0 self-end'
+            data.mediaAlignment === "Left"
+              ? "mb-14 md:mb-10 lg:mb-0 self-start"
+              : "mt-10 md:mt-10 lg:mt-0 lg:mb-0 self-end"
           }`}
         >
           <ResponsiveImage

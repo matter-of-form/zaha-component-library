@@ -1,17 +1,17 @@
 .hero-left-aligned {
-    @apply h-svh;
-    .card {
-        @apply h-full p-4 md:p-10;
+  @apply h-svh;
+  .card {
+    @apply h-full p-4 md:p-10;
 
-        & > .stack {
-            @apply gap-10 md:gap-20;
+    & > .stack {
+      @apply gap-10 md:gap-20;
 
-            .pre-content {
-                @apply order-1 mb-4;
-            }
-            .button-group {
-                @apply hidden;
-            }
-        }
+      .pre-content {
+        @apply order-1 mb-4;
+      }
+      .button-group {
+        @apply hidden;
+      }
     }
+  }
 }

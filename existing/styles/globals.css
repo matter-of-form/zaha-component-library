@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 @layer base {
-  @import 'typography.css';
-  @import 'btn.css';
-  @import 'input.css';
-  @import 'datepicker.css';
-  @import 'richtext.css';
+  @import "typography.css";
+  @import "btn.css";
+  @import "input.css";
+  @import "datepicker.css";
+  @import "richtext.css";
 
   html {
     @apply font-[300] tracking-[0.01em];
@@ -18,8 +18,8 @@
     --color-lighter: #ffffff;
     --color-dark: #000000;
     --color-darker: #4d5e74;
-    --font-family-primary: 'Inter';
-    --font-family-secondary: 'Inter';
+    --font-family-primary: "Inter";
+    --font-family-secondary: "Inter";
   }
 }
 
@@ -28,15 +28,27 @@
 }
 
 .gradient-light {
-  background: linear-gradient(0deg, rgba(190, 190, 190, 0.8), rgba(240, 240, 240, 0.4));
+  background: linear-gradient(
+    0deg,
+    rgba(190, 190, 190, 0.8),
+    rgba(240, 240, 240, 0.4)
+  );
 }
 
 .gradient-left-to-right {
-  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 21%, rgba(180, 179, 179, 0.5551470588235294) 38%);
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 21%,
+    rgba(180, 179, 179, 0.5551470588235294) 38%
+  );
 }
 
 .gradient-right-to-left {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 21%, rgba(180, 179, 179, 0.5551470588235294) 38%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 21%,
+    rgba(180, 179, 179, 0.5551470588235294) 38%
+  );
 }
 
 .flexible-width {
@@ -64,5 +76,9 @@
 }
 
 .gradient-bottom {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 19%, rgba(180, 179, 179, 0.8) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 19%,
+    rgba(180, 179, 179, 0.8) 100%
+  );
 }

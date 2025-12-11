@@ -1,19 +1,25 @@
-import PropTypes from 'prop-types';
-import { ResponsiveImage, PreHeading, Link } from '..';
-import classNames from 'classnames';
-import { useTranslation } from 'next-i18next';
+import PropTypes from "prop-types";
+import { ResponsiveImage, PreHeading, Link } from "..";
+import classNames from "classnames";
+import { useTranslation } from "next-i18next";
 
 const ArticleCardSmall = ({ data, className, ...props }) => {
   const lDate = new Date(data.date);
-  let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(lDate);
-  let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(lDate);
-  let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(lDate);
+  let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(lDate);
+  let mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(lDate);
+  let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(lDate);
   const formatedDate = `${da}.${mo}.${ye}`;
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
-    <div {...props} className={classNames('main-wrapper bg-white flex flex-col p-4 md:p-6 font-primary', className)}>
+    <div
+      {...props}
+      className={classNames(
+        "main-wrapper bg-white flex flex-col p-4 md:p-6 font-primary",
+        className,
+      )}
+    >
       <div className="img-wrapper aspect-[3/2] w-full">
         <ResponsiveImage
           image={data.image}
@@ -46,7 +52,7 @@ const ArticleCardSmall = ({ data, className, ...props }) => {
         {(data.primaryCta || data.secondaryCta) && (
           <div className="button-wrapper mt-6 lg:mt-10 inline-flex gap-4 justify-between">
             <Link className="btn primary" link={data.primaryCta}>
-              {t('cards.$viewArticle')}
+              {t("cards.$viewArticle")}
             </Link>
             <Link className="btn secondary" link={data.secondaryCta} />
           </div>

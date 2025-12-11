@@ -1,11 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Modules from 'modules';
+import React from "react";
+import PropTypes from "prop-types";
+import Modules from "modules";
 
 const CMSModule = ({ module, ...props }) =>
-  module?.moduleName && typeof Modules[module.moduleName] !== 'undefined' ? (
+  module?.moduleName && typeof Modules[module.moduleName] !== "undefined" ? (
     React.createElement(Modules[module.moduleName], {
-      data: { moduleName: module.moduleName, moduleId: module.moduleId, ...module.props },
+      data: {
+        moduleName: module.moduleName,
+        moduleId: module.moduleId,
+        ...module.props,
+      },
       ...props,
     })
   ) : (

@@ -1,9 +1,9 @@
-import { ModuleBase, ResponsiveImage } from 'components';
+import { ModuleBase, ResponsiveImage } from "components";
 const IconListModule = ({ data }) => {
   function getNumberOfColumns(num) {
-    if (num.toLowerCase() === 'two') {
+    if (num.toLowerCase() === "two") {
       return 2;
-    } else if (num.toLowerCase() === 'three') {
+    } else if (num.toLowerCase() === "three") {
       return 3;
     } else {
       return 4;
@@ -27,12 +27,12 @@ const IconListModule = ({ data }) => {
   }
 
   const columns = () => {
-    if (data.numberOfColumns.toLowerCase() === 'two') {
-      return 'lg:w-1/2';
-    } else if (data.numberOfColumns.toLowerCase() === 'three') {
-      return 'md:w-[32%]';
+    if (data.numberOfColumns.toLowerCase() === "two") {
+      return "lg:w-1/2";
+    } else if (data.numberOfColumns.toLowerCase() === "three") {
+      return "md:w-[32%]";
     } else {
-      return 'lg:w-[24%]';
+      return "lg:w-[24%]";
     }
   };
 

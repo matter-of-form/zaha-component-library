@@ -1,11 +1,11 @@
-import React, { useContext, useRef, useEffect, useState } from 'react';
-import { ResponsiveImage, SmootherContext } from 'components';
-import Flicking, { FlickingError } from '@egjs/react-flicking';
-import '@egjs/flicking-plugins/dist/pagination.css';
-import '@egjs/react-flicking/dist/flicking.css';
-import ArrowForward from 'assets/arrowForward.svg';
-import Close from 'assets/close.svg';
-import ModalPortal from './ModalPortal';
+import React, { useContext, useRef, useEffect, useState } from "react";
+import { ResponsiveImage, SmootherContext } from "components";
+import Flicking, { FlickingError } from "@egjs/react-flicking";
+import "@egjs/flicking-plugins/dist/pagination.css";
+import "@egjs/react-flicking/dist/flicking.css";
+import ArrowForward from "assets/arrowForward.svg";
+import Close from "assets/close.svg";
+import ModalPortal from "./ModalPortal";
 
 const MediaLightboxCarousel = ({
   isOpen,
@@ -14,8 +14,8 @@ const MediaLightboxCarousel = ({
   slides,
   imageWidths,
   imageHeights,
-  imageContainerWidthClassName = 'w-[321px] md:w-[451px] lg:w-[808px]',
-  imageContainerHeightClassName = 'h-[183px] md:h-[253px] lg:h-[452px]',
+  imageContainerWidthClassName = "w-[321px] md:w-[451px] lg:w-[808px]",
+  imageContainerHeightClassName = "h-[183px] md:h-[253px] lg:h-[452px]",
 }) => {
   const carousel = useRef();
   const [showCarousel, setShowCarousel] = useState(false);
@@ -65,7 +65,7 @@ const MediaLightboxCarousel = ({
       {isOpen ? (
         <div
           className={`${
-            showCarousel ? '' : 'hidden'
+            showCarousel ? "" : "hidden"
           } fixed top-0 z-50 w-screen h-screen flex justify-center items-center flex-col`}
         >
           <div
@@ -92,11 +92,16 @@ const MediaLightboxCarousel = ({
             circular={true}
           >
             {slides.map((slide, index) => (
-              <div key={index} className={`flex justify-center items-center flex-col w-full`}>
+              <div
+                key={index}
+                className={`flex justify-center items-center flex-col w-full`}
+              >
                 <div className="h-full w-full flex items-end mb-4 lg:mb-6 text-white">
                   {index + 1} of {slides.length}
                 </div>
-                <div className={`pointer-events-auto w-full ${imageContainerHeightClassName}`}>
+                <div
+                  className={`pointer-events-auto w-full ${imageContainerHeightClassName}`}
+                >
                   <ResponsiveImage
                     image={slide.image ? slide.image : slide}
                     widths={imageWidths}

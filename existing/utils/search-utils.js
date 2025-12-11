@@ -1,4 +1,9 @@
-export const FUNCTIONAL_QUERY_PARAMS = ['searchTerm', 'page', 'orderBy', 'params'];
+export const FUNCTIONAL_QUERY_PARAMS = [
+  "searchTerm",
+  "page",
+  "orderBy",
+  "params",
+];
 
 /**
  * Sets values from router query parameters
@@ -9,7 +14,7 @@ export const FUNCTIONAL_QUERY_PARAMS = ['searchTerm', 'page', 'orderBy', 'params
 export const assignValuesFromRouteQuery = (route, ...args) => {
   if (route.query && args.length > 0) {
     args.forEach((argElement) => {
-      if (typeof argElement === 'object') {
+      if (typeof argElement === "object") {
         Object.entries(argElement).forEach(([key, value]) => {
           argElement[key] = Array.isArray(value) ? [] : null;
         });
@@ -24,7 +29,9 @@ export const assignValuesFromRouteQuery = (route, ...args) => {
           }
         });
       } else {
-        console.error(`Unsupported function argument! Arguments can only be objects, "${typeof argElement}" given!`);
+        console.error(
+          `Unsupported function argument! Arguments can only be objects, "${typeof argElement}" given!`,
+        );
       }
     });
   }
@@ -51,7 +58,9 @@ export const pushValuesToRouteQuery = (router, data) => {
  */
 export const replaceValuesOfRouteQuery = (router, data) => {
   const pathname =
-    router.asPath.indexOf('?') > 0 ? router.asPath.substring(0, router.asPath.indexOf('?')) : router.asPath;
+    router.asPath.indexOf("?") > 0
+      ? router.asPath.substring(0, router.asPath.indexOf("?"))
+      : router.asPath;
   cleanQueryData(data);
   router.replace(
     {
@@ -65,7 +74,11 @@ export const replaceValuesOfRouteQuery = (router, data) => {
 
 export const cleanQueryData = (data) => {
   Object.keys(data).forEach((key) => {
-    if (data[key] == null || data[key] === '' || (Array.isArray(data[key]) && data[key].length === 0)) {
+    if (
+      data[key] == null ||
+      data[key] === "" ||
+      (Array.isArray(data[key]) && data[key].length === 0)
+    ) {
       delete data[key];
     }
   });
@@ -75,7 +88,10 @@ export const getSearchFilters = (route) => {
   const filters = [];
   Object.entries(route.query).forEach(([key, value]) => {
     if (!FUNCTIONAL_QUERY_PARAMS.includes(key)) {
-      filters.push({ FieldName: key, FieldGuids: Array.isArray(value) ? value : [value] });
+      filters.push({
+        FieldName: key,
+        FieldGuids: Array.isArray(value) ? value : [value],
+      });
     }
   });
 

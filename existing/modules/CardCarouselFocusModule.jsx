@@ -1,11 +1,11 @@
-import React, { useRef, useEffect } from 'react';
-import { ModuleBase, EntityCard } from 'components';
-import Flicking, { FlickingError, ViewportSlot } from '@egjs/react-flicking';
-import { Pagination } from '@egjs/flicking-plugins';
-import tailwindConfig from '../tailwind.config.js';
-import '@egjs/flicking-plugins/dist/pagination.css';
-import '@egjs/react-flicking/dist/flicking.css';
-import Arrow from 'assets/arrow.svg';
+import React, { useRef, useEffect } from "react";
+import { ModuleBase, EntityCard } from "components";
+import Flicking, { FlickingError, ViewportSlot } from "@egjs/react-flicking";
+import { Pagination } from "@egjs/flicking-plugins";
+import tailwindConfig from "../tailwind.config.js";
+import "@egjs/flicking-plugins/dist/pagination.css";
+import "@egjs/react-flicking/dist/flicking.css";
+import Arrow from "assets/arrow.svg";
 
 const CardCarouselFocusModule = ({ data }) => {
   const { cardRow } = data || {};
@@ -13,8 +13,8 @@ const CardCarouselFocusModule = ({ data }) => {
   let progressPadding = 0;
 
   useEffect(() => {
-    carousel.current?.on('ready', (e) => {
-      e.currentTarget.addPlugins(new Pagination({ type: 'fraction' }));
+    carousel.current?.on("ready", (e) => {
+      e.currentTarget.addPlugins(new Pagination({ type: "fraction" }));
     });
   }, []);
 
@@ -34,8 +34,12 @@ const CardCarouselFocusModule = ({ data }) => {
 
   const calcStyleValue = (progressMax, progress, valueStart, valueEnd) => {
     const decreasingProgress = progressMax - progress;
-    const progressTime = valueEnd - decreasingProgress - (valueEnd - progressMax) / (progressMax / decreasingProgress);
-    const value = decreasingProgress * (valueStart / progressMax) + progressTime;
+    const progressTime =
+      valueEnd -
+      decreasingProgress -
+      (valueEnd - progressMax) / (progressMax / decreasingProgress);
+    const value =
+      decreasingProgress * (valueStart / progressMax) + progressTime;
     return Math.max(value, valueEnd);
   };
 
@@ -81,8 +85,14 @@ const CardCarouselFocusModule = ({ data }) => {
             className="pb-[80px]"
           >
             {row.props.cards.map((card, index) => (
-              <div key={index} className="card flex mx-[2px] md:mx-[34px] bg-white">
-                <EntityCard data={card} className="w-[270px] md:w-[450px] xl:w-[600px]" />
+              <div
+                key={index}
+                className="card flex mx-[2px] md:mx-[34px] bg-white"
+              >
+                <EntityCard
+                  data={card}
+                  className="w-[270px] md:w-[450px] xl:w-[600px]"
+                />
               </div>
             ))}
             <ViewportSlot>
@@ -90,11 +100,19 @@ const CardCarouselFocusModule = ({ data }) => {
             </ViewportSlot>
           </Flicking>
           <div className="flex justify-center z-10 gap-20 md:gap-[518px] -mt-[52px] md:mt-[20px] xl:mt-[15px] xl:gap-[686px] md:absolute md:top-1/2 md:left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 ">
-            <button className="btn text border circle p-0 w-10 h-10 z-10" onClick={move} aria-label="Prevues">
+            <button
+              className="btn text border circle p-0 w-10 h-10 z-10"
+              onClick={move}
+              aria-label="Prevues"
+            >
               <Arrow className="rotate-180" />
             </button>
 
-            <button className="btn text border circle p-0 w-10 h-10 z-10" onClick={() => move(1)} aria-label="Next">
+            <button
+              className="btn text border circle p-0 w-10 h-10 z-10"
+              onClick={() => move(1)}
+              aria-label="Next"
+            >
               <Arrow />
             </button>
           </div>

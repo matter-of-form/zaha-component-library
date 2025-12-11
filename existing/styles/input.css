@@ -21,12 +21,12 @@
   @apply mb-0 normal-case font-normal;
 }
 
-.input-group .input[type='checkbox'],
-.input-group .input[type='radio'] {
+.input-group .input[type="checkbox"],
+.input-group .input[type="radio"] {
   @apply w-auto mr-2 accent-black;
 }
 
-.input-group .input[type='text'] {
+.input-group .input[type="text"] {
   @apply outline-none focus:border-black;
 }
 
@@ -76,13 +76,17 @@
   @apply flex;
 }
 
-.input-group .input.number-input input[type='number']::-webkit-outer-spin-button,
-.input-group .input.number-input input[type='number']::-webkit-inner-spin-button {
+.input-group
+  .input.number-input
+  input[type="number"]::-webkit-outer-spin-button,
+.input-group
+  .input.number-input
+  input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.input-group .input.number-input input[type='number'] {
+.input-group .input.number-input input[type="number"] {
   width: 80%;
   text-align: center;
   -moz-appearance: textfield;
@@ -90,7 +94,7 @@
   border: none;
 }
 
-.input-group .input.number-input input[type='number']:focus-visible {
+.input-group .input.number-input input[type="number"]:focus-visible {
   outline: none;
   border: none;
 }
@@ -114,7 +118,7 @@ button:disabled {
   @apply cursor-not-allowed;
 }
 
-.input-group .input.number-input input[type='number']:disabled {
+.input-group .input.number-input input[type="number"]:disabled {
   @apply bg-transparent;
 }
 
@@ -131,14 +135,14 @@ button:disabled {
   @apply rounded-full border text-darkColor text-small-regular tracking-[.96px] uppercase outline-none;
 }
 
-input[type='color'] {
+input[type="color"] {
   @apply p-0 backdrop-blur-[13px] border-white/25 rounded-full border text-lightColor text-small-regular tracking-[.96px] uppercase outline-none;
   background: rgba(255, 255, 255, 0.02);
 }
-input[type='color']::-webkit-color-swatch-wrapper {
+input[type="color"]::-webkit-color-swatch-wrapper {
   padding: 0;
 }
-input[type='color']::-webkit-color-swatch {
+input[type="color"]::-webkit-color-swatch {
   @apply backdrop-blur-[13px] border-white/25 rounded-full border text-lightColor text-small-regular tracking-[.96px] uppercase outline-none;
   background: rgba(255, 255, 255, 0.02);
 }

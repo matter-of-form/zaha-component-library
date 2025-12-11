@@ -1,7 +1,13 @@
-import React, { useRef, forwardRef, useImperativeHandle, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Player from '@vimeo/player';
-import { useLayoutEffect } from 'utils';
+import React, {
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+  useEffect,
+} from "react";
+import PropTypes from "prop-types";
+import Player from "@vimeo/player";
+import { useLayoutEffect } from "utils";
 
 const VimeoPlayer = forwardRef(function VimeoPlayer(
   { media, cover, controls, onPayerReady, onAutoPlayStarted, ...props },
@@ -14,8 +20,8 @@ const VimeoPlayer = forwardRef(function VimeoPlayer(
   let fullscreen = useRef();
   const [vimeoReady, setVimeoReady] = useState(false);
 
-  const [videobgWidth, setVideobgWidth] = useState('100%');
-  const [videobgHeight, setVideobgHeight] = useState('100%');
+  const [videobgWidth, setVideobgWidth] = useState("100%");
+  const [videobgHeight, setVideobgHeight] = useState("100%");
 
   useEffect(() => {
     if (!isNaN(media.vimeoId)) {
@@ -45,61 +51,67 @@ const VimeoPlayer = forwardRef(function VimeoPlayer(
     }
   }, [onPayerReady, onAutoPlayStarted, media, controls]);
 
-  useImperativeHandle(
-    ref,
-    () => {
-      const monitorFullScreen = () => {
-        if (document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen) {
+  useImperativeHandle(ref, () => {
+    const monitorFullScreen = () => {
+      if (
+        document.fullScreen ||
+        document.mozFullScreen ||
+        document.webkitIsFullScreen
+      ) {
+        setTimeout(() => {
+          monitorFullScreen();
+        }, 100);
+      } else {
+        if (fullscreen.current) {
+          fullscreen.current = false;
+        }
+      }
+    };
+
+    return {
+      openFullscreen() {
+        if (
+          (media.allowFullScreen === undefined ||
+            media.allowFullScreen === true) &&
+          !fullscreen.current &&
+          player.current
+        ) {
+          fullscreen.current = true;
+          player.current.requestFullscreen();
+          player.current.play();
           setTimeout(() => {
             monitorFullScreen();
-          }, 100);
-        } else {
-          if (fullscreen.current) {
-            fullscreen.current = false;
-          }
+          }, 1000);
         }
-      };
-
-      return {
-        openFullscreen() {
-          if (
-            (media.allowFullScreen === undefined || media.allowFullScreen === true) &&
-            !fullscreen.current &&
-            player.current
-          ) {
-            fullscreen.current = true;
-            player.current.requestFullscreen();
-            player.current.play();
-            setTimeout(() => {
-              monitorFullScreen();
-            }, 1000);
-          }
-        },
-      };
-    },
-    [media],
-  );
+      },
+    };
+  }, [media]);
 
   useLayoutEffect(() => {
     if (vimeoReady && cover) {
       videobgEnlarge();
-      window.addEventListener('resize', videobgEnlarge);
-      return () => window.removeEventListener('resize', videobgEnlarge);
+      window.addEventListener("resize", videobgEnlarge);
+      return () => window.removeEventListener("resize", videobgEnlarge);
     }
   }, [vimeoReady, cover]);
 
   const videobgEnlarge = () => {
-    if (root.current.getElementsByTagName('iframe') && root.current.getElementsByTagName('iframe')[0]) {
-      const iframe = root.current.getElementsByTagName('iframe')[0];
+    if (
+      root.current.getElementsByTagName("iframe") &&
+      root.current.getElementsByTagName("iframe")[0]
+    ) {
+      const iframe = root.current.getElementsByTagName("iframe")[0];
       const videoAspect = iframe.height / iframe.width;
-      const parentAspect = root.current.parentElement.offsetHeight / root.current.parentElement.offsetWidth;
+      const parentAspect =
+        root.current.parentElement.offsetHeight /
+        root.current.parentElement.offsetWidth;
 
       if (parentAspect > videoAspect) {
-        setVideobgWidth((parentAspect / videoAspect) * 100 + '%');
-        setVideobgHeight('100%');
+        setVideobgWidth((parentAspect / videoAspect) * 100 + "%");
+        setVideobgHeight("100%");
       } else {
-        setVideobgWidth('100%');
-        setVideobgHeight((videoAspect / parentAspect) * 100 + '%');
+        setVideobgWidth("100%");
+        setVideobgHeight((videoAspect / parentAspect) * 100 + "%");
       }
     }
   };
@@ -114,7 +126,11 @@ const VimeoPlayer = forwardRef(function VimeoPlayer(
       className="absolute w-full h-full top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4"
       style={{ width: videobgWidth, height: videobgHeight }}
     >
-      <div className="vimeo w-full h-full [&_iframe]:w-full [&_iframe]:h-full" ref={container} {...props} />
+      <div
+        className="vimeo w-full h-full [&_iframe]:w-full [&_iframe]:h-full"
+        ref={container}
+        {...props}
+      />
     </div>
   );
 });

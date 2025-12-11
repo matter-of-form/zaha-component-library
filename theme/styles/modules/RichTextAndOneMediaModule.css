@@ -1,55 +1,53 @@
 .rich-text-and-one-media {
-    @apply bg-black p-6;
+  @apply bg-black p-6;
 
-    &.Right {
-        .media-holder {
-            @apply order-1;
-        }
+  &.Right {
+    .media-holder {
+      @apply order-1;
     }
-    & .grid  {
-        @apply grid-rows-1 grid-cols-10 xl:grid-cols-9 gap-[40px] md:gap-6 xl:gap-8;
-        .media-holder {
-            @apply m-auto w-[372px] h-[200px] md:w-full md:h-svh col-span-10 md:col-span-5 xl:col-span-5 2xl:col-span-4;
-        }
-    
-        & > .content-block {
-            @apply md:h-svh 
+  }
+  & .grid {
+    @apply grid-rows-1 grid-cols-10 xl:grid-cols-9 gap-[40px] md:gap-6 xl:gap-8;
+    .media-holder {
+      @apply m-auto w-[372px] h-[200px] md:w-full md:h-svh col-span-10 md:col-span-5 xl:col-span-5 2xl:col-span-4;
+    }
+
+    & > .content-block {
+      @apply md:h-svh 
             gap-[16px]
             col-span-10
             md:col-span-5
             xl:gap-[24px] xl:col-span-4 
             2xl:gap-[32px] 2xl:col-span-5;
-            
-            .pre-content {
-                @apply md:grow;
-            }
 
-            .description {
-                @apply opacity-75;
+      .pre-content {
+        @apply md:grow;
+      }
+
+      .description {
+        @apply opacity-75;
+      }
+      .button-group {
+        @apply mt-[8px] md:mt-[16px] xl:mt-[24px] 2xl:mt-[16px] gap-2;
+        button {
+          @apply uppercase rounded border md:h-[48px];
+          &.primary-cta {
+            @apply m-0 bg-white text-black;
+            &:hover {
+              @apply bg-black text-white border-white;
             }
-            .button-group
-            {
-                @apply mt-[8px] md:mt-[16px] xl:mt-[24px] 2xl:mt-[16px] gap-2;
-                button {
-                    @apply uppercase rounded border md:h-[48px];
-                    &.primary-cta {
-                        @apply m-0 bg-white text-black;
-                        &:hover {
-                            @apply bg-black text-white border-white;
-                        }
-                    }
-                    &.secondary-cta {
-                        @apply hidden md:block;
-                        &:hover {
-                            @apply bg-white text-black;
-                        }
-                    }
-                    svg{
-                        @apply w-[12px] ml-[12px];
-                    }
-                }
+          }
+          &.secondary-cta {
+            @apply hidden md:block;
+            &:hover {
+              @apply bg-white text-black;
             }
+          }
+          svg {
+            @apply w-[12px] ml-[12px];
+          }
         }
+      }
     }
-    
+  }
 }

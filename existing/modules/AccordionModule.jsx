@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { ModuleBase, PreHeading, HeadingTag, Link } from 'components';
-import ArrowForward from 'assets/arrowForward.svg';
-import classnames from 'classnames';
+import React, { useState } from "react";
+import { ModuleBase, PreHeading, HeadingTag, Link } from "components";
+import ArrowForward from "assets/arrowForward.svg";
+import classnames from "classnames";
 
 const AccordionModule = ({ data }) => {
   const [activeIndexList, setActiveIndexList] = useState([]);
@@ -30,14 +30,20 @@ const AccordionModule = ({ data }) => {
             </PreHeading>
           )}
           {data.headingTitle && (
-            <HeadingTag data={data.headingTitle} className="font-primary mt-7 color-from-bg text-h2" />
+            <HeadingTag
+              data={data.headingTitle}
+              className="font-primary mt-7 color-from-bg text-h2"
+            />
           )}
         </div>
 
         {data.accordionElements && (
           <div className="mb-4 mt-10 text-paragraph color-from-bg">
             {data.accordionElements.map((element, index) => (
-              <div key={index} className="border border-grey3 border-x-0 border-t-0">
+              <div
+                key={index}
+                className="border border-grey3 border-x-0 border-t-0"
+              >
                 <button
                   type="button"
                   className="flex items-center justify-between w-full pt-8 pb-2 text-h6 text-left pr-3"
@@ -48,8 +54,10 @@ const AccordionModule = ({ data }) => {
                     <ArrowForward
                       role="presentation"
                       className={classnames(
-                        'stroke-black scale-50 transition-transform duration-200',
-                        activeIndexList.includes(index) ? '-rotate-90' : ' rotate-90',
+                        "stroke-black scale-50 transition-transform duration-200",
+                        activeIndexList.includes(index)
+                          ? "-rotate-90"
+                          : " rotate-90",
                       )}
                     />
                   </div>
@@ -57,12 +65,17 @@ const AccordionModule = ({ data }) => {
 
                 <div
                   className={classnames(
-                    'transition-all duration-500 overflow-hidden',
-                    activeIndexList.includes(index) ? 'max-h-screen py-4' : 'max-h-0 overflow-hidden',
+                    "transition-all duration-500 overflow-hidden",
+                    activeIndexList.includes(index)
+                      ? "max-h-screen py-4"
+                      : "max-h-0 overflow-hidden",
                   )}
                 >
                   {element.text && (
-                    <div dangerouslySetInnerHTML={{ __html: element.text }} className="richtext-content" />
+                    <div
+                      dangerouslySetInnerHTML={{ __html: element.text }}
+                      className="richtext-content"
+                    />
                   )}
                 </div>
               </div>
@@ -71,7 +84,10 @@ const AccordionModule = ({ data }) => {
         )}
 
         <div className="flex justify-end mt-10">
-          <Link className="btn primary first:mr-4 only:mr-0" link={data.primaryCTA} />
+          <Link
+            className="btn primary first:mr-4 only:mr-0"
+            link={data.primaryCTA}
+          />
           <Link className="btn secondary " link={data.secondaryCTA} />
         </div>
       </div>

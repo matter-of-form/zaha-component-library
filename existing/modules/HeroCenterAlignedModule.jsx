@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { ModuleBase, SectionContent, Media } from 'components';
+import React, { useRef } from "react";
+import { ModuleBase, SectionContent, Media } from "components";
 
 const HeroCenterAlignedModule = ({ data }) => {
   const media = useRef();
@@ -15,7 +15,14 @@ const HeroCenterAlignedModule = ({ data }) => {
           <Media
             ref={media}
             media={data.backgroundMedia}
-            widths={{ xs: 425, sm: 640, md: 768, lg: 1024, xl: 1280, xxl: 2560 }}
+            widths={{
+              xs: 425,
+              sm: 640,
+              md: 768,
+              lg: 1024,
+              xl: 1280,
+              xxl: 2560,
+            }}
             className="h-full w-full object-cover"
             cover
             dataNotLazy

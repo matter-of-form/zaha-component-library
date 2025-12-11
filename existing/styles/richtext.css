@@ -54,11 +54,11 @@
   padding: 1rem;
 }
 .richtext-content blockquote::before {
-  content: '\201C';
+  content: "\201C";
 }
 
 .richtext-content blockquote::after {
-  content: '\201D';
+  content: "\201D";
 }
 
 .richtext-content ul,

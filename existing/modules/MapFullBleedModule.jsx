@@ -1,6 +1,6 @@
-import React from 'react';
-import { ModuleBase, HeadingTag } from 'components';
-import GoogleMapReact from 'google-map-react';
+import React from "react";
+import { ModuleBase, HeadingTag } from "components";
+import GoogleMapReact from "google-map-react";
 
 const MapFullBleedModule = ({ data }) => {
   return (
@@ -23,7 +23,10 @@ const MapFullBleedModule = ({ data }) => {
                 data={contact.headingTitle}
                 className="text-paragraph md:large-paragraph text-[18px] font-semibold"
               />
-              <div dangerouslySetInnerHTML={{ __html: contact.description }} className="richtext-content" />
+              <div
+                dangerouslySetInnerHTML={{ __html: contact.description }}
+                className="richtext-content"
+              />
             </div>
           ))}
         </div>

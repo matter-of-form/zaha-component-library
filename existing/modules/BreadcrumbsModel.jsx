@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'components';
-import Chevron from 'assets/chevron.svg';
-import { ModuleBase } from 'components';
+import React from "react";
+import { Link } from "components";
+import Chevron from "assets/chevron.svg";
+import { ModuleBase } from "components";
 
 const BreadcrumbsModel = ({ data }) => {
   return (

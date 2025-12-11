@@ -1,13 +1,16 @@
-import PropTypes from 'prop-types';
-import { ResponsiveImage, PreHeading, Link } from '..';
-import classNames from 'classnames';
-import { useTranslation } from 'next-i18next';
+import PropTypes from "prop-types";
+import { ResponsiveImage, PreHeading, Link } from "..";
+import classNames from "classnames";
+import { useTranslation } from "next-i18next";
 
 const GenericCardModel = ({ data, className, ...props }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
-    <div className={classNames('main-wrapper bg-white flex flex-col', className)} {...props}>
+    <div
+      className={classNames("main-wrapper bg-white flex flex-col", className)}
+      {...props}
+    >
       <div className="img-wrapper aspect-[3/2] w-full">
         {data.image && (
           <ResponsiveImage
@@ -36,12 +39,16 @@ const GenericCardModel = ({ data, className, ...props }) => {
               {data.subHeading}
             </PreHeading>
           )}
-          {data.description && <p className="text-small-paragraph md:text-paragraph font-[400]">{data.description}</p>}
+          {data.description && (
+            <p className="text-small-paragraph md:text-paragraph font-[400]">
+              {data.description}
+            </p>
+          )}
         </div>
         {(data.primaryCta || data.secondaryCta) && (
           <div className="button-wrapper inline-flex justify-between gap-4 mt-6">
             <Link className="btn primary" link={data.primaryCta}>
-              {t('general.$viewMore')}
+              {t("general.$viewMore")}
             </Link>
             <Link className="btn secondary" link={data.secondaryCta} />
           </div>

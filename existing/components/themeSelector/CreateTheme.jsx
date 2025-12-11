@@ -1,24 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import _ from 'lodash';
-import { PreHeading, HeadingTag } from 'components';
-import tailwindConfig from '../../tailwind.config.js';
+import { PreHeading, HeadingTag } from "components";
+import tailwindConfig from "../../tailwind.config.js";
 
 const CreateTheme = () => {
   const defaultTheme = {
-    themeName: '',
-    baseColor: '#344356',
-    txtLightColor: '#ffffff',
-    txtLighterColor: '#eae6dc',
-    txtDarkColor: '#000000',
-    txtDarkerColor: '#323232',
-    fontPrimary: 'Inter',
+    themeName: "",
+    baseColor: "#344356",
+    txtLightColor: "#ffffff",
+    txtLighterColor: "#eae6dc",
+    txtDarkColor: "#000000",
+    txtDarkerColor: "#323232",
+    fontPrimary: "Inter",
     fontSecondary: "'Open Sans'",
   };
 
   const getFonts = [
-    { font: tailwindConfig.theme.extend.fontFamily.inter, name: 'Inter' },
-    { font: tailwindConfig.theme.extend.fontFamily.openSans, name: 'OpenSans' },
+    { font: tailwindConfig.theme.extend.fontFamily.inter, name: "Inter" },
+    { font: tailwindConfig.theme.extend.fontFamily.openSans, name: "OpenSans" },
   ];
   const [state, setState] = useState(defaultTheme);
 
@@ -55,24 +55,24 @@ const CreateTheme = () => {
     // setState({ ...defaultTheme });
 
     var bodyStyles = document.body.style;
-    bodyStyles.setProperty('--color-primary', state.baseColor);
-    bodyStyles.setProperty('--color-light', state.txtLightColor);
-    bodyStyles.setProperty('--color-lighter', state.txtLighterColor);
-    bodyStyles.setProperty('--color-dark', state.txtDarkColor);
-    bodyStyles.setProperty('--color-darker', state.txtDarkerColor);
-    bodyStyles.setProperty('--font-family-primary', state.fontPrimary);
-    bodyStyles.setProperty('--font-family-secondary', state.fontSecondary);
+    bodyStyles.setProperty("--color-primary", state.baseColor);
+    bodyStyles.setProperty("--color-light", state.txtLightColor);
+    bodyStyles.setProperty("--color-lighter", state.txtLighterColor);
+    bodyStyles.setProperty("--color-dark", state.txtDarkColor);
+    bodyStyles.setProperty("--color-darker", state.txtDarkerColor);
+    bodyStyles.setProperty("--font-family-primary", state.fontPrimary);
+    bodyStyles.setProperty("--font-family-secondary", state.fontSecondary);
   };
 
   return (
     <div
       className={
-        'absolute top-0 w-full h-full transition-transform duration-500 origin-left right-0 z-10 text-lightColor text-large-paragraph flex'
+        "absolute top-0 w-full h-full transition-transform duration-500 origin-left right-0 z-10 text-lightColor text-large-paragraph flex"
       }
     >
       <div className="bg-baseColor md:w-2/6 h-full md:border-r border-white/25 pt-26 pb-16 md:pt-32 px-6 md:px-10 pointer-events-auto ">
         <HeadingTag
-          data={{ htag: 'h1', heading: 'Change theme' }}
+          data={{ htag: "h1", heading: "Change theme" }}
           className="font-primary text-lightColor z-0 uppercase text-left tracking-[-.48px] my-5"
         />
         <div className="w-full md:w-[490px] grid grid-cols-1 gap-x-8 gap-y-6 font-primary">
@@ -177,7 +177,10 @@ const CreateTheme = () => {
             </select>
           </div>
         </div>
-        <button onClick={createTheme} className="btn secondary cursor-pointer rounded-full px-10 mt-10">
+        <button
+          onClick={createTheme}
+          className="btn secondary cursor-pointer rounded-full px-10 mt-10"
+        >
           <span className="hidden sm:block"> Apply theme</span>
         </button>
       </div>
@@ -187,21 +190,31 @@ const CreateTheme = () => {
         style={{ color: state.txtLightColor, fontFamily: state.font }}
       >
         <div className="h-2/5 w-full">
-          <img src="https://picsum.photos/1200/1000" className="w-full h-full block object-cover" alt="" />
+          <img
+            src="https://picsum.photos/1200/1000"
+            className="w-full h-full block object-cover"
+            alt=""
+          />
         </div>
 
         <div className="absolute top-0 h-2/5 pt-6 pb-[64px] lg:pb-[72px] px-6 lg:py-40 md:px-10">
           <div className="title-wrapper">
             <PreHeading
               className="pre-heading mb-4 text-lightColor uppercase font-primary text-paragraph font-normal text-subheading"
-              style={{ color: state.txtLightColor, fontFamily: state.fontPrimary }}
+              style={{
+                color: state.txtLightColor,
+                fontFamily: state.fontPrimary,
+              }}
             >
               PreHeading
             </PreHeading>
             <HeadingTag
-              data={{ htag: 'h1', heading: 'Preview theme' }}
+              data={{ htag: "h1", heading: "Preview theme" }}
               className="heading font-primary text-lightColor dark text-h1 uppercase tracking-[-0.64px]"
-              style={{ color: state.txtLightColor, fontFamily: state.fontPrimary }}
+              style={{
+                color: state.txtLightColor,
+                fontFamily: state.fontPrimary,
+              }}
             />
           </div>
         </div>
@@ -209,9 +222,12 @@ const CreateTheme = () => {
         <div className="md:border-r border-white/25 px-10 pointer-events-auto">
           <div>
             <HeadingTag
-              data={{ htag: 'h1', heading: 'Light Texts' }}
+              data={{ htag: "h1", heading: "Light Texts" }}
               className=" font-primary z-0 uppercase text-left tracking-[-.48px] my-5"
-              style={{ color: state.txtLightColor, fontFamily: state.fontPrimary }}
+              style={{
+                color: state.txtLightColor,
+                fontFamily: state.fontPrimary,
+              }}
             />
             <div>
               <p
@@ -220,7 +236,8 @@ const CreateTheme = () => {
                   fontFamily: state.fontSecondary,
                 }}
               >
-                This is for preview only. Pick the color and font from the left side to see it working.
+                This is for preview only. Pick the color and font from the left
+                side to see it working.
               </p>
               <button
                 className="btn primary cursor-pointer rounded-full px-10 mt-10"
@@ -231,14 +248,17 @@ const CreateTheme = () => {
                 }}
               >
                 I am a Button
-              </button>{' '}
+              </button>{" "}
             </div>
           </div>
           <div>
             <HeadingTag
-              data={{ htag: 'h1', heading: 'Dark Texts' }}
+              data={{ htag: "h1", heading: "Dark Texts" }}
               className=" font-primary z-0 uppercase text-left tracking-[-.48px] my-5"
-              style={{ color: state.txtDarkColor, fontFamily: state.fontPrimary }}
+              style={{
+                color: state.txtDarkColor,
+                fontFamily: state.fontPrimary,
+              }}
             />
             <div>
               <p
@@ -247,7 +267,8 @@ const CreateTheme = () => {
                   fontFamily: state.fontSecondary,
                 }}
               >
-                This is for preview only. Pick the color and font from the left side to see it working.
+                This is for preview only. Pick the color and font from the left
+                side to see it working.
               </p>
               <button
                 className="btn secondary cursor-pointer rounded-full px-10 mt-10"
@@ -260,15 +281,21 @@ const CreateTheme = () => {
                 }}
               >
                 I am a Secondary Button
-              </button>{' '}
+              </button>{" "}
             </div>
           </div>
         </div>
 
-        <div className="bg-baseColor absolute bottom-0 w-4/6 h-20 py-7" style={{ backgroundColor: state.baseColor }}>
+        <div
+          className="bg-baseColor absolute bottom-0 w-4/6 h-20 py-7"
+          style={{ backgroundColor: state.baseColor }}
+        >
           <h1
             className="w-full text-center pre-heading text-lightColor uppercase font-primary font-normal"
-            style={{ color: state.txtLightColor, fontFamily: state.fontPrimary }}
+            style={{
+              color: state.txtLightColor,
+              fontFamily: state.fontPrimary,
+            }}
           >
             Footer
           </h1>

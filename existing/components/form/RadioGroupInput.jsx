@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const RadioInputGroup = ({ options, name, ...props }) => {
   const handleOptionChange = (value) => {
@@ -12,7 +12,7 @@ const RadioInputGroup = ({ options, name, ...props }) => {
     <>
       {options.map((option, index) => (
         <label
-          key={name + '-' + index}
+          key={name + "-" + index}
           className="radio-group"
           onClick={() => handleOptionChange(option.value.toLowerCase())}
         >
@@ -22,7 +22,9 @@ const RadioInputGroup = ({ options, name, ...props }) => {
             id={option.value.toLowerCase()}
             name={name}
             value={option.value.toLowerCase()}
-            defaultChecked={props.value.toLowerCase() === option.value.toLowerCase()}
+            defaultChecked={
+              props.value.toLowerCase() === option.value.toLowerCase()
+            }
           />
           {option.label}
         </label>

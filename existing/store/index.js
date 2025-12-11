@@ -1,10 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import { createWrapper } from 'next-redux-wrapper';
-import { HYDRATE } from 'next-redux-wrapper';
+import { configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { createWrapper } from "next-redux-wrapper";
+import { HYDRATE } from "next-redux-wrapper";
 
 const indexSlice = createSlice({
-  name: 'app',
+  name: "app",
   initialState: {
     pageId: null,
     isRobot: false,

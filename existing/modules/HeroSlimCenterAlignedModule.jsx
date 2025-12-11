@@ -1,4 +1,4 @@
-import { ModuleBase, SectionContent, Media } from 'components';
+import { ModuleBase, SectionContent, Media } from "components";
 
 const HeroCenterAlignedModule = ({ data }) => {
   return (
