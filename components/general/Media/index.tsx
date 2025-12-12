@@ -100,8 +100,8 @@ export const Media = forwardRef(
       }
     }
     if (data.isSvg && data.svg) {
-      const SVG = require(data.imageUrl).current;
-      variant = <SVG /> || null;
+      const SVG = require(data.imageUrl).current || null;
+      variant = <SVG />;
     }
 
     if (!variant) return null;
