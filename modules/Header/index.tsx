@@ -47,7 +47,7 @@ const Header: FC<any> = ({
       scrollCont.style.touchAction =
         headerAction === "navigation" ? "none" : "auto";
     }
-  }, [headerAction]);
+  }, [headerAction, scrollContainer]);
 
   const closeIfClickedOutside = (e: MouseEvent) => {
     const nav: any = navRef.current;

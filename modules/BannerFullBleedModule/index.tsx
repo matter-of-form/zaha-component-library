@@ -23,7 +23,7 @@ const BannerFullBleedModule: FC<BannerFullBleedModuleProps> = ({
         data={data}
         size="full"
         childAnims={moduleAnims}
-        {...backgroundImageSizes}
+        backgroundImageSizes={backgroundImageSizes}
         imageQuality={backgroundImageQuality}
         priority={imagePriority}
       />

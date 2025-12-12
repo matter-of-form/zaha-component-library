@@ -1,6 +1,5 @@
 "use client";
 import Player from "@vimeo/player";
-import { useInView } from "framer-motion";
 import {
   FC,
   forwardRef,

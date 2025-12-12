@@ -42,8 +42,6 @@ export const Button = forwardRef(
     const renderText = !mofConfig?.button?.[variant as "primary"]?.omitText;
     const configText = mofConfig?.button?.[variant as "primary"]?.text;
 
-    if (!text && !configText && !iconPre && !iconPost) return null;
-
     const handleClick = useCallback(
       (e: MouseEvent) => {
         if (onClick) {
@@ -79,6 +77,8 @@ export const Button = forwardRef(
       />
     ) : null;
     let buttonContent: ReactNode | any[] = buttonMain;
+
+    if (!text && !configText && !iconPre && !iconPost) return null;
 
     if (iconPre || iconPost || loadingState) {
       buttonContent = (

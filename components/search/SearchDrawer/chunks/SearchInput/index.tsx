@@ -30,7 +30,7 @@ const SearchInput = ({
     }
   }, [drawerOpen]);
 
-  const closeDrawerOnESC = (e) => {
+  const closeDrawerOnESC = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Escape") {
       setHeaderAction && setHeaderAction(null);
       setTimeout(() => {
