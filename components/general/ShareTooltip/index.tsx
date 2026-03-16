@@ -4,10 +4,13 @@ import { Box, Button, Tooltip } from "../../../components";
 import { shareLink } from "./ShareTooltip.styles";
 // @ts-ignore - mof overrides
 import mofConfig from "/mofConfig";
+import { usePathname } from "next/navigation";
 
 const shareIcons = mofConfig.shareIcons || {};
 
 const ShareTooltip: FC<any> = ({ data }) => {
+  const pathName = usePathname();
+
   const handleGetLink = (link: string, id: string) => {
     let newLink = link;
     if (
@@ -36,7 +39,10 @@ const ShareTooltip: FC<any> = ({ data }) => {
       ([key]) => key === "copySharingLink",
     );
     if (!hasCopySharingLink) {
-      availLinks.push(["copySharingLink", window.location.href]);
+      availLinks.push([
+        "copySharingLink",
+        `${process.env.RESOURCE_PATH || "https://qa.zaha-hadid.com/"}${pathName.startsWith("/") ? pathName.substring(1) : pathName}`,
+      ]);
     }
   }
 

@@ -41,11 +41,17 @@ const PrimaryContentBlock: FC<ContentBlockContentProps> = ({
 
   return (
     <Stack direction="column" {...allProps}>
-      <Stack direction="row" {...preContent(childAnims?.preContent)}>
-        <Text text={data?.tag} {...renderText("tag")} />
-        <Text text={data?.preHeading} {...renderText("preHeading")} />
-        <Stack {...contentInfoTags(childAnims?.infoTags)}>{renderTags}</Stack>
-      </Stack>
+      {(data.tag || data.preHeading || renderTags.length > 0) && (
+        <Stack direction="row" {...preContent(childAnims?.preContent)}>
+          <Text text={data?.tag} {...renderText("tag")} />
+          <Text text={data?.preHeading} {...renderText("preHeading")} />
+          {renderTags.length > 0 && (
+            <Stack {...contentInfoTags(childAnims?.infoTags)}>
+              {renderTags}
+            </Stack>
+          )}
+        </Stack>
+      )}
       <Text text={heading} {...htag} {...renderText("headingTitle")} />
       <Text
         text={data?.subHeading || data?.subheading}

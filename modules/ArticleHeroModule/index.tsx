@@ -33,8 +33,10 @@ const ArticleHeroModule: FC<ArticleHeroModuleProps> = ({
         backgroundImageQuality={backgroundImageQuality}
         priority={imagePriority}
         childAnims={moduleAnims?.card}
-        children={children}
-      />
+        richText
+      >
+        {children}
+      </Card>
     </ModuleBase>
   );
 };
