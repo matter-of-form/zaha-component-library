@@ -33,9 +33,9 @@
     "eslint-plugin-storybook": "^0.6.15",
     "framer-motion": "^11.0.3",
     "gsap": "^3.12.5",
-    "isomorphic-dompurify": "^2.2.0",
+    "isomorphic-dompurify": "^3.5.1",
     "lenis": "^1.0.45",
-    "next": "14.0.4",
+    "next": "14.2.35",
     "next-i18next": "^15.2.0",
     "next-redux-wrapper": "^8.1.0",
     "postcss": "^8",
@@ -59,7 +59,7 @@
     "use-device-pixel-ratio": "^1.1.2"
   },
   "peerDependencies": {
-    "next": "14.0.4",
+    "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18"
   },

@@ -1,3 +1,5 @@
+"use client";
+
 import { createElement, forwardRef, Ref } from "react";
 import { TextProps } from "./Text.types";
 import { textVars } from "./Text.styles";
