@@ -15,6 +15,8 @@ type VideoProps = {
     image: {
       src: string;
       alt?: string;
+      gravity?: string | null;
+      blurHash?: string | null;
     };
     video: {
       src: string | number;

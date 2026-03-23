@@ -35,6 +35,8 @@ export const Media = forwardRef(
         responsive={responsive}
         priority={priority}
         quality={imageQuality}
+        gravity={data?.gravity}
+        blurHash={data?.blurHash}
         disablePlaceholder={disablePlaceholder || data?.isSvg}
       />
     );
@@ -43,6 +45,8 @@ export const Media = forwardRef(
         image: {
           src: string;
           alt?: string;
+          gravity?: string | null;
+          blurHash?: string | null;
         };
         video: {
           src: string | number;
@@ -57,6 +61,8 @@ export const Media = forwardRef(
         image: {
           src: data?.coverImage?.imageUrl,
           alt: data?.coverImage?.imageAlt,
+          gravity: data?.coverImage?.gravity,
+          blurHash: data?.coverImage?.blurHash,
         },
         video: {
           src: data?.vimeoId || data?.youtubeId || data?.videoFromGallery,
@@ -94,6 +100,8 @@ export const Media = forwardRef(
             responsive={responsive}
             priority={priority}
             quality={imageQuality}
+            gravity={data?.coverImage?.gravity}
+            blurHash={data?.coverImage?.blurHash}
             disablePlaceholder={disablePlaceholder || data?.coverImage?.isSvg}
           />
         );

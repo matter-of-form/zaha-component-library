@@ -53,9 +53,13 @@ function createCustomImageLoader({
       params.push(`g=${gravity}`);
     }
 
-    const validQuality =
-      quality && !isNaN(quality) && quality > 0 ? quality : 75;
-    params.push(`q=${validQuality}`);
+    // const validQuality =
+    //   quality && !isNaN(quality) && quality > 0 ? quality : 75;
+    // params.push(`q=${validQuality}`);
+
+    if (quality) {
+      params.push(`q=${quality}`);
+    }
 
     if (format) {
       params.push(`fm=${format}`);
