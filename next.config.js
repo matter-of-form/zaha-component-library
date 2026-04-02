@@ -12,7 +12,7 @@ const nextConfig = {
     RUNTIME: "storybook",
     IMAGE_PROCESSOR_URL:
       process.env.IMAGE_PROCESSOR_URL ||
-      "https://cdn-zhweb-qa-media.azureedge.net/api/v1/",
+      "https://media-qa.zaha-hadid.com/zhweb-qa-media",
   },
   images: {
     deviceSizes: [384, 450, 640, 750, 828, 1080, 1200, 1400, 1600, 1920, 2048],

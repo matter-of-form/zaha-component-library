@@ -5,7 +5,7 @@ import { ImageProps, Format, RatioBucket } from "./Image.types";
 import { spacer } from "./Image.styles";
 import { motion } from "framer-motion";
 import { containsMotionProps, stripQueryString } from "../../../utils";
-import { useImageOptimiser } from "../../../hooks";
+import { useImageOptimiser, useDimensions } from "../../../hooks";
 
 type NextImageLoaderProps = Parameters<ImageLoader>[0];
 
@@ -22,7 +22,7 @@ function pickRatio(width: number, ratios: RatioBucket[] = []) {
 
 function createCustomImageLoader({
   gravity,
-  format,
+  format = "webp",
   ratios,
   fit,
 }: {
@@ -96,9 +96,18 @@ export const Image = forwardRef(
     ref: Ref<any>,
   ): any => {
     const imageRef = useRef<any>();
+    const dimensions = useDimensions(imageRef);
     const isAnimated = containsMotionProps(props);
 
-    if (!propSrc) return null;
+    // No src → spacer (gives the ref a DOM node to measure)
+    if (!propSrc) return <Box {...spacer} ref={imageRef} />;
+
+    // Non-responsive static image with no explicit width: wait until the
+    // container has been measured before rendering the actual image.
+    const measuredWidth = dimensions?.width ?? 0;
+    if (!responsive && !propWidth && measuredWidth === 0) {
+      return <Box {...spacer} ref={imageRef} />;
+    }
 
     // Determine the blur placeholder: CMS blurHash takes priority, then fallback
     const resolvedBlurDataURL = blurHash || FALLBACK_BLUR_DATA_URL;
@@ -120,7 +129,9 @@ export const Image = forwardRef(
       ...(responsive
         ? { fill: true, style: { objectFit: "cover" as const, ...props.style } }
         : {}),
-      ...(!responsive && propWidth ? { width: propWidth } : {}),
+      ...(!responsive && (propWidth ?? measuredWidth)
+        ? { width: propWidth ?? measuredWidth }
+        : {}),
       ...(!responsive && propHeight ? { height: propHeight } : {}),
       ...(!disablePlaceholder
         ? {
