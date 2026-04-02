@@ -71,7 +71,7 @@ export const Text = forwardRef(
 Text.displayName = "Text";
 
 const getMotionTag = (tag: any) => {
-  if (typeof tag === "object") return motion(Link);
+  if (typeof tag === "object") return motion(Link as any);
 
   const tags: any = {
     p: motion.p,
