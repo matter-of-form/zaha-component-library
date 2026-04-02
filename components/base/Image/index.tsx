@@ -2,7 +2,7 @@ import { forwardRef, Ref, useRef } from "react";
 import { Box } from "../../../components";
 import NextImage, { ImageLoader } from "next/image";
 import { ImageProps, Format, RatioBucket } from "./Image.types";
-import { spacer } from "./Image.styles";
+import { focalPointSettings, spacer } from "./Image.styles";
 import { motion } from "framer-motion";
 import { containsMotionProps, stripQueryString } from "../../../utils";
 import { useImageOptimiser, useDimensions } from "../../../hooks";
@@ -127,7 +127,14 @@ export const Image = forwardRef(
       priority,
       sizes: sizes ?? "(max-width: 1920px) 100vw, 1920px",
       ...(responsive
-        ? { fill: true, style: { objectFit: "cover" as const, ...props.style } }
+        ? {
+            fill: true,
+            style: {
+              objectFit: "cover" as const,
+              ...focalPointSettings(gravity as string),
+              ...props.style,
+            },
+          }
         : {}),
       ...(!responsive && (propWidth ?? measuredWidth)
         ? { width: propWidth ?? measuredWidth }
