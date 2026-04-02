@@ -141,7 +141,7 @@ export const Image = forwardRef(
         : {}),
     };
 
-    const MotionImage = motion(NextImage);
+    const MotionImage = motion(NextImage as any);
 
     return isAnimated ? (
       <MotionImage {...allProps} ref={ref} />
