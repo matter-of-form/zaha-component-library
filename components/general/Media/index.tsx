@@ -19,6 +19,7 @@ export const Media = forwardRef(
       cardVariant = "primary",
       imageQuality,
       disablePlaceholder,
+      usePhotographerAsCredit,
       ...props
     }: MediaProps,
     ref: Ref<MediaProps>,
@@ -118,8 +119,11 @@ export const Media = forwardRef(
       <Box {...props} {...mediaHolder(size, align, orientation, props)}>
         {variant}
         {data?.title && <Text text={data?.title} {...caption("title")} />}
-        {data?.photographer && (
+        {data?.photographer && usePhotographerAsCredit && (
           <Text text={data?.photographer} {...caption("photographer")} />
+        )}
+        {data?.imageCredit && (
+          <Text text={data?.imageCredit} {...caption("photographer credit")} />
         )}
         <Text text={data?.caption} {...caption("")} />
       </Box>

@@ -14,4 +14,5 @@ export interface MediaProps {
   imageQuality?: any;
   className?: string;
   disablePlaceholder?: boolean;
+  usePhotographerAsCredit?: boolean;
 }

@@ -25,6 +25,7 @@ const NavImages: FC<any> = ({ images, ...props }) => {
           imageSizes={imageSizes}
           imageQuality={imageQuality}
           priority={imagePriority}
+          usePhotographerAsCredit
         />
       </Box>
     );
@@ -42,6 +43,7 @@ const NavImages: FC<any> = ({ images, ...props }) => {
         imageQuality={imageQuality}
         priority={imagePriority}
         className="default"
+        usePhotographerAsCredit
       />
     </Box>
   );

@@ -88,7 +88,9 @@ const Header: FC<any> = ({
   };
 
   const showHideMotion =
-    currBreakpoint === "sm" || currBreakpoint === "md"
+    currBreakpoint === "sm" ||
+    currBreakpoint === "md" ||
+    currBreakpoint === "lg"
       ? moduleAnims?.wrapper(headerAction === "navigation")
       : {};
 
