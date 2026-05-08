@@ -88,6 +88,7 @@ export const Nav: NavProps = forwardRef(
           data={navState}
           isOpen={headerAction === "navigation"}
           navSettings={navSettings}
+          offset={breakpoint === "lg" ? 1 : 0}
         />
       );
     }
