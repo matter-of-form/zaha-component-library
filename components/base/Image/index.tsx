@@ -125,7 +125,9 @@ export const Image = forwardRef(
       src: propSrc,
       loader,
       priority,
-      sizes: sizes ?? "(max-width: 1920px) 100vw, 1920px",
+      ...(!propWidth && !propHeight
+        ? { sizes: sizes ?? "(max-width: 1920px) 100vw, 1920px" }
+        : {}),
       ...(responsive
         ? {
             fill: true,

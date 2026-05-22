@@ -31,7 +31,7 @@ const Footer: FC<FooterProps> = ({
       <Stack {...topWrapper(moduleAnims?.topWrapper)}>
         <Media
           data={data?.logo}
-          imageSizes={backgroundImageSizes}
+          imageSizes={logoImageSizes}
           {...logoWrapper(moduleAnims?.logo)}
           responsive
           priority={logoPriority}
