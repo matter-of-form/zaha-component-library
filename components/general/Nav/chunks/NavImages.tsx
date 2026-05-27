@@ -4,7 +4,8 @@ import { NavContext } from "./";
 import { navImageWrapper, navImage } from "../Nav.styles";
 
 const NavImages: FC<any> = ({ images, ...props }) => {
-  const { defaultImage, imgProps, navSettings } = useContext(NavContext);
+  const { defaultImage, imgProps, navSettings, usePhotographerAsCredit } =
+    useContext(NavContext);
   const {
     imageSizes = "100vw",
     imageQuality = 80,
@@ -25,7 +26,7 @@ const NavImages: FC<any> = ({ images, ...props }) => {
           imageSizes={imageSizes}
           imageQuality={imageQuality}
           priority={imagePriority}
-          usePhotographerAsCredit
+          usePhotographerAsCredit={usePhotographerAsCredit}
         />
       </Box>
     );
@@ -43,7 +44,7 @@ const NavImages: FC<any> = ({ images, ...props }) => {
         imageQuality={imageQuality}
         priority={imagePriority}
         className="default"
-        usePhotographerAsCredit
+        usePhotographerAsCredit={usePhotographerAsCredit}
       />
     </Box>
   );

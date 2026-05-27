@@ -22,6 +22,7 @@ const Header: FC<any> = ({
   enableDesktopScrollLock = false,
   hideSearchButton = false,
   searchInputPlaceholder = "Search",
+  usePhotographerAsCredit = false,
   ...props
 }) => {
   const router = useRouter();
@@ -132,6 +133,7 @@ const Header: FC<any> = ({
           defaultImage={data?.defaultImage}
           variant={variant}
           navProps={navProps}
+          usePhotographerAsCredit={usePhotographerAsCredit}
           onBreakpointChange={handleBreakpointChange}
           headerAction={headerAction}
           setHeaderAction={setHeaderAction}

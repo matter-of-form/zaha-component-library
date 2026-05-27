@@ -15,6 +15,7 @@ export interface NavProps extends StackProps, VariantProps<typeof nav> {
   scrollContainer?: HTMLElement;
   enableDesktopScrollLock?: boolean;
   defaultImage?: any;
+  usePhotographerAsCredit?: boolean;
 }
 
 export type NavVars = (
