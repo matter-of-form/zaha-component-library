@@ -127,6 +127,9 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
           .filter((f: any) => f !== null)
       : [];
 
+    const willAppend =
+      paginationType === "showMore" && currPage < currentPage;
+
     const fetchData = async () => {
       const queryData = {
         filters,
@@ -136,6 +139,11 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
         displayFilters,
         sortByOptions,
         pageNumber: fetchPage,
+        // Pages already present in filteredCards. When appending we keep pages
+        // 1..currPage and let the action fetch only the missing tail; otherwise
+        // (replace) we ask for the single fetchPage. Prevents duplicate cards
+        // when paging forward more than once and then navigating back.
+        loadedPage: willAppend ? currPage : fetchPage - 1,
       };
 
       try {
@@ -143,7 +151,7 @@ const CardListingGridModule: FC<CardListingGridModuleProps> = ({
           // if load more and pageNumber++ append cards to list, otherwise replace
           let updatedCards = result?.cards || [];
           let updatedSearchFilters = result?.filter || [];
-          if (paginationType === "showMore" && currPage < currentPage) {
+          if (willAppend) {
             updatedCards = [...filteredCards, ...result.cards];
           }
 
