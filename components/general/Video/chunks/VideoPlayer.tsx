@@ -13,6 +13,8 @@ import { useDimensions } from "../../../../hooks";
 import { videoContainer } from "../Video.styles";
 import { VideoContext, VideoControls } from "./";
 
+const MAX_INIT_ATTEMPTS = 3;
+
 const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
   const {
     data,
@@ -35,8 +37,11 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const player = useRef<Player>();
+  const initAttempts = useRef(0);
+  const onPlayerReadyRef = useRef(onPlayerReady);
+  const onAutoPlayStartedRef = useRef(onAutoPlayStarted);
   useImperativeHandle(ref, () => player.current!);
-  // const fullscreen = useRef<boolean>(false);
+
   const [playerDimensions, setPlayerDimensions] = useState<{
     width: string;
     height: string;
@@ -53,6 +58,12 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
   });
   const [duration, setDuration] = useState<number>(0);
 
+  // Keep callback refs up to date without triggering player recreation
+  useEffect(() => {
+    onPlayerReadyRef.current = onPlayerReady;
+    onAutoPlayStartedRef.current = onAutoPlayStarted;
+  }, [onPlayerReady, onAutoPlayStarted]);
+
   function getCurrentTime() {
     Promise.all([
       player.current?.getCurrentTime(),
@@ -62,77 +73,88 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
         if (buffered[0]) {
           setProgress({ played: currentTime, loaded: buffered[0][1] });
         }
-        // console.log(buffered[0][1]);
       }
     });
   }
 
+  // Player creation — only re-run when src or inline mode changes, not on mute/callback changes
   useEffect(() => {
-    if (!isNaN(data?.src)) {
-      player.current = new Player(containerRef?.current!, {
-        id: data?.src,
-        autoplay: data.autoPlay,
-        background: isInline && isMuted,
-        loop: data.loop,
-        controls: false,
-        muted: true,
-        playsinline: isInline || isFullscreen,
-        dnt: true,
-        pip: false,
-      });
-
-      player.current.ready().then(() => {
-        onPlayerReady && onPlayerReady();
-
-        if (containerRef.current && isInline) {
-          const iframe: HTMLIFrameElement =
-            containerRef.current.getElementsByTagName("iframe")[0];
-
-          handleResize();
-
-          if (iframe) {
-            setInlineViewer(iframe);
-
-            iframe.style.width = "100%";
-            iframe.style.height = "100%";
-          }
-        } else {
-          const fullPlayer = document.getElementById("fullPlayer");
-          const iframe = fullPlayer?.getElementsByTagName("iframe")[0];
-
-          if (iframe) {
-            setFullViewer(iframe);
-
-            iframe.style.width = "100%";
-            iframe.style.height = "100%";
-          }
-        }
-      });
-
-      if (data.autoPlay) {
-        player.current
-          .play()
-          .then(() => {
-            onAutoPlayStarted && onAutoPlayStarted();
-            setInit(false);
-            setIsPlaying(true);
-          })
-          .catch((e) => console.error(e));
-      }
-
-      player.current.getDuration().then((duration) => setDuration(duration));
-    } else {
+    if (isNaN(data?.src)) {
       console.error(`'${data?.src}' is not a valid vimeo ID`);
+      return;
     }
-  }, [
-    onPlayerReady,
-    onAutoPlayStarted,
-    data,
-    isMuted,
-    isInline,
-    containerRef,
-    wrapper,
-  ]);
+
+    if (initAttempts.current >= MAX_INIT_ATTEMPTS) {
+      console.warn(`Vimeo player for ID ${data?.src} failed after ${MAX_INIT_ATTEMPTS} attempts, giving up.`);
+      return;
+    }
+
+    initAttempts.current += 1;
+
+    player.current = new Player(containerRef?.current!, {
+      id: data?.src,
+      autoplay: data.autoPlay,
+      background: isInline && isMuted,
+      loop: data.loop,
+      controls: false,
+      muted: true,
+      playsinline: isInline || isFullscreen,
+      dnt: true,
+      pip: false,
+    });
+
+    player.current.ready().then(() => {
+      initAttempts.current = 0; // reset on success
+      onPlayerReadyRef.current && onPlayerReadyRef.current();
+
+      if (containerRef.current && isInline) {
+        const iframe: HTMLIFrameElement =
+          containerRef.current.getElementsByTagName("iframe")[0];
+
+        handleResize();
+
+        if (iframe) {
+          setInlineViewer(iframe);
+          iframe.style.width = "100%";
+          iframe.style.height = "100%";
+        }
+      } else {
+        const fullPlayer = document.getElementById("fullPlayer");
+        const iframe = fullPlayer?.getElementsByTagName("iframe")[0];
+
+        if (iframe) {
+          setFullViewer(iframe);
+          iframe.style.width = "100%";
+          iframe.style.height = "100%";
+        }
+      }
+    }).catch((e) => {
+      console.error(`Vimeo player ready failed for ID ${data?.src}:`, e);
+    });
+
+    if (data.autoPlay) {
+      player.current
+        .play()
+        .then(() => {
+          onAutoPlayStartedRef.current && onAutoPlayStartedRef.current();
+          setInit(false);
+          setIsPlaying(true);
+        })
+        .catch((e) => console.error(e));
+    }
+
+    player.current.getDuration().then((duration) => setDuration(duration));
+
+    return () => {
+      player.current?.destroy();
+      player.current = undefined;
+    };
+  }, [data?.src, isInline]); // Only recreate player when video source or inline mode changes
+
+  // Handle mute changes without recreating the player
+  useEffect(() => {
+    player.current?.setMuted(isMuted);
+  }, [isMuted]);
 
   useEffect(() => {
     handleResize();
@@ -172,37 +194,7 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
       clearInterval(progressInterval);
     };
   }, [player]);
-  // const monitorFullScreen = () => {
-  //   if (
-  //     document.fullscreen ||
-  //     document.mozFullScreen ||
-  //     document.webkitIsFullScreen
-  //   ) {
-  //     setTimeout(() => {
-  //       monitorFullScreen();
-  //     }, 100);
-  //   } else {
-  //     if (fullscreen.current) {
-  //       fullscreen.current = false;
-  //     }
-  //   }
-  // };
 
-  // function openFullscreen() {
-  //   if (
-  //     (data.allowFullScreen === undefined || data.allowFullScreen === true) &&
-  //     !fullscreen.current &&
-  //     player.current
-  //   ) {
-  //     fullscreen.current = true;
-  //     player.current.requestFullscreen();
-  //     player.current.play();
-  //     setIsPlaying(true);
-  //     setTimeout(() => {
-  //       monitorFullScreen();
-  //     }, 1000);
-  //   }
-  // }
   function togglePlay(e: any) {
     e.stopPropagation();
 
