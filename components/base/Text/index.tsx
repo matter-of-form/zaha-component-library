@@ -1,6 +1,6 @@
 "use client";
 
-import { createElement, forwardRef, Ref } from "react";
+import { createElement, forwardRef, Ref, useState, useEffect } from "react";
 import { TextProps } from "./Text.types";
 import { textVars } from "./Text.styles";
 import DOMPurify from "isomorphic-dompurify";
@@ -8,6 +8,14 @@ import { motion } from "framer-motion";
 import { containsMotionProps } from "../../../utils";
 import Link from "next/link";
 import { allowedTags } from "./chunks";
+
+const sanitize = (text: string, rich: boolean) =>
+  DOMPurify.sanitize(text, {
+    ALLOWED_TAGS: rich ? allowedTags.rich : allowedTags.default,
+    ALLOWED_ATTR: ["class", "id", "href", "target"],
+    FORBID_ATTR: ["style", "align", "color", ""],
+    KEEP_CONTENT: true,
+  });
 
 export const Text = forwardRef(
   (
@@ -23,20 +31,20 @@ export const Text = forwardRef(
     }: TextProps,
     ref: Ref<TextProps>,
   ) => {
-    const isAnimated = containsMotionProps(props); //contains framer motion props?
+    const isAnimated = containsMotionProps(props);
+    const currentText = link?.text || (text as string) || "";
+
+    // Server-side isomorphic-dompurify resolves to browser.js via webpack exports conditions
+    // and fails silently in Node.js SSR, causing hydration mismatches.
+    // Solution: render with raw text on initial render (matches server), sanitize after mount.
+    const [displayText, setDisplayText] = useState<string>(currentText);
+
+    useEffect(() => {
+      if (!currentText) return;
+      setDisplayText(sanitize(currentText, rich));
+    }, [currentText, rich]);
 
     if (!text && !link.text) return null;
-
-    // HTML string - unwanted tags stripping
-    const currentText = link?.text || (text as string);
-    let cleanedText = currentText;
-
-    cleanedText = DOMPurify.sanitize(currentText, {
-      ALLOWED_TAGS: rich ? allowedTags.rich : allowedTags.default,
-      ALLOWED_ATTR: ["class", "id", "href", "target"],
-      FORBID_ATTR: ["style", "align", "color", ""],
-      KEEP_CONTENT: true,
-    });
 
     if (textStyle === "button" && variant !== "popover") {
       return text;
@@ -45,14 +53,13 @@ export const Text = forwardRef(
     const isLink: boolean = !!link.text;
     const linkProps = isLink ? (({ linkType, ...rest }) => rest)(link) : {};
 
-    if (cleanedText === "[object Object]") return null;
+    if (displayText === "[object Object]") return null;
 
     const allProps = {
-      // pass all styling defaults to decoupled styles file to future-proof modularity
       ...textVars(variant, textStyle, isLink, className),
       ...linkProps,
-      ...props, // pass down remaining props
-      dangerouslySetInnerHTML: { __html: cleanedText },
+      ...props,
+      dangerouslySetInnerHTML: { __html: displayText },
     };
 
     let textTag: any = link?.text ? Link : seoTag || "p";
@@ -62,7 +69,6 @@ export const Text = forwardRef(
     if (rich) textTag = "div";
 
     return createElement(
-      // if motion props exist on component, make this component animatable, otherwise render static Text
       isAnimated ? getMotionTag(textTag) : textTag,
       { ...allProps, ref },
     );
