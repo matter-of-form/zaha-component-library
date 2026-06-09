@@ -35,6 +35,7 @@ export const Text = forwardRef(
       ALLOWED_TAGS: rich ? allowedTags.rich : allowedTags.default,
       ALLOWED_ATTR: ["class", "id", "href", "target"],
       FORBID_ATTR: ["style", "align", "color", ""],
+      KEEP_CONTENT: true,
     });
 
     if (textStyle === "button" && variant !== "popover") {
