@@ -13,7 +13,7 @@ export interface ButtonProps
   onClick?: (e: any) => void;
   iconPre?: ReactNode | null;
   iconPost?: ReactNode | null;
-  linkType?: "Content" | "External";
+  linkType?: "Content" | "External" | "Media";
   href?: string;
   target?: string;
   textStyle?: TextProps["textStyle"];

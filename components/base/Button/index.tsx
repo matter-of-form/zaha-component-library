@@ -8,6 +8,7 @@ import { containsMotionProps } from "../../../utils";
 import { useRouter } from "next/navigation";
 // @ts-ignore - mof overrides
 import mofConfig from "/mofConfig";
+import Link from "next/link";
 
 export const Button = forwardRef(
   (
@@ -30,7 +31,7 @@ export const Button = forwardRef(
     }: ButtonProps,
     ref: Ref<any>,
   ) => {
-    const router = useRouter();
+    // const router = useRouter();
 
     // set icon from config, unless overrideen by props
     const iconPre =
@@ -48,12 +49,12 @@ export const Button = forwardRef(
           onClick(e);
         }
 
-        if (href) {
-          target === "_blank"
-            ? // @ts-ignore
-              window.open(href, "_blank")
-            : router.push(href);
-        }
+        // if (href) {
+        //   target === "_blank"
+        //     ? // @ts-ignore
+        //       window.open(href, "_blank")
+        //     : router.push(href);
+        // }
       },
       [onClick],
     );
@@ -63,6 +64,14 @@ export const Button = forwardRef(
       onClick: (e: any) => handleClick(e),
       ...(variant === "submit" && { type: "submit" as const }),
       disabled,
+      ...(href && {
+        href,
+        target,
+        rel: target === "_blank" ? "noopener noreferrer" : undefined,
+        ariaLabel: `${text || configText} ${target === "_blank" ? "opens in a new tab" : ""}`,
+        title: text || configText,
+      }), // only add link props if href is provided
+
       ...props, // pass down remaining props
       ...mofConfig?.button?.[variant as "primary"], // mofConfig overrides
     };
@@ -91,11 +100,15 @@ export const Button = forwardRef(
       );
     }
 
-    return createElement(
-      isAnimated ? motion.button : "button", // if motion props exist on component, make this component animatable, otherwise render static button
-      { ...allProps, ref },
-      buttonContent,
-    );
+    let element: any = "button";
+
+    if (isAnimated) {
+      element = href ? motion.a : motion.button;
+    } else if (href) {
+      element = linkType === "Media" || linkType === "External" ? "a" : Link;
+    }
+
+    return createElement(element, { ...allProps, ref }, buttonContent);
   },
 );
 
