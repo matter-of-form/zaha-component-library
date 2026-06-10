@@ -24,6 +24,7 @@ const RichTextAndOneMediaModule: FC<RichTextAndOneMediaModuleProps> = ({
         imageSizes={imageSizes}
         imageQuality={imageQuality}
         priority={imagePriority}
+        richText={true}
       />
     </ModuleBase>
   );

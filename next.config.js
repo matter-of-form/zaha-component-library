@@ -6,6 +6,9 @@ const nextConfig = {
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
+
+    config.externals = [...config.externals, "canvas", "jsdom"];
+
     return config;
   },
   env: {

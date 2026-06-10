@@ -35,6 +35,7 @@ const RichTextAndTwoMediaModule: FC<RichTextAndTwoMediaModuleProps> = ({
           backgroundImageSizes={backgroundImageSizes}
           backgroundImageQuality={backgroundImageQuality}
           priority={imagePriority}
+          richText
         />
       </Box>
     </ModuleBase>

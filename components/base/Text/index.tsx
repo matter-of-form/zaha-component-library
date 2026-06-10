@@ -1,16 +1,19 @@
 "use client";
 
-import { createElement, forwardRef, Ref, useState, useEffect } from "react";
+import { createElement, forwardRef, Ref } from "react";
 import { TextProps } from "./Text.types";
 import { textVars } from "./Text.styles";
-import DOMPurify from "isomorphic-dompurify";
+import DOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
 import { motion } from "framer-motion";
 import { containsMotionProps } from "../../../utils";
 import Link from "next/link";
 import { allowedTags } from "./chunks";
 
+const purify = DOMPurify(new JSDOM("<!DOCTYPE html>").window);
+
 const sanitize = (text: string, rich: boolean) =>
-  DOMPurify.sanitize(text, {
+  purify.sanitize(text, {
     ALLOWED_TAGS: rich ? allowedTags.rich : allowedTags.default,
     ALLOWED_ATTR: ["class", "id", "href", "target"],
     FORBID_ATTR: ["style", "align", "color", ""],
@@ -33,16 +36,7 @@ export const Text = forwardRef(
   ) => {
     const isAnimated = containsMotionProps(props);
     const currentText = link?.text || (text as string) || "";
-
-    // Server-side isomorphic-dompurify resolves to browser.js via webpack exports conditions
-    // and fails silently in Node.js SSR, causing hydration mismatches.
-    // Solution: render with raw text on initial render (matches server), sanitize after mount.
-    const [displayText, setDisplayText] = useState<string>(currentText);
-
-    useEffect(() => {
-      if (!currentText) return;
-      setDisplayText(sanitize(currentText, rich));
-    }, [currentText, rich]);
+    const displayText = currentText ? sanitize(currentText, rich) : "";
 
     if (!text && !link.text) return null;
 
@@ -68,10 +62,10 @@ export const Text = forwardRef(
     }
     if (rich) textTag = "div";
 
-    return createElement(
-      isAnimated ? getMotionTag(textTag) : textTag,
-      { ...allProps, ref },
-    );
+    return createElement(isAnimated ? getMotionTag(textTag) : textTag, {
+      ...allProps,
+      ref,
+    });
   },
 );
 
