@@ -21,7 +21,7 @@ export const SmoothScroll: FC<SmoothScrollProps> = ({
         ...props,
         prevent: (node) =>
           node.classList.contains("listing-search-bar-results-wrapper") ||
-          node.classList.contains("popover-content"),
+          node.classList.contains("popover-content") || node.classList.contains('disclaimer-popup'),
       });
       onLoaded(lenisRef.current);
 

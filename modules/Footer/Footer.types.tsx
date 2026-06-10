@@ -14,6 +14,7 @@ export interface FooterProps {
       wrapper: Record<string, any>;
       item: Record<string, any>;
     };
+    disclaimer: Record<string, any>;
     socialLinks: {
       wrapper: Record<string, any>;
       item: Record<string, any>;
@@ -30,6 +31,7 @@ export interface FooterProps {
     topLinks?: Record<string, any>;
     bottomLinks?: Record<string, any>;
     socialLinks?: Record<string, any>;
+    disclaimer?: Record<string, string>;
   };
   variant?: string;
 }

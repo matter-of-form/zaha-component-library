@@ -28,6 +28,12 @@ export const topLinkItem = (
   ...textStyle,
 });
 
+export const disclaimer = (motion?: any, textStyle?: Record<string, any>) => ({
+  className: classnames(["footer-disclaimer"]),
+  ...motion,
+  ...textStyle,
+});
+
 export const bottomWrapper = (motion?: any) => ({
   className: classnames(["footer-bottom-wrapper"]),
   ...motion,

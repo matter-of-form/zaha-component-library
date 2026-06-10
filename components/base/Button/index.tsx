@@ -68,7 +68,7 @@ export const Button = forwardRef(
         href,
         target,
         rel: target === "_blank" ? "noopener noreferrer" : undefined,
-        ariaLabel: `${text || configText} ${target === "_blank" ? "opens in a new tab" : ""}`,
+        "aria-label": `${text || configText} ${target === "_blank" ? "opens in a new tab" : ""}`,
         title: text || configText,
       }), // only add link props if href is provided
 

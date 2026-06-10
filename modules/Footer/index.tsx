@@ -6,6 +6,7 @@ import {
   backgroundHolder,
   bottomWrapper,
   copyright,
+  disclaimer,
   logoWrapper,
   topWrapper,
 } from "./Footer.styles";
@@ -43,7 +44,13 @@ const Footer: FC<FooterProps> = ({
           textStyle={textStyles?.topLinks}
         />
       </Stack>
+
       <Stack {...bottomWrapper(moduleAnims?.bottomWrapper)}>
+        <Text
+          text={data?.disclaimerText}
+          {...disclaimer(moduleAnims?.disclaimer, textStyles?.disclaimer)}
+        />
+
         <FooterSocialLinks
           data={data?.socialMediaLinks}
           icons={socialIcons}
