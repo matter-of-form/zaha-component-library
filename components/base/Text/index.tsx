@@ -4,16 +4,31 @@ import { createElement, forwardRef, Ref } from "react";
 import { TextProps } from "./Text.types";
 import { textVars } from "./Text.styles";
 import DOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
 import { motion } from "framer-motion";
 import { containsMotionProps } from "../../../utils";
 import Link from "next/link";
 import { allowedTags } from "./chunks";
 
-const purify = DOMPurify(new JSDOM("<!DOCTYPE html>").window);
+// DOMPurify needs a DOM. In the browser it uses the global `window`; on the
+// server we build one with jsdom. `eval("require")` keeps jsdom out of the
+// client bundle (webpack can't statically analyze it) while still resolving at
+// runtime during SSR. Both sides use the same DOMPurify version + config, so the
+// sanitized output is identical and never triggers a hydration mismatch.
+let purify: typeof DOMPurify | null = null;
+
+const getPurify = (): typeof DOMPurify => {
+  if (purify) return purify;
+  if (typeof window !== "undefined") {
+    purify = DOMPurify;
+  } else {
+    const { JSDOM } = eval("require")("jsdom");
+    purify = DOMPurify(new JSDOM("<!DOCTYPE html>").window);
+  }
+  return purify;
+};
 
 const sanitize = (text: string, rich: boolean) =>
-  purify.sanitize(text, {
+  getPurify().sanitize(text, {
     ALLOWED_TAGS: rich ? allowedTags.rich : allowedTags.default,
     ALLOWED_ATTR: ["class", "id", "href", "target"],
     FORBID_ATTR: ["style", "align", "color", ""],

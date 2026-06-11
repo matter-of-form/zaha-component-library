@@ -22,6 +22,13 @@ const Footer: FC<FooterProps> = ({
   textStyles,
   ...props
 }) => {
+  // The Text sanitizer strips inline `style`, which would drop the disclaimer's
+  // intended alignment. Pull just `text-align` back out of the raw HTML and
+  // re-apply it as a safe inline style on the wrapper.
+  const infoTextAlign = data?.infoText?.match(
+    /text-align:\s*(left|center|right|justify)/i,
+  )?.[1] as "left" | "center" | "right" | "justify" | undefined;
+
   return (
     <ModuleBase
       data={data}
@@ -46,10 +53,14 @@ const Footer: FC<FooterProps> = ({
       </Stack>
 
       <Stack {...bottomWrapper(moduleAnims?.bottomWrapper)}>
-        <Text
-          text={data?.disclaimerText}
-          {...disclaimer(moduleAnims?.disclaimer, textStyles?.disclaimer)}
-        />
+        {data?.infoText && (
+          <Text
+            text={data?.infoText}
+            {...disclaimer(moduleAnims?.disclaimer, textStyles?.disclaimer)}
+            style={infoTextAlign ? { textAlign: infoTextAlign } : undefined}
+            rich
+          />
+        )}
 
         <FooterSocialLinks
           data={data?.socialMediaLinks}

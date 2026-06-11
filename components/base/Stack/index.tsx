@@ -13,8 +13,6 @@ import {
 import { StackProps } from "./Stack.types";
 import { stackVars } from "./Stack.styles";
 import { motion, useMotionValue } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { containsMotionProps } from "../../../utils";
 
 const ScrollTriggerContext = createContext({} as any);
@@ -57,19 +55,33 @@ export const Stack = forwardRef(
     };
 
     // scrolltrigger
-    const refTimeline = useRef<gsap.core.Timeline>();
+    const refTimeline = useRef<any>(null);
+    const gsapRef = useRef<any>(null);
     const progress = useMotionValue(0);
     const velocity = useMotionValue(0);
 
     useEffect(() => {
-      if (scrollTrigger || animateOnScrollDown) {
-        gsap.registerPlugin(ScrollTrigger);
-        setGsapRegistered(true);
-      }
+      if (!(scrollTrigger || animateOnScrollDown)) return;
+      let mounted = true;
+      // gsap is only needed for scroll-triggered animations, so load it lazily
+      // to keep it out of the bundle for the (common) non-animated Stack instances.
+      Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
+        ([gsapModule, { ScrollTrigger }]) => {
+          if (!mounted) return;
+          const gsap = gsapModule.default;
+          gsap.registerPlugin(ScrollTrigger);
+          gsapRef.current = gsap;
+          setGsapRegistered(true);
+        },
+      );
+      return () => {
+        mounted = false;
+      };
     }, []);
 
     useLayoutEffect(() => {
-      if (innerRef.current && gsapRegistered) {
+      const gsap = gsapRef.current;
+      if (innerRef.current && gsapRegistered && gsap) {
         refTimeline.current = gsap.timeline({
           scrollTrigger: {
             ...scrollTriggerDefaults,
