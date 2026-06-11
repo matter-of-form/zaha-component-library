@@ -14,6 +14,10 @@ import { allowedTags } from "./chunks";
 // client bundle (webpack can't statically analyze it) while still resolving at
 // runtime during SSR. Both sides use the same DOMPurify version + config, so the
 // sanitized output is identical and never triggers a hydration mismatch.
+//
+// jsdom is pinned to a CommonJS-safe major (<27). jsdom@27+ depends on the
+// ESM-only `@exodus/bytes`, which a Next.js standalone (CommonJS) server cannot
+// `require()` — it crashes the route with ERR_REQUIRE_ESM. See package.json.
 let purify: typeof DOMPurify | null = null;
 
 const getPurify = (): typeof DOMPurify => {
