@@ -94,7 +94,12 @@ export const navItem = (
       [colourCode],
     ),
     ...animProps,
-    whileHover: "hovered",
+    // Only enable the framer-motion hover gesture when real item animations
+    // exist. Without them the nav item has no `hovered` variant, so forcing it
+    // to become a motion element just makes framer fight the CSS transitions
+    // (transform/opacity) on the same element -> hover flicker. When animations
+    // are provided they already carry their own `whileHover`.
+    ...(navItemAnimations ? { whileHover: "hovered" } : {}),
   };
 };
 

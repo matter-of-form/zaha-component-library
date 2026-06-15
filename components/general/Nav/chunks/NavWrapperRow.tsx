@@ -8,7 +8,12 @@ const NavWrapperRow: FC<any> = ({ data, isOpen, offset = 0 }) => {
   const { images, menuWidth, navSettings } = useContext(NavContext);
   const [panels, setPanels] = useState([{ items: data, back: null }]);
   const currTier = panels.length - 1 || 0;
-  const { motion = {}, attachTo = "bottom" } = navSettings[currTier + offset];
+  // Clamp to the deepest defined level: at lg the Nav passes offset=1, so when
+  // drilling into children (currTier > 0) the index can exceed navSettings and
+  // return undefined, which crashes the destructure and tears down the whole
+  // meganav. Falling back to the last level mirrors setupNav's carry-forward.
+  const { motion = {}, attachTo = "bottom" } =
+    navSettings[Math.min(currTier + offset, navSettings.length - 1)] || {};
 
   const handleUpdatePanels = (data?: any) => {
     const currentPanels = [...panels];

@@ -21,7 +21,8 @@ const NavPanelColumn: FC<any> = ({
   const [isHeightTruncated, setIsHeightTruncated] = useState(false);
   const { menuWidth, navSettings, panelWidth, setPanelWidth } =
     useContext(NavContext);
-  const { icon, attachTo, motion, scrollable } = navSettings[panelNum + offset];
+  const { icon, attachTo, motion, scrollable } =
+    navSettings[Math.min(panelNum + offset, navSettings.length - 1)] || {};
   const { items, back } = data;
   const { width } = useDimensions(columnWrapperRef);
   const {

@@ -28,7 +28,7 @@ const NavItemRow: FC<any> = ({
     motion,
     icon,
     textStyle,
-  } = navSettings[panelNum + offset];
+  } = navSettings[Math.min(panelNum + offset, navSettings.length - 1)] || {};
   const router = useRouter();
   const hasChildren = navItems && navItems.length > 0;
 
