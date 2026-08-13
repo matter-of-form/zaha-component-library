@@ -6,13 +6,19 @@ import { Button } from "../../../base/Button";
 
 const SearchButton = ({
   setSearchOpen,
+  label = "Open search",
 }: {
   setSearchOpen: (headerAction: "search" | "navigation" | null) => void;
+  label?: string;
 }) => {
   return (
     <Stack {...searchButtonWrapper}>
       <Box {...divider} />
-      <Button variant="navSearch" onClick={() => setSearchOpen("search")} />
+      <Button
+        variant="navSearch"
+        aria-label={label}
+        onClick={() => setSearchOpen("search")}
+      />
     </Stack>
   );
 };

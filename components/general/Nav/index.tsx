@@ -29,6 +29,7 @@ export const Nav: NavProps = forwardRef(
       navProps,
       onBreakpointChange,
       hideSearchButton = false,
+      searchButtonLabel,
       scrollContainer,
       enableDesktopScrollLock = false,
       ...props
@@ -133,7 +134,10 @@ export const Nav: NavProps = forwardRef(
         >
           {renderItems}
           {!hideSearchButton && (
-            <SearchButton setSearchOpen={setHeaderAction} />
+            <SearchButton
+              setSearchOpen={setHeaderAction}
+              label={searchButtonLabel}
+            />
           )}
         </NavContext.Provider>
       </Stack>

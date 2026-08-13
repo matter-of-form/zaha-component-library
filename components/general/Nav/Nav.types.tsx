@@ -11,6 +11,7 @@ export interface NavProps extends StackProps, VariantProps<typeof nav> {
   itemsPerColumn?: number;
   displayName?: string;
   hideSearchButton?: boolean;
+  searchButtonLabel?: string;
   onBreakpointChange?: (breakpoint: string) => {};
   scrollContainer?: HTMLElement;
   enableDesktopScrollLock?: boolean;

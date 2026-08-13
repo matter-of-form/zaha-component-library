@@ -18,6 +18,7 @@ const Header: FC<any> = ({
   variant,
   icons,
   searchButtonText,
+  searchButtonLabel,
   scrollContainer,
   enableDesktopScrollLock = false,
   hideSearchButton = false,
@@ -139,6 +140,7 @@ const Header: FC<any> = ({
           setHeaderAction={setHeaderAction}
           scrollContainer={scrollContainer}
           hideSearchButton={hideSearchButton}
+          searchButtonLabel={searchButtonLabel}
           enableDesktopScrollLock={enableDesktopScrollLock}
           {...showHideMotion}
         />
@@ -151,7 +153,10 @@ const Header: FC<any> = ({
           )}
         >
           {!hideSearchButton && (
-            <SearchButton setSearchOpen={setHeaderAction} />
+            <SearchButton
+              setSearchOpen={setHeaderAction}
+              label={searchButtonLabel}
+            />
           )}
           <Box {...navOpen(moduleAnims?.toggleOpen)} onClick={toggleNav}>
             {icons?.navOpen}
