@@ -19,6 +19,7 @@ const Header: FC<any> = ({
   icons,
   searchButtonText,
   searchButtonLabel,
+  searchFormLabel,
   scrollContainer,
   enableDesktopScrollLock = false,
   hideSearchButton = false,
@@ -173,6 +174,7 @@ const Header: FC<any> = ({
           setHeaderAction={setHeaderAction}
           breakpoint={currBreakpoint}
           buttonText={searchButtonText}
+          formLabel={searchFormLabel}
         />
       </Stack>
     </Box>

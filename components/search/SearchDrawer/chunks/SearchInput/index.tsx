@@ -10,6 +10,7 @@ const SearchInput = ({
   placeholder = "Search",
   searchUrl = "/search",
   buttonText = "Enter to search",
+  formLabel = "Search",
   headerAction,
   setHeaderAction,
 }: SearchInputProps) => {
@@ -40,11 +41,17 @@ const SearchInput = ({
   };
 
   return (
+    // A search box is a `search` landmark rather than a generic `form` one, and
+    // it needs a name: a page can hold more than one SearchInput (the header
+    // drawer plus the search page's own box), and unnamed landmarks of the same
+    // role are indistinguishable in a screen reader's landmark list.
     <form
       onSubmit={(e) => {
         e.preventDefault();
         router.push(`${searchUrl}?keyword=${encodeURIComponent(searchQuery)}`);
       }}
+      role="search"
+      aria-label={formLabel}
       autoComplete="off"
     >
       <input

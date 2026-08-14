@@ -41,7 +41,15 @@ const BreadcrumbsModule: FC<any> = ({
   );
 
   return (
-    <ModuleBase data={data} {...breadcrumbs(props)} {...moduleAnims?.module}>
+    // `breadcrumbs(props)` only keeps className, so spread the remaining props
+    // first — that is what lets a consumer put attributes such as
+    // role="navigation" / aria-label on the module's root element.
+    <ModuleBase
+      data={data}
+      {...props}
+      {...breadcrumbs(props)}
+      {...moduleAnims?.module}
+    >
       <Box variant="container" {...moduleAnims?.breadcrumbs}>
         <Stack {...breadcrumbsWrapper}>{renderCrumbs}</Stack>
       </Box>
