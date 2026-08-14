@@ -52,6 +52,10 @@ export const Grid = forwardRef(
     const allProps = {
       ...gridVars(rows, cols, gap, className), // pass all styling defaults to decoupled styles file to future-proof modularity
       ...props, // pass down remaining props
+      // drive the variant from the scroll trigger, same as Box. Without this
+      // `animateOnScrollDown`/`onEnter` are silently inert on a Grid: the state
+      // is computed but never reaches the element, so it sticks on `initial`.
+      ...(isAnimated && motionState ? { animate: motionState } : {}),
     };
 
     // scrolltrigger

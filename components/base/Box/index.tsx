@@ -50,7 +50,8 @@ export const Box = forwardRef(
     const allProps = {
       ...props,
       ...boxVars(variant, className, props.style),
-      ...(motionState ? { animate: motionState } : {}),
+      // guarded so the prop cannot leak onto a plain (non-motion) element
+      ...(isAnimated && motionState ? { animate: motionState } : {}),
     };
 
     // scrolltrigger
