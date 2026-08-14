@@ -2,7 +2,7 @@
   &-wrapper {
     @apply relative overflow-hidden;
     #backgroundPlayer {
-      @apply absolute 
+      @apply absolute
           z-[1]
           pointer-events-none
           left-[50%]
@@ -24,80 +24,119 @@
         @apply hidden;
       }
     }
+
+    /* The wrapper itself is what the Fullscreen API lifts into the top layer,
+       so the viewer is a state on this element rather than a second player in a
+       portal. The !important guards keep any inline positioning or motion
+       transform from displacing the fullscreened element. */
     &.fullscreen-active {
-      > div:first-child {
-        @apply flex pointer-events-auto;
+      @apply !fixed
+      !block
+      inset-0
+      !transform-none
+      !opacity-100
+      bg-black;
+
+      #backgroundPlayer {
+        @apply opacity-100;
+
+        /* Modules bleed the inline video past its box by blowing this container
+           up (e.g. 110% at a -5% offset). The viewer letterboxes an exact
+           frame, so the container tracks the computed size instead. */
+        > div {
+          @apply !static
+          !w-full
+          !h-full
+          !border-0;
+        }
       }
-    }
 
-    img {
-      @apply !h-full
-          z-0;
-    }
-  }
+      /* Native fullscreen lifts this element into the top layer but leaves it
+         where it is in the DOM, so every module-scoped rule aimed at the inline
+         control layer still matches — `.rich-text-and-two-media .video-controls`
+         and friends bring `top-[50%]`, `translate-y-[-50%]`, `p-6`, `order` and
+         `justify-*` with them. In the viewer the control layer is a plain
+         full-viewport overlay, so all of that is reset in one place rather than
+         module by module. Box also makes every element a flex container, hence
+         the display reset: without it the toolbar and close button are laid out
+         as flex items and get centred instead of pinned to the edges.
+         `pointer-events` is handed back to the controls alone, so the empty
+         overlay cannot swallow clicks meant for them. */
+      .video-controls {
+        @apply !absolute
+        !block
+        !inset-0
+        !p-0
+        !transform-none
+        pointer-events-none;
 
-  &-controls {
-    @apply absolute
-    text-white
-    z-[2];
-  }
-}
-
-body {
-  #video-fullscreen {
-    @apply absolute
-    inset-0
-    !scale-100
-    opacity-0
-    pointer-events-none
-    hidden
-    transition-all duration-300;
-
-    &.active {
-      @apply block opacity-100 pointer-events-auto;
-      transition: opacity 0.3s 0.3s;
-    }
-
-    #fullPlayer {
-      @apply bg-black
-      absolute
-      top-1/2
-      left-1/2
-      -translate-x-1/2
-      -translate-y-1/2;
-
-      iframe {
-        @apply w-full h-full;
-      }
-    }
-    .video {
-      &-controls {
-        @apply absolute
-            z-[2]
-            inset-0
-           text-white;
-
-        &-toolbar {
-          @apply absolute
+        .video-controls-toolbar {
+          @apply !absolute
           gap-y-2
-              left-4
-              right-4
-              bottom-4;
+          left-4
+          right-4
+          bottom-4
+          pointer-events-auto;
 
-          &-buttons {
+          .video-controls-toolbar-buttons {
             @apply w-full
-                gap-x-2;
+            gap-x-2;
           }
+        }
+
+        .video-timeline {
+          @apply w-full
+          h-1
+          relative
+          cursor-pointer
+          pointer-events-none
+          bg-white/30;
+
+          input[type="range"] {
+            @apply h-1 w-full pointer-events-auto absolute z-20 appearance-none cursor-pointer opacity-0;
+          }
+
+          .video-timeline-progress {
+            @apply relative
+            h-full
+            pointer-events-none
+            z-[1]
+            bg-white;
+          }
+
+          .video-timeline-loaded {
+            @apply top-0
+            left-0
+            absolute
+            pointer-events-none
+            bg-white/10
+            bottom-0;
+          }
+
+          &:after {
+            @apply absolute
+            z-10
+            -top-2
+            h-5
+            left-0
+            right-0;
+            content: "";
+          }
+        }
+
+        .video-timer {
+          @apply ml-auto;
         }
 
         .button-video {
           &-close {
-            @apply absolute
+            @apply !absolute
             top-4
             text-white
             justify-center
             items-center
-            right-4;
+            right-4
+            pointer-events-auto;
 
             svg {
               @apply w-4 h-4;
@@ -114,50 +153,17 @@ body {
           }
         }
       }
-
-      &-timeline {
-        @apply w-full
-        h-1
-        relative
-        cursor-pointer
-        pointer-events-none
-        bg-white/30;
-
-        input[type="range"] {
-          @apply h-1 w-full pointer-events-auto absolute z-20 appearance-none cursor-pointer opacity-0;
-        }
-
-        &-progress {
-          @apply relative
-          h-full
-          pointer-events-none
-          z-[1]
-            bg-white;
-        }
-
-        &-loaded {
-          @apply top-0
-            left-0
-            absolute
-            pointer-events-none
-            bg-white/10
-            bottom-0;
-        }
-
-        &:after {
-          @apply absolute
-            z-10
-            -top-2
-            h-5
-            left-0
-            right-0;
-          content: "";
-        }
-      }
-
-      &-timer {
-        @apply ml-auto;
-      }
     }
+
+    img {
+      @apply !h-full
+          z-0;
+    }
+  }
+
+  &-controls {
+    @apply absolute
+    text-white
+    z-[2];
   }
 }

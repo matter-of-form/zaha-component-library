@@ -15,21 +15,21 @@ import { VideoContext, VideoControls } from "./";
 
 const MAX_INIT_ATTEMPTS = 3;
 
-const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
+const VideoPlayer: FC<any> = forwardRef((_props, ref) => {
   const {
     data,
-    fullViewer,
     inlineViewer,
     isFullscreen,
     isMuted,
     isPlaying,
     onAutoPlayStarted,
+    onNativeViewerExit,
     onPlayerReady,
-    setFullViewer,
     setIsMuted,
     setIsPlaying,
     setInit,
     setInlineViewer,
+    usedNativeViewer,
     wrapper,
   } = useContext(VideoContext);
 
@@ -38,8 +38,10 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const player = useRef<Player>();
   const initAttempts = useRef(0);
+  const mutedRef = useRef(isMuted);
   const onPlayerReadyRef = useRef(onPlayerReady);
   const onAutoPlayStartedRef = useRef(onAutoPlayStarted);
+  const onNativeViewerExitRef = useRef(onNativeViewerExit);
   useImperativeHandle(ref, () => player.current!);
 
   const [playerDimensions, setPlayerDimensions] = useState<{
@@ -62,7 +64,8 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
   useEffect(() => {
     onPlayerReadyRef.current = onPlayerReady;
     onAutoPlayStartedRef.current = onAutoPlayStarted;
-  }, [onPlayerReady, onAutoPlayStarted]);
+    onNativeViewerExitRef.current = onNativeViewerExit;
+  }, [onPlayerReady, onAutoPlayStarted, onNativeViewerExit]);
 
   function getCurrentTime() {
     Promise.all([
@@ -77,7 +80,9 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
     });
   }
 
-  // Player creation — only re-run when src or inline mode changes, not on mute/callback changes
+  // Player creation — only re-run when the source changes, not on mute or
+  // callback changes. There is exactly one instance per module: the fullscreen
+  // viewer reuses it rather than spinning up a second copy of the same video.
   useEffect(() => {
     if (isNaN(data?.src)) {
       console.error(`'${data?.src}' is not a valid vimeo ID`);
@@ -94,39 +99,44 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
     player.current = new Player(containerRef?.current!, {
       id: data?.src,
       autoplay: data.autoPlay,
-      background: isInline && isMuted,
+      background: data.autoPlay,
       loop: data.loop,
       controls: false,
+      // Always created muted so autoplay is permitted; the real audio state is
+      // applied on ready and whenever `isMuted` changes.
       muted: true,
-      playsinline: isInline || isFullscreen,
+      // Required for the ambient loop to autoplay on iOS. The device's own
+      // player is opened explicitly via the API where the Fullscreen API is
+      // unavailable, so this never blocks the fullscreen handoff.
+      playsinline: true,
       dnt: true,
       pip: false,
     });
 
+    // Only fires for the iPhone handoff — elsewhere the wrapper goes fullscreen
+    // and the document-level event does the work.
+    const handleNativeViewerChange = ({ fullscreen }: any) => {
+      if (fullscreen || !usedNativeViewer?.current) return;
+      onNativeViewerExitRef.current && onNativeViewerExitRef.current();
+    };
+
+    player.current.on("fullscreenchange", handleNativeViewerChange);
+
     player.current.ready().then(() => {
       initAttempts.current = 0; // reset on success
+      player.current?.setMuted(mutedRef.current).catch(console.warn);
       onPlayerReadyRef.current && onPlayerReadyRef.current();
 
-      if (containerRef.current && isInline) {
-        const iframe: HTMLIFrameElement =
-          containerRef.current.getElementsByTagName("iframe")[0];
+      // Read the iframe out of this instance's own container — `backgroundPlayer`
+      // is not a unique id once a page has several videos.
+      const iframe = containerRef.current?.getElementsByTagName("iframe")[0];
 
-        handleResize();
+      handleResize();
 
-        if (iframe) {
-          setInlineViewer(iframe);
-          iframe.style.width = "100%";
-          iframe.style.height = "100%";
-        }
-      } else {
-        const fullPlayer = document.getElementById("fullPlayer");
-        const iframe = fullPlayer?.getElementsByTagName("iframe")[0];
-
-        if (iframe) {
-          setFullViewer(iframe);
-          iframe.style.width = "100%";
-          iframe.style.height = "100%";
-        }
+      if (iframe) {
+        setInlineViewer(iframe);
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
       }
     }).catch((e) => {
       console.error(`Vimeo player ready failed for ID ${data?.src}:`, e);
@@ -146,32 +156,48 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
     player.current.getDuration().then((duration) => setDuration(duration));
 
     return () => {
+      player.current?.off("fullscreenchange", handleNativeViewerChange);
       player.current?.destroy();
       player.current = undefined;
     };
-  }, [data?.src, isInline]); // Only recreate player when video source or inline mode changes
+  }, [data?.src]); // Only recreate the player when the video source changes
 
   // Handle mute changes without recreating the player
   useEffect(() => {
-    player.current?.setMuted(isMuted);
+    mutedRef.current = isMuted;
+    player.current?.setMuted(isMuted).catch(console.warn);
   }, [isMuted]);
 
   useEffect(() => {
     handleResize();
-  }, [wrapper.current, width, height, inlineViewer]);
+  }, [wrapper.current, width, height, inlineViewer, isFullscreen]);
 
   const handleResize = async () => {
-    if (!player.current) return;
+    if (!player.current || !wrapper.current) return;
 
     const w = await player.current.getVideoWidth();
     const h = await player.current.getVideoHeight();
 
-    const videoAspect = h / w;
-    const parentAspect =
-      wrapper.current.parentElement.offsetHeight /
-      wrapper.current.parentElement.offsetWidth;
+    if (!w || !h) return;
 
-    if (parentAspect > videoAspect) {
+    // In fullscreen the wrapper is the screen-sized element itself; inline it
+    // is stretched to its parent, which is the box the video has to fill.
+    const container = isFullscreen
+      ? wrapper.current
+      : wrapper.current.parentElement || wrapper.current;
+
+    if (!container.offsetWidth) return;
+
+    const videoAspect = h / w;
+    const parentAspect = container.offsetHeight / container.offsetWidth;
+
+    // Inline the video covers its box (cropping the overflow); in fullscreen it
+    // is letterboxed so the whole frame is visible.
+    const overflowWidth = isFullscreen
+      ? parentAspect <= videoAspect
+      : parentAspect > videoAspect;
+
+    if (overflowWidth) {
       setPlayerDimensions({
         width: (parentAspect / videoAspect) * 100 + "%",
         height: "100%",
@@ -184,8 +210,9 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
     }
   };
 
+  // The scrubber only exists in the fullscreen overlay
   useEffect(() => {
-    if (isInline) return;
+    if (!isFullscreen) return;
 
     getCurrentTime();
     const progressInterval = setInterval(getCurrentTime, 1000);
@@ -193,14 +220,10 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
     return () => {
       clearInterval(progressInterval);
     };
-  }, [player]);
+  }, [isFullscreen]);
 
   function togglePlay(e: any) {
     e.stopPropagation();
-
-    isInline
-      ? (inlineViewer.playing = !isPlaying)
-      : (fullViewer.playing = !isPlaying);
 
     if (isPlaying) {
       setIsPlaying(false);
@@ -215,22 +238,14 @@ const VideoPlayer: FC<any> = forwardRef(({ isInline = true }: any, ref) => {
     e.stopPropagation();
 
     player.current?.getMuted().then((muted) => {
-      if (muted) {
-        setIsMuted(false);
-        player.current?.setMuted(false);
-      } else {
-        setIsMuted(true);
-        player.current?.setMuted(true);
-      }
+      setIsMuted(!muted);
+      player.current?.setMuted(!muted).catch((e) => console.warn(e));
     });
   }
 
   return (
     <>
-      <div
-        id={isInline ? "backgroundPlayer" : "fullPlayer"}
-        style={{ ...playerDimensions }}
-      >
+      <div id="backgroundPlayer" style={{ ...playerDimensions }}>
         <div ref={containerRef} {...videoContainer} />
       </div>
       <VideoControls

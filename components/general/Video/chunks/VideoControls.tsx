@@ -24,25 +24,22 @@ const VideoControls: FC<any> = ({
 }) => {
   const {
     data,
+    handleExitFullscreen,
     handleFullscreen,
     init,
     isFullscreen,
     isMuted,
     isPlaying,
-    setIsFullscreen,
-    setIsMuted,
-    setIsPlaying,
   } = useContext(VideoContext);
   const timelineRef = useRef(null);
   const { x, width } = useDimensions(timelineRef);
 
   if (!data?.allowControls) return null;
 
-  const handleClose = () => {
-    setIsFullscreen(false);
-    setIsMuted(true);
-    setIsPlaying(false);
-  };
+  // Leaving fullscreen is driven by the browser (the close button, Esc and the
+  // browser's own chrome all end up in the same fullscreenchange handler), so
+  // the player state is never set directly from here.
+  const handleClose = () => handleExitFullscreen();
 
   const handleSeek = ({ target: { value: pos } }: any) => {
     const player: any = playerRef.current;
