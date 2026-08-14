@@ -1,6 +1,6 @@
 {
   "name": "zaha-component-library",
-  "version": "0.1.510",
+  "version": "0.1.511",
   "main": "./index.js",
   "sideEffects": [
     "*.css"
